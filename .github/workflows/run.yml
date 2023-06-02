@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        engine: [v8]
+        engine: [v8, jsc, sm]
 
     steps:
     - uses: actions/checkout@v3
