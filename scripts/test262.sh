@@ -9,4 +9,4 @@ npm install -g test262-harness
 
 echo $2: "`which $2`"
 
-test262-harness --host-type="$1" --host-path="`which $2`" --reporter=json --threads=4 test/**/*.js
+test262-harness --host-type="$1" --host-path="$2" --reporter=json --threads=4 test/**/*.js
