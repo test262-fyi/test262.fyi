@@ -1,4 +1,4 @@
 #!/bin/sh
 
-../install/jsvu.sh v8
-../test262.sh v8 v8
+./scripts/install/jsvu.sh v8
+./scripts/test262.sh v8 v8
