@@ -7,4 +7,6 @@ cd test262
 # install test262 harness (https://github.com/bterlson/test262-harness)
 npm install -g test262-harness
 
-test262-harness --reporter=json --threads=4 --hostType="$1" --hostPath="`which $2`" test/**/*.js
+echo $2: "`which $2`"
+
+test262-harness --host-type="$1" --host-path="`which $2`" --reporter=json --threads=4 test/**/*.js
