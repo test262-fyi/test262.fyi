@@ -23,3 +23,9 @@ jobs:
 
     - name: Run test262 with ${{ matrix.engine }}
       run: ./scripts/engines/${{ matrix.engine }}.sh
+
+    - name: Upload results
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.engine }}
+        path: results.json
