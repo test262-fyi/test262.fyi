@@ -8,4 +8,4 @@ cd test262
 npm install -g test262-harness
 
 echo test/**/*.js
-test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result --threads=4 test/**/*.js > ../results.json
+test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result --threads=4 "test/**/*.js" > ../results.json
