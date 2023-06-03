@@ -1,0 +1,86 @@
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="description" content="">
+</head>
+
+<body>
+  <div id="content">
+    _overall_
+
+    _content_
+  </div>
+
+  <script>
+    const allRows = document.querySelectorAll('tr');
+    const tbody = document.querySelector('tbody');
+
+    for (const x of document.querySelectorAll('tr:not([class*=".js"])')) {
+      if (x.classList.length === 0) continue;
+
+      const children = document.querySelectorAll(`[class^="${[...x.classList].join(' ')} "]`);
+      x.children[0].onclick = () => {
+        traverse([...x.classList].join('/'));
+      };
+      x.children[0].style.cursor = 'pointer';
+    }
+
+    const traverse = (cwd) => {
+      const depth = cwd.trim() === '' ? 0 : cwd.split('/').length;
+      const cwdClass = cwd.split('/').join(' ');
+      const prependRow = (text, onclick) => {
+        const el = document.createElement('tr');
+        el.id = 'back';
+        el.style.cursor = 'pointer';
+        el.onclick = onclick;
+
+        const th = document.createElement('th');
+        th.textContent = text;
+
+        const td = document.createElement('td');
+        td.style.borderLeft = 'none';
+
+        el.append(th, td);
+        parentEl.insertAdjacentElement('afterend', el);
+      };
+
+      if (document.getElementById('back')) document.getElementById('back').remove();
+
+      let parentEl;
+
+      for (const x of allRows) {
+        x.children[0].style.fontWeight = '';
+
+        if (depth === 0) {
+          if ([...x.classList].filter(x => x !== 'hidden').length === 1) {
+            x.classList.remove('hidden');
+          } else {
+            x.classList.add('hidden');
+          }
+
+          continue;
+        }
+
+        if (x.className.startsWith(`${cwdClass} `) || x.className === cwdClass) {
+          x.classList.remove('hidden');
+
+          if (depth === 0 || x.className !== cwdClass) {
+            x.children[0].textContent = [...x.classList].slice(depth).join('/');
+          } else {
+            parentEl = x;
+            x.children[0].style.fontWeight = '600';
+            x.children[0].textContent = cwd;
+          }
+        } else {
+          x.classList.add('hidden');
+        }
+      }
+
+      if (depth > 0) {
+        prependRow('..', () => traverse(cwd.split('/').slice(0, -1).join('/')));
+      }
+    };
+  </script>
+</body>

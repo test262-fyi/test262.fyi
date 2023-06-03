@@ -1,0 +1,208 @@
+html, body {
+  margin: 0;
+  padding: 0;
+
+  background: #202428;
+  color: #f0f4f8;
+
+  font-family: sans-serif;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+}
+
+#sidebar {
+  position: fixed;
+
+  width: 20vw;
+  min-width: 240px;
+  height: 100%;
+  background: #101418;
+
+  padding: 2vw 1vw;
+}
+
+#sidebar h1 {
+  font-weight: 800;
+  font-size: 2vw;
+  margin-top: 0;
+}
+
+#sidebar h2 {
+  font-weight: 500;
+  font-size: 1vw;
+}
+
+#sidebar footer {
+  position: absolute;
+  bottom: 2vw;
+
+  color: #a0a4a8;
+  font-size: 0.8vw;
+
+  line-height: 1.6em;
+}
+
+a {
+  color: #c2a2df;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #a272ce;
+}
+
+#sidebar hr {
+  border-color: #808488;
+  margin-bottom: 2vw;
+}
+
+#sidebar > a {
+  font-weight: 700;
+  font-size: 1.4vw;
+  display: block;
+  margin-bottom: 20px;
+}
+
+
+#content {
+  padding: 4vh 4vw;
+
+  height: fit-content;
+  width: 100%;
+}
+
+#content h1 {
+  font-size: 2vw;
+  font-weight: 700;
+}
+
+td, th {
+  border-bottom: 1px solid #808488;
+}
+
+td {
+  border-left: 1px solid #808488;
+}
+
+th {
+  vertical-align: bottom;
+  text-align: center;
+}
+
+table {
+  border: 1px solid #808488;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  width: 80vw;
+  margin: auto;
+}
+
+table > thead th > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.6vw;
+  font-weight: 600;
+
+  gap: 4px;
+  padding: 12px;
+}
+
+tbody th {
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px;
+
+  vertical-align: middle;
+  text-align: left;
+  width: 55%;
+}
+
+tbody td > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+
+  gap: 6px;
+  padding: 12px;
+}
+
+th.sub {
+  border-left-width: 8px;
+}
+
+table + h1 {
+  margin-top: 60px;
+  padding-top: 2vh;
+}
+
+#content > .stats {
+  margin: auto;
+}
+
+#content > .stats > div {
+  width: 80vw;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  width: fit-content;
+}
+
+.stats > div {
+  margin-top: 2px;
+  height: 22px;
+  width: calc(40vw - 6rem);
+
+  display: flex;
+}
+
+.stats > div > div {
+  height: 100%;
+  padding-left: 4px;
+  text-transform: capitalize;
+  font-size: 14px;
+  line-height: 22px;
+  overflow: hidden;
+
+  cursor: default;
+}
+
+.stat-v8 {
+  background: #498af4;
+}
+
+.stat-sm {
+  background: #ffd681;
+  color: #000408;
+}
+
+.stat-jsc {
+  background: #003550;
+}
+
+.stat-hermes {
+  background: #2bb673;
+}
+
+.stats + table {
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
