@@ -7,11 +7,11 @@ test262.report spiritual successor (WIP)
 - [X] JavaScriptCore (jsc)
 - [X] ChakraCore (chakra)
 - [X] Hermes (implemented but disabled temporarily)
-- [ ] LibJS
-- [ ] GraalJS
-- [ ] QuickJS
-- [ ] XS (xs)
-- [ ] engine262
+- [X] LibJS
+- [X] engine262
+- [X] GraalJS
+- [X] QuickJS
+- [X] XS (xs)
 - [ ] Rhino
 
 ## Site todo

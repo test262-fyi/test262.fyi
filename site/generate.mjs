@@ -26,7 +26,12 @@ const names = {
   sm: 'SpiderMonkey',
   jsc: 'JavaScriptCore',
   hermes: 'Hermes',
-  chakra: 'ChakraCore'
+  chakra: 'ChakraCore',
+  qjs: 'QuickJS',
+  libjs: 'LibJS',
+  graaljs: 'GraalJS',
+  xs: 'XS',
+  engine262: 'engine262'
 };
 const results = {};
 

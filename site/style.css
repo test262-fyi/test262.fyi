@@ -125,18 +125,7 @@ tbody th {
 
   vertical-align: middle;
   text-align: left;
-  width: 30%;
-}
-
-tbody td > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 500;
-
-  gap: 6px;
-  padding: 12px;
+  width: 25%;
 }
 
 th.sub {
@@ -149,26 +138,24 @@ table + h1 {
 }
 
 #content > .stats {
-  margin: auto;
-}
-
-#content > .stats > div {
   width: 80vw;
+  margin: auto;
 }
 
 .stats {
   display: flex;
   align-items: center;
-  margin-bottom: 6px;
-  width: fit-content;
+  width: 100%;
+
+  padding: 0 6px;
 }
 
 .stats > div {
-  margin-top: 2px;
   height: 22px;
-  width: calc(60vw - 6rem);
+  width: 100%;
 
   display: flex;
+  background: #303438;
 }
 
 .stats > div > div {
@@ -201,6 +188,28 @@ table + h1 {
 
 .stat-chakra {
   background: #1d6acf;
+}
+
+.stat-libjs {
+  background: #ef4946;
+}
+
+.stat-engine262 {
+  background: #22b2da;
+}
+
+.stat-qjs {
+  background: #c0c4c8;
+  color: #000408;
+}
+
+.stat-xs {
+  background: #08306e;
+}
+
+.stat-graaljs {
+  background: #f29111;
+  color: #000408;
 }
 
 .stats + table {
