@@ -36,19 +36,25 @@ const names = {
 const results = {};
 let refTests = {};
 
-const makeGraph = (data, clas = '') => `<div class="stats ${clas}">
+const makeGraph = (data, clas = '') => {
+  const keys = Object.keys(data);
+  return `<div class="stats ${clas}">
 <div>
-${Object.keys(data).reverse().filter(x => x !== 'total').map(x => `<div class="stat-${x}" style="width: ${((data[x] / data.total) * 100) / (Object.keys(data).length - 1)}%"><b>${names[x]}</b> ${((data[x] / data.total) * 100).toFixed(0)}%</div>`).join('\n')}
+${keys.reverse().map(x => x === 'total' ? '' : `<div class="stat-${x}" style="width: ${((data[x] / data.total) * 100) / (keys.length - 1)}%"><b>${names[x]}</b> ${((data[x] / data.total) * 100).toFixed(0)}%</div>`).join('\n')}
 </div>
-</div>`;
+</div>`
+};
 
 const buildGraph = test => {
   const data = {};
+  const file = 'test/' + test;
   for (const engine of Object.keys(results)) {
-    data[engine] = results[engine].reduce((acc, x) => x.file.startsWith('test/' + test) && x.result.pass ? acc + 1 : acc, 0);
+    if (test.endsWith('.js')) data[engine] = results[engine].find(x => x.file === file).result.pass ? 1 : 0;
+      else data[engine] = results[engine].reduce((acc, x) => x.file.startsWith(file) && x.result.pass ? acc + 1 : acc, 0);
   }
 
-  data.total = refTests.reduce((acc, x) => x.file.startsWith('test/' + test) ? acc + 1 : acc, 0);
+  if (test.endsWith('.js')) data.total = 1;
+    else data.total = refTests.reduce((acc, x) => x.file.startsWith(file) ? acc + 1 : acc, 0);
 
   return makeGraph(data);
 };
