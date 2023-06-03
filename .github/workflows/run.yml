@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        engine: [v8, jsc, sm, hermes, chakra]
+        engine: [v8, jsc, sm, chakra]
 
     steps:
     - uses: actions/checkout@v3

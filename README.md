@@ -6,7 +6,7 @@ test262.report spiritual successor (WIP)
 - [X] SpiderMonkey (sm)
 - [X] JavaScriptCore (jsc)
 - [X] ChakraCore (chakra)
-- [X] Hermes
+- [X] Hermes (implemented but disabled temporarily)
 - [ ] LibJS
 - [ ] GraalJS
 - [ ] QuickJS
