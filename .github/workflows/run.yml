@@ -27,7 +27,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.engine }}
-        path: results.json
+        path: results.json jsvu.json esvu.json
 
   # generate:
   #   runs-on: ubuntu-latest
