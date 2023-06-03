@@ -34,6 +34,7 @@ const names = {
   engine262: 'engine262'
 };
 const results = {};
+const refTests = {};
 
 const makeGraph = (data, clas = '') => `<div class="stats ${clas}">
 <div>
@@ -47,7 +48,7 @@ const buildGraph = test => {
     data[engine] = results[engine].reduce((acc, x) => x.file.startsWith('test/' + test) && x.result.pass ? acc + 1 : acc, 0);
   }
 
-  data.total = results.v8.reduce((acc, x) => x.file.startsWith('test/' + test) ? acc + 1 : acc, 0);
+  data.total = refTests.reduce((acc, x) => x.file.startsWith('test/' + test) ? acc + 1 : acc, 0);
 
   return makeGraph(data);
 };
@@ -58,6 +59,7 @@ const template = readFileSync('site/template.html', 'utf8');
 
 for (const file of readdirSync('results')) {
   results[file] = JSON.parse(readFileSync('./results/' + file + '/results.json', 'utf8'));
+  refTests = results[file];
 }
 
 const deep = (obj, arr) => {
@@ -70,7 +72,7 @@ const deep = (obj, arr) => {
 };
 
 let struct = {};
-for (const test of results.v8) {
+for (const test of refTests) {
   let y = struct;
   let path = [ 'test' ];
 
