@@ -5,3 +5,5 @@ npm install -g jsvu
 
 # install given engine
 jsvu --os=linux64 --engines=$1
+
+cp "$HOME/.jsvu/status.json" "jsvu.json"
