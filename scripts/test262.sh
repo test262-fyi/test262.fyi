@@ -1,5 +1,8 @@
 #!/bin/sh
 
+cat "$HOME/.jsvu/status.json" || true
+cat "$HOME/.esvu/status.json" || true
+
 exit
 
 # clone test262
