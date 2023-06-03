@@ -10,9 +10,9 @@ jobs:
 
     strategy:
       matrix:
-        engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs]
+        # engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs]
         # engine: [v8, jsc, sm, chakra, libjs, engine262, qjs, xs, graaljs]
-        # engine: [jsc]
+        engine: [jsc]
 
     steps:
     - uses: actions/checkout@v3
