@@ -48,7 +48,7 @@ jobs:
       run: node site/generate.js
 
     - name: Upload pages artifact
-      uses: actions/upload-pages-artifact
+      uses: actions/upload-pages-artifact@v1
       with:
         path: site
 
