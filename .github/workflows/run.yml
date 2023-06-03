@@ -1,8 +1,8 @@
 name: test262 runner (all)
 
-# on:
-#   push:
-#     branches: [ "main" ]
+on:
+  push:
+    branches: [ "main" ]
 
 jobs:
   test262:
@@ -10,9 +10,9 @@ jobs:
 
     strategy:
       matrix:
-        # engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs]
+        engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs]
         # engine: [v8, jsc, sm, chakra, libjs, engine262, qjs, xs, graaljs]
-        engine: [jsc]
+        # engine: [jsc]
 
     steps:
     - uses: actions/checkout@v3
@@ -29,41 +29,41 @@ jobs:
         name: ${{ matrix.engine }}
         path: results.json
 
-  generate:
-    runs-on: ubuntu-latest
-    needs: test262
+  # generate:
+  #   runs-on: ubuntu-latest
+  #   needs: test262
 
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - uses: actions/setup-node@v3
+  #     with:
+  #       node-version: 18
 
-    - uses: actions/download-artifact@v3
-      with:
-        path: results
+  #   - uses: actions/download-artifact@v3
+  #     with:
+  #       path: results
 
-    - name: Generate site
-      run: node site/generate.mjs
+  #   - name: Generate site
+  #     run: node site/generate.mjs
 
-    - name: Upload pages artifact
-      uses: actions/upload-pages-artifact@v1
-      with:
-        path: site
+  #   - name: Upload pages artifact
+  #     uses: actions/upload-pages-artifact@v1
+  #     with:
+  #       path: site
 
-  deploy:
-    needs: generate
+  # deploy:
+  #   needs: generate
 
-    permissions:
-      pages: write
-      id-token: write
+  #   permissions:
+  #     pages: write
+  #     id-token: write
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v2
