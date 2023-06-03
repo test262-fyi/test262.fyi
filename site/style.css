@@ -125,7 +125,7 @@ tbody th {
 
   vertical-align: middle;
   text-align: left;
-  width: 55%;
+  width: 30%;
 }
 
 tbody td > div {
@@ -166,7 +166,7 @@ table + h1 {
 .stats > div {
   margin-top: 2px;
   height: 22px;
-  width: calc(40vw - 6rem);
+  width: calc(60vw - 6rem);
 
   display: flex;
 }
@@ -197,6 +197,10 @@ table + h1 {
 
 .stat-hermes {
   background: #2bb673;
+}
+
+.stat-chakra {
+  background: #1d6acf;
 }
 
 .stats + table {
