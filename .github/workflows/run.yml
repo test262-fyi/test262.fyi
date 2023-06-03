@@ -45,7 +45,7 @@ jobs:
         path: results
 
     - name: Generate site
-      run: node site/generate.js
+      run: node site/generate.mjs
 
     - name: Upload pages artifact
       uses: actions/upload-pages-artifact@v1
