@@ -34,7 +34,7 @@ const names = {
   engine262: 'engine262'
 };
 const results = {};
-const refTests = {};
+let refTests = {};
 
 const makeGraph = (data, clas = '') => `<div class="stats ${clas}">
 <div>
