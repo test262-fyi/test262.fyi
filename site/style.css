@@ -214,10 +214,11 @@ th.sub {
 #sidebar {
   grid-column: sidebar;
 
-  height: 100%;
-  background: #101418;
+  position: relative;
+  overflow-y: auto;
+  height: 100vh;
 
-  padding: 24px 12px;
+  background: #101418;
 }
 
 #sidebar h1 {
@@ -233,9 +234,19 @@ th.sub {
   margin-top: 6px;
 }
 
+#sidebar-contents {
+  position: relative;
+
+  min-height: 100vh;
+
+  padding: 24px 12px;
+  padding-bottom: calc(24px + 5rem);
+}
+
 #sidebar footer {
   position: absolute;
   bottom: 24px;
+  left: 12px;
   width: calc(100% - 24px);
 
   color: #a0a4a8;
