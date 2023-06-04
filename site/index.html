@@ -63,12 +63,17 @@
       document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
     }
 
+    const updateHash = () => {
+      let hash = cwd;
+      if (filterOutEngines.length > 0) hash += '|' + filterOutEngines.join(',');
+      location.hash = hash;
+    };
+
     const navigate = async (path) => {
-      cwd = path;
+      cwd = path.trim();
+      updateHash();
 
       const json = await (await fetch('data/' + (path || 'index') + '.json')).json();
-      console.log(path, json);
-
       makeTable(path, json);
 
       if (!init) {
@@ -164,9 +169,8 @@
             const keys = Object.keys(engines);
             const beforeAmount = (keys.length - filterOutEngines.length) - factor;
             const afterAmount = (keys.length - filterOutEngines.length);
-            console.log(beforeAmount, afterAmount);
+
             for (const el of document.querySelectorAll('.stats:not(.vertical) > div')) {
-              // console.log(el.style.width, ((el.style.width.slice(0, -1) * beforeAmount) / afterAmount) + '%');
               el.style.width = ((el.style.width.slice(0, -1) * beforeAmount) / afterAmount) + '%';
             }
           };
@@ -180,6 +184,7 @@
           }
 
           document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
+          updateHash();
         };
 
         wrap.append(checkbox, label);
