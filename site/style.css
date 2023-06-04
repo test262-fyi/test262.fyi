@@ -106,7 +106,9 @@ table + h1 {
   text-transform: capitalize;
   font-size: 14px;
   line-height: 22px;
+
   overflow: hidden;
+  text-wrap: nowrap;
 
   cursor: default;
 }
@@ -171,7 +173,6 @@ table + h1 {
 .stats.vertical > div {
   height: 22px;
   overflow: visible;
-  text-wrap: nowrap;
 }
 
 #sidebar {
