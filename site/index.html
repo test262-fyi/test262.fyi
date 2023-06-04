@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="style.css">
-  <meta name="description" content="">
+  <meta name="description" content="daily runner of test262 for many engines">
 </head>
 
 <body>
@@ -57,8 +57,8 @@
 
     if (location.hash) {
       const [ hashCwd, hashFilter ] = location.hash.slice(1).split('|');
-      cwd = hashCwd.trim();
-      filterOutEngines = hashFilter.trim().split(',');
+      if (hashCwd) cwd = hashCwd.trim();
+      if (hashFilter) filterOutEngines = hashFilter.trim().split(',');
 
       document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
     }
