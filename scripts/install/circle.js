@@ -11,7 +11,7 @@ const get = async url => await (await fetch(url, {
 
 (async () => {
   const pipelines = await get(`https://circleci.com/api/v2/project/gh/${repo}/pipeline?branch=${branch}`);
-  const pipeline = pipelines.items[0];
+  const pipeline = pipelines.items.filter(x => x.errors.length === 0)[0];
   console.log('got pipeline', pipeline.id);
 
   writeFile('version.txt', pipeline.vcs.revision);
