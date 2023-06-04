@@ -67,7 +67,6 @@
         document.getElementById('before-overall').insertAdjacentElement('afterend', overallGraph);
       }
     };
-    navigate(cwd);
 
     const makeGraph = ({ total, engines }, vertical = false, labelFunc = undefined) => {
       const el = document.createElement('div');
@@ -227,5 +226,7 @@
       test262_rev.textContent = test262.revision.slice(0, 7);
       test262_rev.href = 'https://github.com/tc39/test262/commit/' + test262.revision;
     })();
+
+    navigate(cwd);
   </script>
 </body>
