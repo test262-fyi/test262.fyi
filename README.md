@@ -19,3 +19,9 @@ test262.report spiritual successor (WIP)
 - [ ] JSC stable
 - [ ] Hermes stable
 - Request more in GitHub issues!
+
+## Local build
+1. Clone repo
+2. `./scripts/downloadResults.sh` (downloads results from latest build)
+3. `node site/generate.mjs` (might take a minute or two)
+4. Start a HTTP server in `site` and open it in your browser
