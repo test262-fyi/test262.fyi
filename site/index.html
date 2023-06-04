@@ -22,7 +22,7 @@
     <hr>
 
     <footer>
-      generated <span id="generated_ago"></span><br>
+      generated <span id="generated_ago"></span> <span id="generated_in"></span><br>
       test262 revision <a href="" id="test262_rev"></a><br>
       <br>
       work in progress. <i>* mostly</i>
@@ -179,7 +179,7 @@
     (async () => {
       times = await (await fetch('data/times.json')).json();
 
-      const prettyAgo = (timestamp) => {
+      const prettyAgo = (timestamp, factor = 1) => {
         const intervals = [
           { label: 'year', seconds: 31536000 },
           { label: 'month', seconds: 2592000 },
@@ -200,12 +200,14 @@
           style: 'long'
         });
 
-        return rtf.format(count * -1, interval.label);
+        return rtf.format(count * factor, interval.label);
       };
 
-      generated_ago.textContent = prettyAgo(new Date(times.generatedAt));
+      generated_ago.textContent = prettyAgo(new Date(times.generatedAt), -1);
 
       const worstTime = Math.max(...Object.values(times.timeTaken));
+      generated_in.textContent = prettyAgo(new Date(Date.now() - (worstTime * 1000) - (1000 * 60 * 5))).replace('in', 'in about'); // longest engine test time + 5 mins for gen/deploy/stuff
+
       const timeGraph = makeGraph({
         total: worstTime,
         engines: times.timeTaken
