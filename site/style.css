@@ -92,7 +92,7 @@ th.sub {
 .stats {
   display: flex;
   align-items: center;
-  width: calc(100% - 12px);
+  width: calc((100vw - 320px - 4vw) * 0.75 - 12px);
   height: 22px;
 
   display: flex;
