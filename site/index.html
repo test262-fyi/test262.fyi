@@ -17,9 +17,9 @@
 
     </div>
 
-    <hr>
+    <hr id="before-overall">
 
-    <hr>
+    <hr id="before-times">
 
     <footer>
       generated <span id="generated_ago"></span> <span id="generated_in"></span><br>
@@ -64,7 +64,7 @@
         init = true;
 
         const overallGraph = makeGraph(json, true);
-        sidebar.children[sidebar.children.length - 2].insertAdjacentElement('beforebegin', overallGraph);
+        document.getElementById('before-overall').insertAdjacentElement('afterend', overallGraph);
       }
     };
     navigate(cwd);
@@ -218,7 +218,7 @@
 
         return hours > 0 ? ` ${hours}h ${mins}m` : ` ${mins}m`;
       });
-      sidebar.children[sidebar.children.length - 1].insertAdjacentElement('beforebegin', timeGraph);
+      document.getElementById('before-times').insertAdjacentElement('afterend', timeGraph);
     })();
 
     let test262;
