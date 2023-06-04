@@ -1,7 +1,11 @@
-html, body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
 
+html,
+body {
   background: #202428;
   color: #f0f4f8;
 
@@ -10,21 +14,18 @@ html, body {
   color-scheme: dark;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 body {
-  display: flex;
+  display: grid;
+  grid-template-columns: [sidebar] 320px [content] 1fr;
 }
 
 #content {
+  grid-column: content;
+
   padding: 2vh 2vw;
 
   height: fit-content;
-  width: calc(100% - 320px);
-
-  margin-left: 320px;
+  width: 100%;
 }
 
 #content h1 {
@@ -32,7 +33,8 @@ body {
   font-weight: 700;
 }
 
-td, th {
+td,
+th {
   border-bottom: 1px solid #808488;
 }
 
@@ -159,16 +161,36 @@ th.sub {
   color: #000408;
 }
 
-.no-stat-v8 .stat-v8 { display: none }
-.no-stat-sm .stat-sm { display: none }
-.no-stat-jsc .stat-jsc { display: none }
-.no-stat-chakra .stat-chakra { display: none }
-.no-stat-graaljs .stat-graaljs { display: none }
-.no-stat-hermes .stat-hermes { display: none }
-.no-stat-libjs .stat-libjs { display: none }
-.no-stat-engine262 .stat-engine262 { display: none }
-.no-stat-qjs .stat-qjs { display: none }
-.no-stat-xs .stat-xs { display: none }
+.no-stat-v8 .stat-v8 {
+  display: none;
+}
+.no-stat-sm .stat-sm {
+  display: none;
+}
+.no-stat-jsc .stat-jsc {
+  display: none;
+}
+.no-stat-chakra .stat-chakra {
+  display: none;
+}
+.no-stat-graaljs .stat-graaljs {
+  display: none;
+}
+.no-stat-hermes .stat-hermes {
+  display: none;
+}
+.no-stat-libjs .stat-libjs {
+  display: none;
+}
+.no-stat-engine262 .stat-engine262 {
+  display: none;
+}
+.no-stat-qjs .stat-qjs {
+  display: none;
+}
+.no-stat-xs .stat-xs {
+  display: none;
+}
 
 .stats + table {
   margin-top: 20px;
@@ -190,13 +212,13 @@ th.sub {
 }
 
 #sidebar {
-  position: fixed;
+  grid-column: sidebar;
 
-  width: 320px;
-  height: 100%;
+  position: relative;
+  overflow-y: auto;
+  height: 100vh;
+
   background: #101418;
-
-  padding: 24px 12px;
 }
 
 #sidebar h1 {
@@ -212,9 +234,19 @@ th.sub {
   margin-top: 6px;
 }
 
+#sidebar-contents {
+  position: relative;
+
+  min-height: 100vh;
+
+  padding: 24px 12px;
+  padding-bottom: calc(24px + 5rem);
+}
+
 #sidebar footer {
   position: absolute;
   bottom: 24px;
+  left: 12px;
   width: calc(100% - 24px);
 
   color: #a0a4a8;
