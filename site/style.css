@@ -116,6 +116,7 @@ th.sub {
   white-space: nowrap;
 
   cursor: default;
+  transition: width 0.2s;
 }
 
 .stat-v8 {
@@ -209,6 +210,21 @@ th.sub {
 .stats.vertical > div {
   height: 22px;
   overflow: visible;
+}
+
+/* .stat:has(+ .stat:hover), .stat:hover + .stat
+.stats:not(.vertical):has(div:hover) > div {
+  width: 0;
+} */
+
+.stats:not(.vertical):has(> :hover) > div {
+  width: 0 !important;
+  padding: 0;
+}
+
+.stats:not(.vertical) > div:hover {
+  width: 100% !important;
+  padding-left: 4px;
 }
 
 #sidebar {
