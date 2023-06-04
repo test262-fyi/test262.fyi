@@ -177,7 +177,7 @@
         label.setAttribute('for', id);
 
         const ver = document.createElement('span');
-        ver.textContent = version;
+        ver.textContent = version.length === 40 ? version.slice(0, 8) : version; // slice revisions
 
         label.append(ver);
 
