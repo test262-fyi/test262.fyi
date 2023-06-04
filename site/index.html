@@ -163,7 +163,7 @@
       }
 
       for (const file in files) {
-        makeRow(file.replace(cwd + '/', ''), makeGraph(files[file]), () => navigate(file));
+        makeRow(file.replace(cwd + '/', ''), makeGraph(files[file]), file.endsWith('.js') ? undefined : () => navigate(file));
       }
     };
 
