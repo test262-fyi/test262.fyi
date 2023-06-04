@@ -62,6 +62,8 @@ table th {
   vertical-align: middle;
   text-align: left;
   width: 25%;
+
+  word-break: break-all;
 }
 
 thead > :last-child > th {
@@ -78,7 +80,7 @@ thead > :first-child > th {
 
 thead .stats {
   margin: 0;
-  width: 100%;
+  width: calc(100vw - 320px - 4vw - 19px);
 }
 
 th.sub {
@@ -92,7 +94,7 @@ th.sub {
 .stats {
   display: flex;
   align-items: center;
-  width: calc((100vw - 320px - 4vw) * 0.75 - 12px);
+  width: calc((100vw - 320px - 4vw) * 0.75 - 12px - 2px);
   height: 22px;
 
   display: flex;
