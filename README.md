@@ -6,13 +6,15 @@ test262.report spiritual successor (WIP)
 - [X] SpiderMonkey (sm)
 - [X] JavaScriptCore (jsc)
 - [X] ChakraCore (chakra)
-- [X] Hermes (implemented but disabled temporarily)
+- [X] Hermes
 - [X] LibJS
 - [X] engine262
 - [X] GraalJS
-- [X] QuickJS
-- [X] XS (xs)
+- [X] QuickJS (qjs)
+- [X] XS
 - [ ] Rhino
+- [ ] Nashorn
+- Request more in GitHub issues!
 
 ## Site todo
 - Display version info (test262 + engines)
