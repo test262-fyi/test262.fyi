@@ -177,7 +177,7 @@
         label.setAttribute('for', id);
 
         const ver = document.createElement('span');
-        ver.textContent = version.length === 40 ? version.slice(0, 8) : version; // slice revisions
+        ver.textContent = version; // slice revisions
 
         label.append(ver);
 
@@ -219,7 +219,11 @@
       for (const engine of niceEngineOrder) {
         if (!engines[engine]) continue;
 
-        el.append(generateEngine(engine, engines[engine]));
+        let version = engines[engine];
+        if (version.length === 40) version = version.slice(0, 8);
+        if (version.length === 46) version = version.slice(0, 14);
+
+        el.append(generateEngine(engine, version));
       }
     };
 
