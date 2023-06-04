@@ -64,9 +64,11 @@ jobs:
 
     - name: Upload pages artifact
       uses: actions/upload-pages-artifact@v1
+      continue-on-error: true
       with:
         path: site
 
     - name: Deploy to GitHub Pages
       id: deployment
+      continue-on-error: true
       uses: actions/deploy-pages@v2
