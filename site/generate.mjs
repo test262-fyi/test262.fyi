@@ -15,7 +15,7 @@ for (const file of readdirSync('results')) {
 
   if (existsSync(join(base, 'jsvu.json'))) {
     const jsvu = JSON.parse(readFileSync(join(base, 'jsvu.json'), 'utf8'));
-    versions[file] = jsvu[Object.keys(jsvu.installed).filter(x => x !== 'os' && x !== 'engines')];
+    versions[file] = jsvu[Object.keys(jsvu.installed).find(x => x !== 'os' && x !== 'engines')];
   }
 
   if (existsSync(join(base, 'esvu.json'))) {
