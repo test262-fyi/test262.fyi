@@ -14,8 +14,8 @@ test262.report spiritual successor (WIP)
 - [X] XS
 - [ ] Rhino
 - [ ] Nashorn
+- [ ] V8 stable
+- [ ] SM stable
+- [ ] JSC stable
+- [ ] Hermes stable
 - Request more in GitHub issues!
-
-## Site todo
-- Display version info (test262 + engines)
-- Engine filtering
