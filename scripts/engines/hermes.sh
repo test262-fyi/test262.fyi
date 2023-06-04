@@ -5,4 +5,4 @@ node scripts/install/circle.js facebook/hermes main build linux "output/hermes-c
 mkdir hermes
 tar -zxf hermes.tar.gz -C "hermes"
 
-./scripts/test262.sh hermes "$PWD/hermes/hermes" 24
+./scripts/test262.sh hermes "$PWD/hermes/hermes" 32
