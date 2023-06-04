@@ -63,15 +63,21 @@
       document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
     }
 
-    const updateHash = () => {
+    const updateHash = (push = false) => {
       let hash = cwd;
       if (filterOutEngines.length > 0) hash += '|' + filterOutEngines.join(',');
-      location.hash = hash;
+
+      history[push ? 'pushState' : 'replaceState']({ cwd, filterOutEngines }, '', '#' + hash);
+    };
+
+    window.onpopstate = ({ state }) => {
+      filterOutEngines = state.filterOutEngines;
+      navigate(state.cwd);
     };
 
     const navigate = async (path) => {
       cwd = path.trim();
-      updateHash();
+      updateHash(true);
 
       const json = await (await fetch('data/' + (path || 'index') + '.json')).json();
       makeTable(path, json);
