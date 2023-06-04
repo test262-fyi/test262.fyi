@@ -1,4 +1,4 @@
-name: test262 runner (all)
+name: test262 runner
 
 on:
   push:
@@ -10,9 +10,11 @@ jobs:
 
     strategy:
       matrix:
-        engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs]
-        # engine: [v8, jsc, sm, chakra, libjs, engine262, qjs, xs, graaljs]
-        # engine: [jsc]
+        # engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs] # all engines
+        # engine: [v8, jsc, sm, chakra, libjs, engine262, qjs, xs, graaljs] # exclude hangers
+        engine: [jsc, qjs, graaljs, xs] # all ~1 hour
+        # engine: [v8, jsc, sm, chakra] # just major
+        # engine: [jsc] # just jsc
 
     steps:
     - uses: actions/checkout@v3
