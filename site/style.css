@@ -108,7 +108,7 @@ table + h1 {
   line-height: 22px;
 
   overflow: hidden;
-  text-wrap: nowrap;
+  white-space: nowrap;
 
   cursor: default;
 }
@@ -212,8 +212,10 @@ table + h1 {
   margin: 1em 0;
 }
 
-#engines {
-
+#engines > div {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #engines > div:not(:last-child) {
