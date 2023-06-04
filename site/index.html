@@ -49,9 +49,20 @@
       engine262: 'engine262'
     };
 
+    const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'chakra', 'graaljs', 'hermes', 'libjs', 'engine262', 'qjs', 'xs' ];
+
     const tbody = document.querySelector('tbody');
 
     let cwd = '', filterOutEngines = [], init = false;
+
+    if (location.hash) {
+      const [ hashCwd, hashFilter ] = location.hash.slice(1).split('|');
+      cwd = hashCwd.trim();
+      filterOutEngines = hashFilter.trim().split(',');
+
+      document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
+    }
+
     const navigate = async (path) => {
       cwd = path;
 
@@ -73,13 +84,15 @@
       el.className = 'stats';
       if (vertical) el.classList.add('vertical');
 
-      const keys = Object.keys(engines).reverse();
-      for (const x of keys) {
+      const keys = Object.keys(engines);
+      for (const x of niceEngineOrder) {
+        if (!engines[x]) continue;
+
         const stat = document.createElement('div');
         stat.className = 'stat-' + x;
 
         const percent = (engines[x] / total) * 100;
-        stat.style.width = (vertical ? percent : percent / keys.length) + '%';
+        stat.style.width = (vertical ? percent : percent / (keys.length - filterOutEngines.length)) + '%';
 
         const b = document.createElement('b');
         b.textContent = names[x] ?? x;
@@ -147,13 +160,26 @@
         checkbox.checked = !filterOutEngines.includes(engine);
 
         checkbox.oninput = () => {
+          const adjustStatsSizes = factor => {
+            const keys = Object.keys(engines);
+            const beforeAmount = (keys.length - filterOutEngines.length) - factor;
+            const afterAmount = (keys.length - filterOutEngines.length);
+            console.log(beforeAmount, afterAmount);
+            for (const el of document.querySelectorAll('.stats:not(.vertical) > div')) {
+              // console.log(el.style.width, ((el.style.width.slice(0, -1) * beforeAmount) / afterAmount) + '%');
+              el.style.width = ((el.style.width.slice(0, -1) * beforeAmount) / afterAmount) + '%';
+            }
+          };
+
           if (filterOutEngines.includes(engine)) {
             filterOutEngines = filterOutEngines.filter(x => x !== engine);
+            adjustStatsSizes(1);
           } else {
             filterOutEngines.push(engine);
+            adjustStatsSizes(-1);
           }
 
-          content.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
+          document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
         };
 
         wrap.append(checkbox, label);
@@ -163,7 +189,9 @@
       const el = document.getElementById('engines');
       el.innerHTML = '';
 
-      for (const engine in engines) {
+      for (const engine of niceEngineOrder) {
+        if (!engines[engine]) continue;
+
         el.append(generateEngine(engine, engines[engine]));
       }
     };
