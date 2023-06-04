@@ -8,6 +8,8 @@ let test262Rev = 'unknown';
 let refTests = {};
 
 for (const file of readdirSync('results')) {
+  if (file === 'github-pages') continue;
+
   const base = join('results', file);
 
   results[file] = JSON.parse(readFileSync(join(base, 'results.json'), 'utf8'));
