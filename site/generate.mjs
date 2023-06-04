@@ -15,7 +15,7 @@ for (const file of readdirSync('results')) {
 
   if (existsSync(join(base, 'jsvu.json'))) {
     const jsvu = JSON.parse(readFileSync(join(base, 'jsvu.json'), 'utf8'));
-    versions[file] = jsvu[Object.keys(jsvu.installed).find(x => x !== 'os' && x !== 'engines')];
+    versions[file] = jsvu[Object.keys(jsvu).find(x => x !== 'os' && x !== 'engines')];
   }
 
   if (existsSync(join(base, 'esvu.json'))) {
@@ -31,6 +31,8 @@ for (const file of readdirSync('results')) {
     test262Rev = readFileSync(join(base, 'test262-rev.txt'), 'utf8');
   }
 }
+
+console.log(versions, times, test262Rev);
 
 writeFileSync(join(dataDir, 'engines.json'), JSON.stringify(versions));
 writeFileSync(join(dataDir, 'times.json'), JSON.stringify({
