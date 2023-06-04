@@ -36,8 +36,10 @@ for (const file of readdirSync('results')) {
   }
 }
 
+const engines = Object.keys(results);
+
 console.log(versions, times, test262Rev);
-console.log(Object.keys(results));
+console.log(engines);
 
 mkdirSync(dataDir, { recursive: true });
 
@@ -66,7 +68,10 @@ for (const test of refTests) {
     if (typeof y !== 'string') y.set('file', path.join('/'));
   }
 
-  y.set(test.file.split('/').pop(), test);
+  const k = test.file.split('/').pop();
+  if (!y.has(k)) y.set(k, []);
+
+  y.get(k).push(test);
 }
 
 console.log('generated structure');
@@ -83,18 +88,22 @@ const walkStruct = struct => {
 
       const y = x.get(k);
 
-      if (y.result) {
-        const niceFile = y.file.replace('test/', '');
-        out.files[niceFile] = { total: 1, engines: {} };
+      if (Array.isArray(y)) {
+        const niceFile = y[0].file.replace('test/', '');
 
-        for (const engine of Object.keys(results)) {
-          const pass = results[engine].find(z => z.file === y.file).result.pass;
-          out.files[niceFile].engines[engine] = pass ? 1 : 0;
+        out.files[niceFile] = { total: y.length, engines: {} };
 
-          if (pass) out.engines[engine] = (out.engines[engine] ?? 0) + 1;
+        for (const test of y) {
+          console.log(test);
+          for (const engine of engines) {
+            const pass = results[engine].find(z => z.file === test.file && z.scenario === test.scenario).result.pass;
+            out.files[niceFile].engines[engine] = (out.files[niceFile].engines[engine] ?? 0) + (pass ? 1 : 0);
+
+            if (pass) out.engines[engine] = (out.engines[engine] ?? 0) + 1;
+          }
         }
 
-        out.total++;
+        out.total += y.length;
         continue;
       }
 
