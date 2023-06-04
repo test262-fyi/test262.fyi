@@ -60,14 +60,17 @@
     if (location.hash) {
       const [ hashCwd, hashFilter ] = location.hash.slice(1).split('|');
       if (hashCwd) cwd = hashCwd.trim();
-      if (hashFilter) filterOutEngines = hashFilter.trim().split(',');
+      if (hashFilter) {
+        const includedEngines = hashFilter.trim().split(',');
+        filterOutEngines = niceEngineOrder.filter(x => !includedEngines.includes(x));
+      }
 
       document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
     }
 
     const updateHash = (push = false) => {
       let hash = cwd;
-      if (filterOutEngines.length > 0) hash += '|' + filterOutEngines.join(',');
+      if (filterOutEngines.length > 0) hash += '|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',');
 
       history[push ? 'pushState' : 'replaceState']({ cwd, filterOutEngines }, '', '#' + hash);
     };
