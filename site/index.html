@@ -205,7 +205,7 @@
       generated_ago.textContent = prettyAgo(new Date(times.generatedAt), -1);
 
       const worstTime = Math.max(...Object.values(times.timeTaken));
-      generated_in.textContent = prettyAgo(new Date(Date.now() - (worstTime * 1000) - (1000 * 60 * 5))).replace('in', 'in about'); // longest engine test time + 5 mins for gen/deploy/stuff
+      generated_in.textContent = prettyAgo(new Date(Date.now() - (worstTime * 1000) - (1000 * 60 * 2))).replace('in', 'in about'); // longest engine test time + 2 mins for gen/deploy/stuff
 
       const timeGraph = makeGraph({
         total: worstTime,
