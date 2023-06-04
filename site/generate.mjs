@@ -27,6 +27,10 @@ for (const file of readdirSync('results')) {
     versions[file] = Object.values(esvu.installed)[0].version;
   }
 
+  if (existsSync(join(base, 'version.txt'))) {
+    versions[file] = readFileSync(join(base, 'version.txt'), 'utf8');
+  }
+
   if (existsSync(join(base, 'time.txt'))) {
     times[file] = parseInt(readFileSync(join(base, 'time.txt'), 'utf8'));
   }

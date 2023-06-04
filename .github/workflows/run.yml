@@ -55,6 +55,7 @@ jobs:
           jsvu.json
           esvu.json
           time.txt
+          version.txt
           test262-rev.txt
 
     - name: Download results
