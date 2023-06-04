@@ -32,7 +32,7 @@ for (const file of readdirSync('results')) {
   }
 }
 
-console.log(versions, times, test262Rev);
+mkdirSync(dataDir, { recursive: true });
 
 writeFileSync(join(dataDir, 'engines.json'), JSON.stringify(versions));
 writeFileSync(join(dataDir, 'times.json'), JSON.stringify({
