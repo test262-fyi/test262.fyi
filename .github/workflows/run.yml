@@ -36,9 +36,9 @@ jobs:
     #     distribution: 'oracle'
     #     java-version: '18'
 
-    - name: Install Java
-      if: ${{ matrix.engine == 'graaljs' }}
-      run: sudo apt install openjdk-18-jdk
+    # - name: Install Java
+    #   if: ${{ matrix.engine == 'graaljs' }}
+    #   run: sudo apt install openjdk-18-jdk
 
     - name: Run test262 with ${{ matrix.engine }}
       run: ./scripts/engines/${{ matrix.engine }}.sh
