@@ -14,6 +14,8 @@ const get = async url => await (await fetch(url, {
   const pipeline = pipelines.items[0];
   console.log('got pipeline', pipeline.id);
 
+  writeFile('version.txt', pipeline.vcs.revision);
+
   const workflows = await get(`https://circleci.com/api/v2/pipeline/${pipeline.id}/workflow`);
   const workflow = workflows.items.find(x => x.name === workflowName);
   console.log('got workflow', workflow.id);
