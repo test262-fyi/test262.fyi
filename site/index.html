@@ -31,6 +31,7 @@
 
   <div id="content">
     <table>
+      <thead></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -51,6 +52,7 @@
 
     const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'chakra', 'graaljs', 'hermes', 'libjs', 'engine262', 'qjs', 'xs' ];
 
+    const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
 
     let cwd = '', filterOutEngines = [], init = false;
@@ -120,6 +122,18 @@
     const makeTable = (file, { total, engines, files }) => {
       tbody.innerHTML = '';
 
+      const makeHeader = (thContent) => {
+        const tr = document.createElement('tr');
+
+        const th = document.createElement('th');
+        th.className = file;
+        th.colSpan = 2;
+
+        th.append(thContent);
+        tr.append(th);
+        thead.append(tr);
+      }
+
       const makeRow = (thText, tdContent, onclick) => {
         const tr = document.createElement('tr');
 
@@ -142,7 +156,10 @@
       };
 
       if (file !== '') {
-        makeRow(`<b>${file}</b>`, makeGraph({ total, engines }));
+        const filenameStrong = document.createElement("strong");
+        filenameStrong.textContent = file;
+        makeHeader(filenameStrong);
+        makeHeader(makeGraph({ total, engines }));
         makeRow('..', undefined, () => navigate(cwd.split('/').slice(0, -1).join('/')));
       }
 
