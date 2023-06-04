@@ -7,7 +7,7 @@ cd test262
 # install test262 harness (our fork - https://github.com/CanadaHonk/test262-harness)
 npm install -g github:CanadaHonk/test262-harness
 
-echo running test262...
+echo running test262 with $(nproc) threads
 
 start=`date +%s`
 test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result --threads=$(nproc) "test/**/*.js" > ../results.json
