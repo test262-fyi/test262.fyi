@@ -1,4 +1,4 @@
-# test262-page
+# test262.fyi
 test262.report spiritual successor (WIP)
 
 ## JS Engines
