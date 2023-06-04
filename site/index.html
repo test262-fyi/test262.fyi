@@ -121,6 +121,7 @@
 
     const makeTable = (file, { total, engines, files }) => {
       tbody.innerHTML = '';
+      thead.innerHTML = '';
 
       const makeHeader = (thContent) => {
         const tr = document.createElement('tr');
@@ -132,7 +133,7 @@
         th.append(thContent);
         tr.append(th);
         thead.append(tr);
-      }
+      };
 
       const makeRow = (thText, tdContent, onclick) => {
         const tr = document.createElement('tr');
@@ -156,9 +157,7 @@
       };
 
       if (file !== '') {
-        const filenameStrong = document.createElement("strong");
-        filenameStrong.textContent = file;
-        makeHeader(filenameStrong);
+        makeHeader(file);
         makeHeader(makeGraph({ total, engines }));
         makeRow('..', undefined, () => navigate(cwd.split('/').slice(0, -1).join('/')));
       }
