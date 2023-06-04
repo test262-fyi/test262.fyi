@@ -10,8 +10,8 @@ jobs:
 
     strategy:
       matrix:
-        # engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs] # all engines
-        engine: [v8, jsc, sm, chakra, libjs, qjs, xs, graaljs] # exclude hangers/long
+        engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs] # all engines
+        # engine: [v8, jsc, sm, chakra, libjs, qjs, xs, graaljs] # exclude hangers/long
         # engine: [chakra, graaljs, jsc, libjs, qjs, xs] # all fast
         # engine: [v8, jsc, sm, chakra] # just major
         # engine: [jsc] # just jsc
