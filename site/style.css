@@ -196,11 +196,17 @@ th.sub {
 #sidebar footer {
   position: absolute;
   bottom: 24px;
+  width: calc(100% - 24px);
 
   color: #a0a4a8;
-  font-size: 0.8em;
+  font-size: 0.7em;
 
-  line-height: 1.6em;
+  line-height: 1.4em;
+}
+
+#sidebar .stats {
+  margin: 0;
+  width: calc(100%);
 }
 
 #sidebar hr {
