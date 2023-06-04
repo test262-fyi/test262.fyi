@@ -54,6 +54,19 @@
       engine262: 'engine262'
     };
 
+    const shortNames = {
+      v8: 'V8',
+      sm: 'SM',
+      jsc: 'JSC',
+      hermes: 'Hermes',
+      chakra: 'Chakra',
+      qjs: 'QJS',
+      libjs: 'LibJS',
+      graaljs: 'Graal',
+      xs: 'XS',
+      engine262: 'e262'
+    };
+
     const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'chakra', 'graaljs', 'hermes', 'libjs', 'engine262', 'qjs', 'xs' ];
 
     const thead = document.querySelector('thead');
@@ -97,6 +110,23 @@
         const overallGraph = makeGraph(json, true);
         document.getElementById('before-overall').insertAdjacentElement('afterend', overallGraph);
       }
+
+      setTimeout(() => {
+        const nameCache = {};
+        const getNameWidth = (el, x) => {
+          if (nameCache[x]) return nameCache[x];
+          return nameCache[x] = el.children[0].getBoundingClientRect().width;
+        };
+
+        for (const el of document.querySelectorAll('.stats:not(.vertical) > div')) {
+          const x = el.className.replace('stat-', '');
+          const nameLength = getNameWidth(el, x);
+          const extraLength = (nameLength / names[x].length) * 6;
+          if (nameLength + extraLength > el.getBoundingClientRect().width) {
+            el.children[0].textContent = shortNames[x];
+          }
+        }
+      }, 10);
     };
 
     const makeGraph = ({ total, engines }, vertical = false, labelFunc = undefined) => {
