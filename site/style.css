@@ -251,8 +251,9 @@ th.sub {
 }
 
 #engines label span {
+  font-family: monospace;
   font-weight: 300;
-  font-size: 0.8em;
+  font-size: 0.9em;
 
   margin-left: 6px;
 }
