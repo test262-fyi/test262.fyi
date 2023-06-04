@@ -30,6 +30,12 @@ jobs:
       with:
         node-version: 18
 
+    - uses: actions/setup-java@v3
+      if: ${{ matrix.engine == 'graaljs' }}
+      with:
+        distribution: 'oracle'
+        java-version: '17'
+
     - name: Run test262 with ${{ matrix.engine }}
       run: ./scripts/engines/${{ matrix.engine }}.sh
 
