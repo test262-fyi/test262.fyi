@@ -16,6 +16,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
+    env:
+      CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
+
     strategy:
       matrix:
         engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs] # all engines
