@@ -29,7 +29,12 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.engine }}
-        path: results.json jsvu.json esvu.json time.txt test262-rev.txt
+        path: |
+          results.json
+          jsvu.json
+          esvu.json
+          time.txt
+          test262-rev.txt
 
   generate:
     runs-on: ubuntu-latest
