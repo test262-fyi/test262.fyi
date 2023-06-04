@@ -1,0 +1,229 @@
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="description" content="">
+</head>
+
+<body>
+  <div id="sidebar">
+    <h1>test262.goose</h1>
+    <h2>daily* runner of <a href="https://github.com/tc39/test262">test262</a> for <i>many</i> engines</h2>
+
+    <hr>
+
+    <div id="engines">
+
+    </div>
+
+    <hr>
+
+    <hr>
+
+    <footer>
+      generated <span id="generated_ago"></span><br>
+      test262 revision <a href="" id="test262_rev"></a><br>
+      <br>
+      work in progress. <i>* mostly</i>
+    </footer>
+  </div>
+
+  <div id="content">
+    <table>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const names = {
+      v8: 'V8',
+      sm: 'SpiderMonkey',
+      jsc: 'JavaScriptCore',
+      hermes: 'Hermes',
+      chakra: 'ChakraCore',
+      qjs: 'QuickJS',
+      libjs: 'LibJS',
+      graaljs: 'GraalJS',
+      xs: 'XS',
+      engine262: 'engine262'
+    };
+
+    const tbody = document.querySelector('tbody');
+
+    let cwd = '', filterOutEngines = [], init = false;
+    const navigate = async (path) => {
+      cwd = path;
+
+      const json = await (await fetch('data/' + (path || 'index') + '.json')).json();
+      console.log(path, json);
+
+      makeTable(path, json);
+
+      if (!init) {
+        init = true;
+
+        const overallGraph = makeGraph(json, true);
+        sidebar.children[sidebar.children.length - 2].insertAdjacentElement('beforebegin', overallGraph);
+      }
+    };
+    navigate(cwd);
+
+    const makeGraph = ({ total, engines }, vertical = false, labelFunc = undefined) => {
+      const el = document.createElement('div');
+      el.className = 'stats';
+      if (vertical) el.classList.add('vertical');
+
+      const keys = Object.keys(engines).reverse();
+      for (const x of keys) {
+        const stat = document.createElement('div');
+        stat.className = 'stat-' + x;
+
+        const percent = (engines[x] / total) * 100;
+        stat.style.width = (vertical ? percent : percent / keys.length) + '%';
+
+        const b = document.createElement('b');
+        b.textContent = names[x] ?? x;
+
+        const extra = document.createTextNode(labelFunc ? labelFunc(x, engines[x]) : ` ${percent.toFixed(0)}%`);
+
+        stat.append(b, extra);
+        el.append(stat);
+      }
+
+      return el;
+    };
+
+    const makeTable = (file, { total, engines, files }) => {
+      tbody.innerHTML = '';
+
+      const makeRow = (thText, tdContent, onclick) => {
+        const tr = document.createElement('tr');
+
+        const th = document.createElement('th');
+        th.className = file;
+
+        if (onclick) {
+          th.style.cursor = 'pointer';
+          th.onclick = onclick;
+        }
+
+        th.innerHTML = thText;
+
+        const td = document.createElement('td');
+        if (tdContent) td.append(tdContent);
+          else td.style.borderLeft = 'none';
+
+        tr.append(th, td);
+        tbody.append(tr);
+      };
+
+      if (file !== '') {
+        makeRow(`<b>${file}</b>`, makeGraph({ total, engines }));
+        makeRow('..', undefined, () => navigate(cwd.split('/').slice(0, -1).join('/')));
+      }
+
+      for (const file in files) {
+        makeRow(file.replace(cwd + '/', ''), makeGraph(files[file]), () => navigate(cwd + (cwd !== '' ? '/' : '') + file));
+      }
+    };
+
+    const makeEngines = () => {
+      const generateEngine = (engine, version = '') => {
+        const id = 'filter-engine-' + engine;
+        const wrap = document.createElement('div');
+
+        const label = document.createElement('label');
+        label.textContent = names[engine];
+        label.setAttribute('for', id);
+
+        const ver = document.createElement('span');
+        ver.textContent = version;
+
+        label.append(ver);
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = id;
+        checkbox.checked = !filterOutEngines.includes(engine);
+
+        checkbox.oninput = () => {
+          if (filterOutEngines.includes(engine)) {
+            filterOutEngines = filterOutEngines.filter(x => x !== engine);
+          } else {
+            filterOutEngines.push(engine);
+          }
+
+          content.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
+        };
+
+        wrap.append(checkbox, label);
+        return wrap;
+      };
+
+      const el = document.getElementById('engines');
+      el.innerHTML = '';
+
+      for (const engine in engines) {
+        el.append(generateEngine(engine, engines[engine]));
+      }
+    };
+
+    let engines;
+    (async () => {
+      engines = await (await fetch('data/engines.json')).json();
+      makeEngines();
+    })();
+
+    let times;
+    (async () => {
+      times = await (await fetch('data/times.json')).json();
+
+      const prettyAgo = (timestamp) => {
+        const intervals = [
+          { label: 'year', seconds: 31536000 },
+          { label: 'month', seconds: 2592000 },
+          { label: 'week', seconds: 604800 },
+          { label: 'day', seconds: 86400 },
+          { label: 'hour', seconds: 3600 },
+          { label: 'minute', seconds: 60 },
+          { label: 'second', seconds: 1 }
+        ];
+
+        const seconds = Math.floor((Date.now() - timestamp) / 1000);
+        const interval = intervals.find(i => i.seconds <= seconds) ?? intervals[intervals.length - 1];
+        const count = Math.floor(seconds / interval.seconds);
+
+        const rtf = new Intl.RelativeTimeFormat("en", {
+          localeMatcher: 'best fit',
+          numeric: 'auto',
+          style: 'long'
+        });
+
+        return rtf.format(count * -1, interval.label);
+      };
+
+      generated_ago.textContent = prettyAgo(new Date(times.generatedAt));
+
+      const worstTime = Math.max(...Object.values(times.timeTaken));
+      const timeGraph = makeGraph({
+        total: worstTime,
+        engines: times.timeTaken
+      }, true, (engine, time) => {
+        const hours = Math.floor(time / 3600);
+        const mins = Math.floor(time % 3600 / 60);
+        const secs = time % 3600 % 60;
+
+        return hours > 0 ? ` ${hours}h ${mins}m` : ` ${mins}m`;
+      });
+      sidebar.children[sidebar.children.length - 1].insertAdjacentElement('beforebegin', timeGraph);
+    })();
+
+    let test262;
+    (async () => {
+      test262 = await (await fetch('data/test262.json')).json();
+      test262_rev.textContent = test262.revision.slice(0, 7);
+      test262_rev.href = 'https://github.com/tc39/test262/commit/' + test262.revision;
+    })();
+  </script>
+</body>

@@ -1,120 +1,126 @@
-const makeRow = (test, name = test, depth = 0, clas = test.split('/')) => {
-  console.log(`${currentStruct++}/${totalStruct} ${test}`);
-  // if (depth > 1) return '';
+import { readFileSync, readdirSync, mkdirSync, writeFileSync, existsSync } from 'fs';
+// import { mkdir, writeFile } from 'fs/promises';
+import { dirname, join } from 'path';
 
-  return `
-<tr class="${clas.join(' ')} ${depth > 0 ? 'hidden' : ''}">
-<th>${name}</th>
-<td>${buildGraph(test)}</td>
-</tr>
-
-${Object.values(deep(struct, test.split('/'))).map(x => typeof x === 'object' && x.file ? makeRow(x.file.replace('test/', ''), x.file.replace('test/', ''), depth + 1, x.file.replace('test/', '').split('/')) : '').join('\n')}`;
-};
-
-const makeTable = struct => `<table>
-<tbody>
-${Object.keys(struct).flatMap(x => [
-  makeRow(x, x),
-  // ...Object.keys(names).map()
-  // ...Object.keys(methods[x].parameters ?? {}).map(y => makeRow(methods[x].parameters[y], y, true))
-]).join('\n')}
-</tbody>
-</table>`;
-
-const names = {
-  v8: 'V8',
-  sm: 'SpiderMonkey',
-  jsc: 'JavaScriptCore',
-  hermes: 'Hermes',
-  chakra: 'ChakraCore',
-  qjs: 'QuickJS',
-  libjs: 'LibJS',
-  graaljs: 'GraalJS',
-  xs: 'XS',
-  engine262: 'engine262'
-};
-const results = {};
+const dataDir = 'site/data';
+const results = {}, versions = {}, times = {};
+let test262Rev = 'unknown';
 let refTests = {};
 
-const makeGraph = (data, clas = '') => {
-  const keys = Object.keys(data);
-  return `<div class="stats ${clas}">
-<div>
-${keys.reverse().map(x => x === 'total' ? '' : `<div class="stat-${x}" style="width: ${((data[x] / data.total) * 100) / (keys.length - 1)}%"><b>${names[x]}</b> ${((data[x] / data.total) * 100).toFixed(0)}%</div>`).join('\n')}
-</div>
-</div>`
-};
+for (const file of readdirSync('results')) {
+  const base = join('results', file);
 
-const buildGraph = test => {
-  const data = {};
-  const file = 'test/' + test;
-  for (const engine of Object.keys(results)) {
-    if (test.endsWith('.js')) data[engine] = results[engine].find(x => x.file === file).result.pass ? 1 : 0;
-      else data[engine] = results[engine].reduce((acc, x) => x.file.startsWith(file) && x.result.pass ? acc + 1 : acc, 0);
+  results[file] = JSON.parse(readFileSync(join(base, 'results.json'), 'utf8'));
+  refTests = results[file];
+
+  if (existsSync(join(base, 'jsvu.json'))) {
+    const jsvu = JSON.parse(readFileSync(join(base, 'jsvu.json'), 'utf8'));
+    versions[file] = jsvu[Object.keys(jsvu.installed).filter(x => x !== 'os' && x !== 'engines')];
   }
 
-  if (test.endsWith('.js')) data.total = 1;
-    else data.total = refTests.reduce((acc, x) => x.file.startsWith(file) ? acc + 1 : acc, 0);
+  if (existsSync(join(base, 'esvu.json'))) {
+    const esvu = JSON.parse(readFileSync(join(base, 'esvu.json'), 'utf8'));
+    versions[file] = Object.values(esvu.installed)[0].version;
+  }
 
-  return makeGraph(data);
-};
+  if (existsSync(join(base, 'time.txt'))) {
+    times[file] = parseInt(readFileSync(join(base, 'time.txt'), 'utf8'));
+  }
 
-import { readFileSync, readdirSync, writeFileSync } from 'fs';
-
-const template = readFileSync('site/template.html', 'utf8');
-
-for (const file of readdirSync('results')) {
-  results[file] = JSON.parse(readFileSync('./results/' + file + '/results.json', 'utf8'));
-  refTests = results[file];
+  if (existsSync(join(base, 'test262-rev.txt'))) {
+    test262Rev = readFileSync(join(base, 'test262-rev.txt'), 'utf8');
+  }
 }
 
-const deep = (obj, arr) => {
-  let out = obj;
-  for (const x of arr) {
-    out = out[x];
-  }
-  // console.log(arr, Object.values(out).length);
-  return out;
-};
+writeFileSync(join(dataDir, 'engines.json'), JSON.stringify(versions));
+writeFileSync(join(dataDir, 'times.json'), JSON.stringify({
+  generatedAt: Date.now(),
+  timeTaken: times
+}));
+writeFileSync(join(dataDir, 'test262.json'), JSON.stringify({
+  revision: test262Rev
+}));
 
-let struct = {};
+console.log('loaded data');
+
+let struct = new Map();
 for (const test of refTests) {
   let y = struct;
   let path = [ 'test' ];
 
   for (const x of test.file.split('/').slice(1, -1)) {
-    if (x === '__proto__' && y[x].__proto__ === null) y[x] = {};
-
-    y[x] = (y[x] ?? {});
+    if (!y.has(x)) y.set(x, new Map());
 
     path.push(x);
-    if (typeof y[x] !== 'string') y[x].file = path.join('/');
 
-    y = y[x];
+    y = y.get(x);
+    if (typeof y !== 'string') y.set('file', path.join('/'));
   }
 
-  y[test.file.split('/').pop()] = test;
+  y.set(test.file.split('/').pop(), test);
 }
 
-const totalStruct = (() => {
-  let total = 0;
-  const walk = x => {
-    for (const y in x) {
-      if (x[y].file) {
-        total++;
-        if (!y.result) walk(x[y]);
+console.log('generated structure');
+
+const walkStruct = struct => {
+  const walk = (x) => {
+    let out = { total: 0, engines: {}, files: {} };
+    const file = x.get('file') ?? 'index';
+    console.log(file);
+    const dataFile = join(dataDir, file.replace('test/', '') + '.json');
+
+    for (const k of x.keys()) {
+      if (k === 'file') continue;
+
+      const y = x.get(k);
+
+      if (y.result) {
+        const niceFile = y.file.replace('test/', '');
+        out.files[niceFile] = { total: 1, engines: {} };
+
+        for (const engine of Object.keys(results)) {
+          const pass = results[engine].find(z => z.file === y.file).result.pass;
+          out.files[niceFile].engines[engine] = pass ? 1 : 0;
+
+          if (pass) out.engines[engine] = (out.engines[engine] ?? 0) + 1;
+        }
+
+        out.total++;
+        continue;
       }
+
+      const file = y.get('file');
+      const niceFile = file.replace('test/', '');
+      const walkOut = walk(y);
+      out.total += walkOut.total;
+
+      for (const engine in walkOut.engines) {
+        out.engines[engine] = (out.engines[engine] ?? 0) + walkOut.engines[engine];
+      }
+
+      out.files[niceFile] = {};
+      for (const k in walkOut) {
+        if (k === 'files') continue;
+        out.files[niceFile][k] = walkOut[k];
+      }
+
+      /* for (const k in walkOut.files) {
+        out.files[k] = walkOut.files[k];
+      } */
     }
+
+    if (file) {
+      // console.log(dataFile, out);
+      /* mkdir(dirname(dataFile), { recursive: true }).then(() => {
+        writeFile(dataFile, JSON.stringify(out)).catch(err => console.log(err));
+      }); */
+      mkdirSync(dirname(dataFile), { recursive: true });
+      writeFileSync(dataFile, JSON.stringify(out));
+    }
+
+    return out;
   };
 
   walk(struct);
-
-  return total;
-})();
-let currentStruct = 1;
-
-// console.log(struct);
-
-writeFileSync('site/index.html', template
-  .replace('_content_', makeTable(struct))
-  .replace('_overall_', buildGraph('')));
+};
+walkStruct(struct);

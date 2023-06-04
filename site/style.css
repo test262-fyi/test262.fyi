@@ -18,65 +18,13 @@ body {
   display: flex;
 }
 
-#sidebar {
-  position: fixed;
-
-  width: 20vw;
-  min-width: 240px;
-  height: 100%;
-  background: #101418;
-
-  padding: 2vw 1vw;
-}
-
-#sidebar h1 {
-  font-weight: 800;
-  font-size: 2vw;
-  margin-top: 0;
-}
-
-#sidebar h2 {
-  font-weight: 500;
-  font-size: 1vw;
-}
-
-#sidebar footer {
-  position: absolute;
-  bottom: 2vw;
-
-  color: #a0a4a8;
-  font-size: 0.8vw;
-
-  line-height: 1.6em;
-}
-
-a {
-  color: #c2a2df;
-  text-decoration: none;
-}
-
-a:visited {
-  color: #a272ce;
-}
-
-#sidebar hr {
-  border-color: #808488;
-  margin-bottom: 2vw;
-}
-
-#sidebar > a {
-  font-weight: 700;
-  font-size: 1.4vw;
-  display: block;
-  margin-bottom: 20px;
-}
-
-
 #content {
-  padding: 4vh 4vw;
+  padding: 2vh 2vw;
 
   height: fit-content;
   width: 100%;
+
+  margin-left: min(20vw, 340px);
 }
 
 #content h1 {
@@ -102,8 +50,7 @@ table {
   border-collapse: separate;
   border-spacing: 0;
 
-  width: 80vw;
-  margin: auto;
+  width: 100%;
 }
 
 table > thead th > div {
@@ -138,27 +85,22 @@ table + h1 {
 }
 
 #content > .stats {
-  width: 80vw;
-  margin: auto;
+  width: 100%;
 }
 
 .stats {
   display: flex;
   align-items: center;
-  width: 100%;
-
-  padding: 0 6px;
-}
-
-.stats > div {
+  width: calc(100% - 12px);
   height: 22px;
-  width: 100%;
 
   display: flex;
   background: #303438;
+
+  margin: 0 6px;
 }
 
-.stats > div > div {
+.stats > div {
   height: 100%;
   padding-left: 4px;
   text-transform: capitalize;
@@ -218,4 +160,87 @@ table + h1 {
 
 .hidden {
   display: none;
+}
+
+.stats.vertical {
+  flex-direction: column;
+  height: unset;
+  align-items: unset;
+}
+
+.stats.vertical > div {
+  height: 22px;
+  overflow: visible;
+  text-wrap: nowrap;
+}
+
+#sidebar {
+  position: fixed;
+
+  width: 20vw;
+  max-width: 340px;
+  height: 100%;
+  background: #101418;
+
+  padding: 2vw 1vw;
+}
+
+#sidebar h1 {
+  font-weight: 800;
+  font-size: min(2vw, 2em);
+  margin-top: 0;
+}
+
+#sidebar h2 {
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+#sidebar footer {
+  position: absolute;
+  bottom: 2vw;
+
+  color: #a0a4a8;
+  font-size: 0.8em;
+
+  line-height: 1.6em;
+}
+
+#sidebar hr {
+  border-color: #808488;
+  margin: 1em 0;
+}
+
+#engines {
+
+}
+
+#engines > div:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+#engines input {
+  margin-right: 4px;
+}
+
+#engines label {
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+#engines label span {
+  font-weight: 300;
+  font-size: 0.8em;
+
+  margin-left: 6px;
+}
+
+a {
+  color: #b0b4b8;
+  /* text-decoration: underline dashed #b0b4b8; */
+}
+
+#test262_rev {
+  font-family: monospace;
+  font-size: 1.2em;
 }
