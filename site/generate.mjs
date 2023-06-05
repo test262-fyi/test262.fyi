@@ -159,12 +159,42 @@ const walkStruct = struct => {
 walkStruct(struct);
 
 (async () => {
-  const features = (await (await fetch(`https://raw.githubusercontent.com/tc39/test262/${test262Rev}/features.txt`)).text())
-    .split('\n').filter(x => x && x[0] !== '#').map(x => x.split('#')[0].trim());
+  const rawFeatures = await (await fetch(`https://raw.githubusercontent.com/tc39/test262/${test262Rev}/features.txt`)).text();
+  const features = rawFeatures.split('\n').filter(x => x && x[0] !== '#').map(x => x.split('#')[0].trim());
 
-  const featureResults = {};
+  const featureResults = {}, featureDetails = {};
+
+  let info = {};
+  for (const line of rawFeatures.split('process-document')[1].split('## Standard')[0].split('\n').filter(x => x)) {
+    if (line.startsWith('# https://github.com')) {
+      const repo = line.split('github.com/tc39/')[1].replace('/', '').trim();
+
+      let spec = await (await fetch(`https://raw.githubusercontent.com/tc39/${repo}/HEAD/spec.html`)).text();
+      if (spec === '404: Not Found' || spec.includes('stage: -1')) spec = await (await fetch(`https://raw.githubusercontent.com/tc39/${repo}/HEAD/spec.emu`)).text();
+      if (spec === '404: Not Found' || spec.includes('stage: -1')) spec = await (await fetch(`https://raw.githubusercontent.com/tc39/${repo}/HEAD/README.md`)).text();
+
+      info.name = spec.match(/(title:|#) (.*)/i)?.[2];
+      info.stage = parseInt(spec.match(/stage:? ([0-9])/i)?.[1]);
+      info.link = `https://github.com/tc39/${repo}`;
+
+      if (!process.env.GITHUB_TOKEN) continue; // skip if no GITHUB_TOKEN in env to avoid rate limiting people
+      const repoInfo = await (await fetch(`https://api.github.com/repos/tc39/${repo}`, { headers: { GITHUB_TOKEN: process.env.GITHUB_TOKEN }})).json();
+      if (!repoInfo.description) continue;
+
+      info.description = repoInfo.description;
+      info.stars = repoInfo.stargazers_count;
+      info.lastUpdated = repoInfo.updated_at;
+    }
+
+    if (!line.startsWith('#')) {
+      featureDetails[line] = info.name && info.description ? info : undefined;
+      info = {};
+    }
+  }
+
   for (const feature of features) {
-    if (!featureResults[feature]) featureResults[feature] = { total: 0, engines: {} };
+    if (!featureDetails[feature]) continue; // skip non-proposals as we do not need that info for now
+    if (!featureResults[feature]) featureResults[feature] = { total: 0, engines: {}, proposal: featureDetails[feature] };
 
     let tests = [];
     for (const test of refTests) {
