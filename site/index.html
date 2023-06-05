@@ -107,6 +107,9 @@
       if (!init) {
         init = true;
 
+        let overallJson = json;
+        if (cwd !== '') overallJson = await (await fetch('data/index.json')).json();
+
         const overallGraph = makeGraph(json, true);
         document.getElementById('before-overall').insertAdjacentElement('afterend', overallGraph);
       }
