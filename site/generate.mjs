@@ -80,6 +80,17 @@ for (const test of refTests) {
 
 console.log('generated structure');
 
+const fileResults = {};
+
+for (const engine of engines) {
+  if (!fileResults[engine]) fileResults[engine] = {};
+
+  for (const x of results[engine]) {
+    if (!fileResults[engine][x.file]) fileResults[engine][x.file] = [];
+    fileResults[engine][x.file].push(x);
+  }
+}
+
 const walkStruct = struct => {
   const walk = (x) => {
     let out = { total: 0, engines: {}, files: {} };
@@ -99,7 +110,8 @@ const walkStruct = struct => {
 
         for (const test of y) {
           for (const engine of engines) {
-            const pass = results[engine].find(z => z.file === test.file && z.scenario === test.scenario).result.pass;
+            // const pass = results[engine].find(z => z.file === test.file && z.scenario === test.scenario).result.pass;
+            const pass = fileResults[engine][test.file].find(z => z.scenario === test.scenario).result.pass;
             out.files[niceFile].engines[engine] = (out.files[niceFile].engines[engine] ?? 0) + (pass ? 1 : 0);
 
             if (pass) out.engines[engine] = (out.engines[engine] ?? 0) + 1;
