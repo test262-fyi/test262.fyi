@@ -178,7 +178,7 @@ walkStruct(struct);
       info.link = `https://github.com/tc39/${repo}`;
 
       if (!process.env.GITHUB_TOKEN) continue; // skip if no GITHUB_TOKEN in env to avoid rate limiting people
-      const repoInfo = await (await fetch(`https://api.github.com/repos/tc39/${repo}`, { headers: { GITHUB_TOKEN: process.env.GITHUB_TOKEN }})).json();
+      const repoInfo = await (await fetch(`https://api.github.com/repos/tc39/${repo}`, { headers: { Authorization: 'Bearer ' + process.env.GITHUB_TOKEN }})).json();
       if (!repoInfo.description) continue;
 
       info.description = repoInfo.description;
@@ -187,7 +187,7 @@ walkStruct(struct);
     }
 
     if (!line.startsWith('#')) {
-      featureDetails[line] = info.name && info.description ? info : undefined;
+      featureDetails[line] = info.name ? info : undefined;
       info = {};
     }
   }
