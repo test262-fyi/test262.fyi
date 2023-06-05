@@ -241,6 +241,7 @@ th.sub {
   font-weight: 800;
   font-size: 2em;
   margin: 0;
+  cursor: pointer;
 }
 
 #sidebar h2 {
