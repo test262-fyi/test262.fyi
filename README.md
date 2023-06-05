@@ -20,6 +20,10 @@ test262.report spiritual successor (WIP)
 - [ ] Hermes stable
 - Request more in GitHub issues!
 
+## Features to do
+- Preview test262 PRs (changes only)
+- Data/graph over time
+
 ## Local build
 1. Clone repo
 2. `./scripts/downloadResults.sh` (downloads results from latest build)
