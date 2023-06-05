@@ -97,18 +97,22 @@
       navigate(state.cwd);
     };
 
+    let features, cache = {};
     const navigate = async (path) => {
       cwd = path.trim();
       updateHash(true);
 
-      const json = await (await fetch('data/' + (path || 'index') + '.json')).json();
+      const json = cache[cwd] ?? await (await fetch('data/' + (cwd || 'index') + '.json')).json();
+      cache[cwd] = json;
+
       makeTable(path, json);
 
       if (!init) {
         init = true;
 
         let overallJson = json;
-        if (cwd !== '') overallJson = await (await fetch('data/index.json')).json();
+        if (cwd !== '') overallJson = cache[''] ?? await (await fetch('data/index.json')).json();
+        cache[''] = overallJson;
 
         const overallGraph = makeGraph(overallJson, true);
         document.getElementById('before-overall').insertAdjacentElement('afterend', overallGraph);
