@@ -184,7 +184,8 @@
 
       const keys = Object.keys(engines);
       for (const x of niceEngineOrder) {
-        let passes = engines[x] ?? 0;
+        if (!engines[x]) continue;
+        let passes = engines[x];
 
         const stat = document.createElement('div');
         stat.className = 'stat-' + x;
