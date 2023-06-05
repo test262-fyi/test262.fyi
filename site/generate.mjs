@@ -110,11 +110,14 @@ const walkStruct = struct => {
 
         for (const test of y) {
           for (const engine of engines) {
+            if (out.engines[engine] === undefined) out.engines[engine] = 0;
+            if (out.files[niceFile].engines[engine] === undefined) out.files[niceFile].engines[engine] = 0;
+
             // const pass = results[engine].find(z => z.file === test.file && z.scenario === test.scenario).result.pass;
             const pass = fileResults[engine][test.file].find(z => z.scenario === test.scenario).result.pass;
-            out.files[niceFile].engines[engine] = (out.files[niceFile].engines[engine] ?? 0) + (pass ? 1 : 0);
+            if (pass) out.files[niceFile].engines[engine]++;
 
-            if (pass) out.engines[engine] = (out.engines[engine] ?? 0) + 1;
+            if (pass) out.engines[engine]++;
           }
         }
 
@@ -213,8 +216,10 @@ walkStruct(struct);
 
     for (const engine of engines) {
       for (const test of tests) {
+        if (r.engines[engine] === undefined) r.engines[engine] = 0;
+        
         const pass = fileResults[engine][test.file].find(z => z.scenario === test.scenario).result.pass;
-        if (pass) r.engines[engine] = (r.engines[engine] ?? 0) + 1;
+        if (pass) r.engines[engine]++;
       }
     }
   }
