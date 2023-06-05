@@ -98,7 +98,6 @@ const walkStruct = struct => {
         out.files[niceFile] = { total: y.length, engines: {} };
 
         for (const test of y) {
-          console.log(test);
           for (const engine of engines) {
             const pass = results[engine].find(z => z.file === test.file && z.scenario === test.scenario).result.pass;
             out.files[niceFile].engines[engine] = (out.files[niceFile].engines[engine] ?? 0) + (pass ? 1 : 0);
