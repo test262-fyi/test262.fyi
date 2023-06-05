@@ -162,7 +162,7 @@ walkStruct(struct);
   const rawFeatures = await (await fetch(`https://raw.githubusercontent.com/tc39/test262/${test262Rev}/features.txt`)).text();
   const features = rawFeatures.split('\n').filter(x => x && x[0] !== '#').map(x => x.split('#')[0].trim());
 
-  const featureResults = {}, featureDetails = {};
+  const featureResults = new Map(), featureDetails = new Map();
 
   let info = {};
   for (const line of rawFeatures.split('process-document')[1].split('## Standard')[0].split('\n').filter(x => x)) {
@@ -179,7 +179,7 @@ walkStruct(struct);
 
       if (!process.env.GITHUB_TOKEN) continue; // skip if no GITHUB_TOKEN in env to avoid rate limiting people
       const repoInfo = await (await fetch(`https://api.github.com/repos/tc39/${repo}`, { headers: { Authorization: 'Bearer ' + process.env.GITHUB_TOKEN }})).json();
-      if (!repoInfo.description) continue;
+      if (!repoInfo.stargazers_count) continue;
 
       info.description = repoInfo.description;
       info.stars = repoInfo.stargazers_count;
@@ -187,30 +187,35 @@ walkStruct(struct);
     }
 
     if (!line.startsWith('#')) {
-      featureDetails[line] = info.name ? info : undefined;
+      if (info.name) featureDetails.set(line.trim(), info);
       info = {};
     }
   }
 
   for (const feature of features) {
-    if (!featureDetails[feature]) continue; // skip non-proposals as we do not need that info for now
-    if (!featureResults[feature]) featureResults[feature] = { total: 0, engines: {}, proposal: featureDetails[feature] };
+    const detail = featureDetails.get(feature);
+    if (!detail) continue; // skip non-proposals as we do not need that info for now
+    console.log(feature, detail);
+
+    if (!featureResults.has(feature)) featureResults.set(feature, { total: 0, engines: {}, proposal: detail });
+
+    const r = featureResults.get(feature);
 
     let tests = [];
     for (const test of refTests) {
       if (test.attrs && test.attrs.features && test.attrs.features.includes(feature)) {
         tests.push(test);
-        featureResults[feature].total++;
+        r.total++;
       }
     }
 
     for (const engine of engines) {
       for (const test of tests) {
         const pass = fileResults[engine][test.file].find(z => z.scenario === test.scenario).result.pass;
-        if (pass) featureResults[feature].engines[engine] = (featureResults[feature].engines[engine] ?? 0) + 1;
+        if (pass) r.engines[engine] = (r.engines[engine] ?? 0) + 1;
       }
     }
   }
 
-  writeFileSync(join(dataDir, 'features.json'), JSON.stringify(featureResults));
+  writeFileSync(join(dataDir, 'features.json'), JSON.stringify(Object.fromEntries(featureResults)));
 })();
