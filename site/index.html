@@ -97,12 +97,14 @@
       navigate(state.cwd);
     };
 
+    const get = async url => await (await fetch(url, { cache: 'no-cache' })).json();
+
     let features, cache = {};
     const navigate = async (path) => {
       cwd = path.trim();
       updateHash(true);
 
-      const json = cache[cwd] ?? await (await fetch('data/' + (cwd || 'index') + '.json')).json();
+      const json = cache[cwd] ?? await get('data/' + (cwd || 'index') + '.json');
       cache[cwd] = json;
 
       makeTable(path, json);
@@ -111,7 +113,7 @@
         init = true;
 
         let overallJson = json;
-        if (cwd !== '') overallJson = cache[''] ?? await (await fetch('data/index.json')).json();
+        if (cwd !== '') overallJson = cache[''] ?? await get('data/index.json');
         cache[''] = overallJson;
 
         const overallGraph = makeGraph(overallJson, true);
@@ -134,6 +136,45 @@
           }
         }
       }, 10);
+
+      if (cwd === '') {
+        setTimeout(async () => {
+          if (!features) features = await get('data/features.json');
+          console.log(features);
+          const container = document.createElement('div');
+          container.id = 'proposals';
+
+          for (const feature of Object.values(features).sort((a, b) => b.proposal.stars - a.proposal.stars)) {
+            const { proposal, total, engines } = feature;
+
+            const el = document.createElement('div');
+
+            const info = document.createElement('div');
+            const name = document.createElement('a');
+            name.href = proposal.link;
+
+            name.textContent = proposal.name.replaceAll('`', '').replaceAll('\'', '').replace('The ', '').replace(' Method', '');
+
+            const stage = document.createElement('span');
+            stage.textContent = `Stage ${proposal.stage}`;
+            stage.classList = `stage-${proposal.stage}`;
+
+            name.append(stage);
+
+            const desc = document.createElement('div');
+            desc.textContent = proposal.description ?? ' ';
+
+            info.append(name, desc);
+
+            el.append(info, makeGraph({ total, engines }));
+            container.append(el);
+          }
+
+          content.append(container);
+        }, 50);
+      } else {
+        document.getElementById('proposals')?.remove?.();
+      }
     };
 
     const makeGraph = ({ total, engines }, vertical = false, labelFunc = undefined) => {
@@ -284,13 +325,13 @@
 
     let engines;
     (async () => {
-      engines = await (await fetch('data/engines.json')).json();
+      engines = await get('data/engines.json');
       makeEngines();
     })();
 
     let times;
     (async () => {
-      times = await (await fetch('data/times.json')).json();
+      times = await get('data/times.json');
 
       const prettyAgo = (timestamp, factor = 1) => {
         const intervals = [
@@ -336,7 +377,7 @@
 
     let test262;
     (async () => {
-      test262 = await (await fetch('data/test262.json')).json();
+      test262 = await get('data/test262.json');
       test262_rev.textContent = test262.revision.slice(0, 7);
       test262_rev.href = 'https://github.com/tc39/test262/commit/' + test262.revision;
     })();
