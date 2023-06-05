@@ -1,4 +1,4 @@
 #!/bin/sh
 
 ./scripts/install/jsvu.sh chakra
-./scripts/test262.sh ch "${HOME}/.jsvu/bin/ch" 24
+./scripts/test262.sh ch "${HOME}/.jsvu/bin/ch" 32
