@@ -8,7 +8,7 @@ do
 
   curl -L -o "results/$x.zip" "https://nightly.link/CanadaHonk/test262.fyi/workflows/run/main/$x.zip"
 
-  mkdir "results/$x"
+  mkdir -p "results/$x"
   unzip -o -d "results/$x" "results/$x.zip"
 
   rm "results/$x.zip"
