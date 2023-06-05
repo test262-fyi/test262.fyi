@@ -95,7 +95,7 @@ const walkStruct = struct => {
   const walk = (x) => {
     let out = { total: 0, engines: {}, files: {} };
     const file = x.get('file') ?? 'index';
-    console.log(file);
+    // console.log(file);
     const dataFile = join(dataDir, file.replace('test/', '') + '.json');
 
     for (const k of x.keys()) {
@@ -157,3 +157,30 @@ const walkStruct = struct => {
   walk(struct);
 };
 walkStruct(struct);
+
+(async () => {
+  const features = (await (await fetch(`https://raw.githubusercontent.com/tc39/test262/${test262Rev}/features.txt`)).text())
+    .split('\n').filter(x => x && x[0] !== '#').map(x => x.split('#')[0].trim());
+
+  const featureResults = {};
+  for (const feature of features) {
+    if (!featureResults[feature]) featureResults[feature] = { total: 0, engines: {} };
+
+    let tests = [];
+    for (const test of refTests) {
+      if (test.attrs && test.attrs.features && test.attrs.features.includes(feature)) {
+        tests.push(test);
+        featureResults[feature].total++;
+      }
+    }
+
+    for (const engine of engines) {
+      for (const test of tests) {
+        const pass = fileResults[engine][test.file].find(z => z.scenario === test.scenario).result.pass;
+        if (pass) featureResults[feature].engines[engine] = (featureResults[feature].engines[engine] ?? 0) + 1;
+      }
+    }
+  }
+
+  writeFileSync(join(dataDir, 'features.json'), JSON.stringify(featureResults));
+})();
