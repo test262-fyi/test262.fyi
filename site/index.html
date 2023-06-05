@@ -184,12 +184,12 @@
 
       const keys = Object.keys(engines);
       for (const x of niceEngineOrder) {
-        if (!engines[x]) continue;
+        let passes = engines[x] ?? 0;
 
         const stat = document.createElement('div');
         stat.className = 'stat-' + x;
 
-        const percent = (engines[x] / total) * 100;
+        const percent = (passes / total) * 100;
         stat.style.width = (vertical ? percent : percent / (keys.length - filterOutEngines.length)) + '%';
 
         stat.onmouseenter = () => {
@@ -202,7 +202,7 @@
         const b = document.createElement('b');
         b.textContent = names[x] ?? x;
 
-        const extra = document.createTextNode(labelFunc ? labelFunc(x, engines[x]) : ` ${percent.toFixed(0)}%`);
+        const extra = document.createTextNode(labelFunc ? labelFunc(x, passes) : ` ${percent.toFixed(0)}%`);
 
         stat.append(b, extra);
         el.append(stat);
