@@ -188,6 +188,10 @@
         const th = document.createElement('th');
         th.className = file;
 
+        if (!onclick && thText.endsWith('.js')) {
+          onclick = () => window.open(`https://github.com/tc39/test262/blob/${test262.revision}/test/${cwd}/${thText}`, '_blank');
+        }
+
         if (onclick) {
           th.style.cursor = 'pointer';
           th.onclick = onclick;
