@@ -193,12 +193,12 @@
         const percent = (passes / total) * 100;
         stat.style.width = (vertical ? percent : percent / (keys.length - filterOutEngines.length)) + '%';
 
-        stat.onmouseenter = () => {
+        /* stat.onmouseenter = () => {
           stat.style.cssText = `width: ${percent}% !important`;
         };
         stat.onmouseleave = () => {
           stat.style.width = (vertical ? percent : percent / (keys.length - filterOutEngines.length)) + '%';
-        };
+        }; */
 
         const b = document.createElement('b');
         b.textContent = names[x] ?? x;

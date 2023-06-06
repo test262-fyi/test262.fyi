@@ -95,11 +95,11 @@ th.sub {
 
 .stats {
   display: flex;
+  position: relative;
   align-items: center;
   width: 100%;
   height: 22px;
 
-  display: flex;
   background: #303438;
 }
 
@@ -111,6 +111,7 @@ table .stats {
 .stats > div {
   height: 100%;
   padding-left: 4px;
+  margin-right: -4px;
   text-transform: capitalize;
   font-size: 14px;
   line-height: 22px;
@@ -119,7 +120,7 @@ table .stats {
   white-space: nowrap;
 
   cursor: default;
-  transition: width 0.2s;
+  transition: all 0.2s;
 }
 
 .stat-v8 {
@@ -220,15 +221,16 @@ table .stats {
   width: 0;
 } */
 
-.stats:not(.vertical):has(> :hover) > div {
+/* .stats:not(.vertical):has(> :hover) > div {
   width: 0 !important;
   padding: 0;
 }
 
 .stats:not(.vertical) > div:hover {
-  width: 100% !important;
   padding-left: 4px;
-}
+  position: absolute;
+  left: 0;
+} */
 
 #sidebar {
   grid-column: sidebar;
