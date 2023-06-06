@@ -15,7 +15,7 @@ test262.report spiritual successor (WIP)
 - [ ] Rhino <small>[site](https://mozilla.github.io/rhino/)</small> <small>[source](https://github.com/mozilla/rhino)</small>
 - [ ] Nashorn <small>[site](https://openjdk.org/projects/nashorn/)</small> <small>[source](https://github.com/openjdk/nashorn)</small>
 - [ ] Stable versions of major engines
-- [ ] Old Node and Babel(+core-js)
+- [ ] Old Node and Babel(+core-js) (#4)
 - Request more in GitHub issues!
 
 ## Features to do
@@ -23,6 +23,7 @@ test262.report spiritual successor (WIP)
 - Data/graph over time
 - Diff individual engines(/runs)
 - Lookup JS runtime version -> JS engine version (Node, Deno, Bun, etc)
+- Measure times for each test, have "result view" and "time view"
 
 ## Local build
 1. Clone repo
