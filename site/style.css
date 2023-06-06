@@ -328,6 +328,7 @@ a {
 }
 
 #proposals > div {
+  width: calc((100vw - 320px - 4vw) / 2 - 24px);
 }
 
 #proposals > div > :first-child {
