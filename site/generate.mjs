@@ -177,8 +177,6 @@ walkStruct(struct);
       if (spec === '404: Not Found' || spec.includes('stage: -1')) spec = await (await fetch(`https://raw.githubusercontent.com/tc39/${repo}/HEAD/README.md`)).text();
 
       info.name = spec.match(/(title:|#) (.*)/i)?.[2];
-      if (info.name.startsWith('proposal-')) info.name = info.name[9].toUpperCase() + info.name.slice(10).replaceAll('-', ' ');
-
       info.stage = parseInt(spec.match(/stage:? ([0-9])/i)?.[1]);
       info.link = `https://github.com/tc39/${repo}`;
 
@@ -217,7 +215,7 @@ walkStruct(struct);
     for (const engine of engines) {
       for (const test of tests) {
         if (r.engines[engine] === undefined) r.engines[engine] = 0;
-        
+
         const pass = fileResults[engine][test.file].find(z => z.scenario === test.scenario).result.pass;
         if (pass) r.engines[engine]++;
       }
