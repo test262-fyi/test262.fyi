@@ -80,11 +80,6 @@ thead > :first-child > th {
   padding: 6px;
 }
 
-thead .stats {
-  margin: 0;
-  width: calc(100vw - 320px - 4vw - 19px);
-}
-
 th.sub {
   border-left-width: 8px;
 }
@@ -106,6 +101,11 @@ th.sub {
 table .stats {
   width: calc((100vw - 320px - 4vw) * 0.75 - 12px - 2px);
   margin: 0 6px;
+}
+
+thead .stats {
+  margin: 0;
+  width: calc(100vw - 320px - 4vw - 19px);
 }
 
 .stats > div {
