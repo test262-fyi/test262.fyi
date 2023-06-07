@@ -13,4 +13,4 @@ cd ..
 
 node helpers/babel/version.js > version.txt
 
-./scripts/test262.sh node "$(pwd)/node-v0.10.48-linux-x64/bin/node" 12 --preprocessor="$(pwd)/helpers/babel/preprocessor.js"
+./scripts/test262.sh node "$(pwd)/node-v0.10.48-linux-x64/bin/node" 6 --preprocessor="$(pwd)/helpers/babel/preprocessor.js"
