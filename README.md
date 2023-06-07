@@ -1,5 +1,5 @@
 # test262.fyi
-test262.report spiritual successor (WIP)
+Daily [test262](https://github.com/tc39/test262) (standard test suite) runner for *many* JS engines (test262.report spiritual successor). WIP.
 
 ## Engines
 - [X] V8 <small>[site](https://v8.dev)</small> <small>[source](https://chromium.googlesource.com/v8/v8.git)</small>
