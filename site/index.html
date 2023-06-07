@@ -193,6 +193,7 @@
 
         const percent = (passes / total) * 100;
         stat.style.width = (vertical ? percent : percent / (keys.length - filterOutEngines.length)) + '%';
+        stat._percent = percent;
 
         /* stat.onmouseenter = () => {
           stat.style.cssText = `width: ${percent}% !important`;
@@ -291,7 +292,7 @@
             const afterAmount = (keys.length - filterOutEngines.length);
 
             for (const el of document.querySelectorAll('.stats:not(.vertical) > div')) {
-              el.style.width = ((el.style.width.slice(0, -1) * beforeAmount) / afterAmount) + '%';
+              el.style.width = (el._percent / (keys.length - filterOutEngines.length)) + '%';
             }
           };
 
