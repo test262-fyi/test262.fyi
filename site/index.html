@@ -100,19 +100,29 @@
     const get = async url => await (await fetch(url, { cache: 'no-cache' })).json();
 
     const shortenNames = () => {
-      const nameCache = {};
+      let nameCache = {};
       const getNameWidth = (el, x) => {
         if (nameCache[x]) return nameCache[x];
         return nameCache[x] = el.children[0].getBoundingClientRect().width;
       };
 
-      for (const el of document.querySelectorAll('.stats:not(.vertical) > div')) {
+      const shortenStat = el => {
         const x = el.className.replace('stat-', '');
         const nameLength = getNameWidth(el, x);
         const extraLength = (nameLength / names[x].length) * 6;
+
         if (nameLength + extraLength > el.getBoundingClientRect().width) {
           el.children[0].textContent = shortNames[x];
         }
+      };
+
+      for (const el of document.querySelectorAll('table .stats > div')) {
+        shortenStat(el);
+      }
+
+      nameCache = {}; // reset cache for small parent
+      for (const el of document.querySelectorAll('#proposals .stats > div')) {
+        shortenStat(el);
       }
     };
 
