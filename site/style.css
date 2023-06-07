@@ -171,6 +171,11 @@ thead .stats {
   color: #000408;
 }
 
+.stat-babel {
+  background: #f8d10d;
+  color: #000408;
+}
+
 .no-stat-v8 .stat-v8 {
   display: none;
 }
@@ -199,6 +204,9 @@ thead .stats {
   display: none;
 }
 .no-stat-xs .stat-xs {
+  display: none;
+}
+.no-stat-babel .stat-babel {
   display: none;
 }
 
