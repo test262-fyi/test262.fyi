@@ -390,3 +390,13 @@ a {
 .stage-4 {
   color: #bcf000;
 }
+
+@media (max-width: 1000px) {
+  #proposals {
+    grid-template-columns: 1fr;
+  }
+
+  #proposals > div {
+    width: calc((100vw - 320px - 4vw) / 1 - 24px);
+  }
+}
