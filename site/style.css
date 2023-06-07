@@ -43,6 +43,10 @@ td {
   border-left: 1px solid #808488;
 }
 
+tr:last-child > * {
+  border-bottom: none;
+}
+
 th {
   vertical-align: bottom;
   text-align: center;
