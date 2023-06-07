@@ -12,10 +12,10 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 - [X] GraalJS <small>[source](https://github.com/oracle/graaljs)</small>
 - [X] QuickJS <small>[site](https://bellard.org/quickjs/)</small> <small>[source](https://github.com/facebook/hermes)</small>
 - [X] XS <small>[site](https://www.moddable.com/)</small> <small>[source](https://github.com/Moddable-OpenSource/moddable)</small>
+- [X] Old Node and Babel + core-js
 - [ ] Rhino <small>[site](https://mozilla.github.io/rhino/)</small> <small>[source](https://github.com/mozilla/rhino)</small>
 - [ ] Nashorn <small>[site](https://openjdk.org/projects/nashorn/)</small> <small>[source](https://github.com/openjdk/nashorn)</small>
 - [ ] Stable versions of major engines
-- [ ] Old Node and Babel(+core-js) (#4)
 - Request more in GitHub issues!
 
 ## Features to do
