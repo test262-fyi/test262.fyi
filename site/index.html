@@ -111,8 +111,19 @@
         const nameLength = getNameWidth(el, x);
         const extraLength = (nameLength / names[x].length) * 6;
 
+        let shortened = false;
         if (nameLength + extraLength > el.getBoundingClientRect().width) {
           el.children[0].textContent = shortNames[x];
+          el.children[0].title = names[x];
+
+          shortened = true;
+        }
+
+        if ((shortened && names[x] === shortNames[x] && names.length > 2) ||
+            (extraLength * 1.3) > el.getBoundingClientRect().width ||
+            (['hermes', 'chakra', 'graaljs', 'babel'].includes(x) && (nameLength * 1.5) > el.getBoundingClientRect().width)) {
+          el.children[0].textContent = '';
+          el.title = names[x];
         }
       };
 
