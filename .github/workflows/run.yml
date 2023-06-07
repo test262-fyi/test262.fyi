@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
-    paths: [ ".github/workflows/run.yml", "scripts/**/*" ]
+    paths: [ ".github/workflows/run.yml", "scripts/**/*", "helpers/**/*" ]
 
 jobs:
   test262:
