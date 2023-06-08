@@ -34,6 +34,13 @@
   </div>
 
   <div id="content">
+    <div id="table-options">
+    <div>
+      <input type="checkbox" id="vertical_file_graphs">
+      <label for="vertical_file_graphs">Vertical file graphs</label>
+    </div>
+    </div>
+
     <table>
       <thead></thead>
       <tbody></tbody>
@@ -117,9 +124,13 @@
       navigate(state.cwd ?? cwd);
     };
 
+    vertical_file_graphs.oninput = () => navigate(cwd);
+
     const get = async url => await (await fetch(url, { cache: 'no-cache' })).json();
 
     const shortenNames = () => {
+      if (vertical_file_graphs.checked) return;
+
       let nameCache = {};
       const getNameWidth = (el, x) => {
         if (nameCache[x]) return nameCache[x];
@@ -299,12 +310,12 @@
 
       if (file !== '') {
         makeHeader(file);
-        makeHeader(makeGraph({ total, engines }));
+        makeHeader(makeGraph({ total, engines }, vertical_file_graphs.checked));
         makeRow('..', undefined, () => navigate(cwd.split('/').slice(0, -1).join('/')), makeHash(''));
       }
 
       for (const file in files) {
-        makeRow(file.replace(cwd + '/', ''), makeGraph(files[file]), file.endsWith('.js') ? undefined : () => navigate(file), file.endsWith('.js') ? `https://github.com/tc39/test262/blob/${test262.revision}/test/${file}` : makeHash(file));
+        makeRow(file.replace(cwd + '/', ''), makeGraph(files[file], vertical_file_graphs.checked), file.endsWith('.js') ? undefined : () => navigate(file), file.endsWith('.js') ? `https://github.com/tc39/test262/blob/${test262.revision}/test/${file}` : makeHash(file));
       }
     };
 
