@@ -12,12 +12,14 @@ const polyfills = `[
 module.exports = function (code) {
   return code
     .replace('preludes: []', `preludes: ${polyfills}`) // run polyfills in new realms
-    .replace( /(?=vm\.runInESHostContext\()/, // run polyfills in main
+    .replace('vm.runInESHostContext(', // run polyfills in main
     `
-      var fs = require("fs");
-      var polyfills = ${polyfills};
-      for (var i = 0; i < ${polyfills.length}; i++) {
-        vm.runInESHostContext(polyfills[i]);
-      }
+var fs = require("fs");
+var polyfills = ${polyfills};
+for (var i = 0; i < ${polyfills.length}; i++) {
+  vm.runInESHostContext(polyfills[i]);
+}
+
+vm.runInESHostContext(
     `);
 };
