@@ -21,6 +21,6 @@ for (var i = 0; i < 3; i++) {
 }
 
 vm.runInESHostContext(`.replaceAll('\n', ''));
-  console.error(code);
+  // console.error(code);
   return code;
 };
