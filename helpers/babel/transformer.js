@@ -1,7 +1,7 @@
 // Jank hacks to inject polyfills :))
 const { resolve } = require('path');
-const coreJs = resolve('../../babel-test262-runner/node_modules/core-js-bundle/index.js');
-const regenerator = resolve('../../babel-test262-runner/node_modules/rengerator-runtime/runtime.js');
+const coreJs = resolve('../babel-test262-runner/node_modules/core-js-bundle/index.js');
+const regenerator = resolve('../babel-test262-runner/node_modules/rengerator-runtime/runtime.js');
 
 const polyfills = `[
   'Function("this.globalThis = this;")()',
