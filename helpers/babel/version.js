@@ -4,4 +4,4 @@ const getPackageVersion = package => JSON.parse(readFileSync(`babel-test262-runn
 const shortenVersion = version => version.split('.').slice(0, 2).join('.');
 
 console.log(getPackageVersion('@babel/core'));
-process.write(`(with core-js ${getPackageVersion('core-js-bundle')} on node 0.10.48)`);
+process.stdout.write(`(with core-js ${getPackageVersion('core-js-bundle')} on node 0.10.48)`);
