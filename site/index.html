@@ -145,9 +145,9 @@
       }
 
       nameCache = {}; // reset cache for small parent
-      for (const el of document.querySelectorAll('#proposals .stats > div')) {
+      /* for (const el of document.querySelectorAll('#proposals .stats > div')) {
         shortenStat(el);
-      }
+      } */
     };
 
     let features, cache = {};
@@ -203,7 +203,7 @@
 
             info.append(name, desc);
 
-            el.append(info, makeGraph({ total, engines }));
+            el.append(info, makeGraph({ total, engines }, true));
             container.append(el);
           }
 
