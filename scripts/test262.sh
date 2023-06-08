@@ -10,8 +10,8 @@ npm install -g github:CanadaHonk/test262-harness
 echo running test262...
 
 start=`date +%s`
-echo test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result,scenario,attrs --threads=$3 $4 $5 "test/**/*.js"
-test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result,scenario,attrs --threads=$3 $4 $5 "test/**/*.js" > ../results.json
+echo test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result,scenario,attrs --threads=$3 --preprocessor="$4" --transformer="$5" "test/**/*.js"
+test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result,scenario,attrs --threads=$3 --preprocessor="$4" --transformer="$5" "test/**/*.js" > ../results.json
 end=`date +%s`
 
 echo "$((end-start))" > ../time.txt
