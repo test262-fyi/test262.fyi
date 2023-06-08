@@ -7,7 +7,7 @@ const polyfills = `[
   'Function("this.globalThis = this;")()',
   fs.readFileSync(${JSON.stringify(coreJs)}, "utf8"),
   fs.readFileSync(${JSON.stringify(regenerator)}, "utf8")
-]`;
+]`.replaceAll('\n', '');
 
 module.exports = function (code) {
   code = code
