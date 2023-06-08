@@ -16,12 +16,11 @@ module.exports = function (code) {
     `
 var fs = require("fs");
 var polyfills = ${polyfills};
-for (var i = 0; i < ${polyfills.length}; i++) {
+for (var i = 0; i < 3; i++) {
   vm.runInESHostContext(polyfills[i]);
 }
 
-vm.runInESHostContext(
-    `);
+vm.runInESHostContext(`.replaceAll('\n', ''));
   console.error(code);
   return code;
 };
