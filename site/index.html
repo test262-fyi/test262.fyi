@@ -223,7 +223,7 @@
 
       const keys = Object.keys(engines);
       for (const x of niceEngineOrder) {
-        if (!engines[x]) continue;
+        if (engines[x] === undefined) continue;
         let passes = engines[x];
 
         const stat = document.createElement('div');
