@@ -8,10 +8,16 @@ const polyfills = `[
   fs.readFileSync('${coreJs.replaceAll('\\', '\\\\')}', 'utf8')
 ]`.replaceAll('\n', '');
 
-module.exports = function (code) {
-  code = code
-    .replace('preludes: []', `preludes: ${polyfills}`) // run polyfills in new realms
-    .replace('vm.runInESHostContext(', // run polyfills in main
+module.exports = function (code, pass) {
+  if (pass === 1) {
+    code = code
+      .replace('preludes: []', `preludes: ${polyfills}`) // run polyfills in new realms
+      .replace('print: print,', `print: print, exports: exports`);
+  }
+
+  if (pass === 2) {
+    code = code
+      .replace('vm.runInESHostContext(', // run polyfills in main
 `
 var fs = require("fs");
 var polyfills = ${polyfills};
@@ -20,10 +26,9 @@ for (var i = 0; i < polyfills.length; i++) {
 }
 
 vm.runInESHostContext(`.replaceAll('\n', ''))
-  .replace('print: print,', `print: print, exports: exports,`)
-  .replace('vm.createContext({', `vm.createContext({
-  exports: exports,
-`.replaceAll('\n', ''));
+        .replace('vm.createContext({', `vm.createContext({exports: exports, `);
+  }
+
   // console.error(code);
   return code;
 };
