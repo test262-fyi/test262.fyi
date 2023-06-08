@@ -4,13 +4,13 @@ const coreJs = resolve('../babel-test262-runner/node_modules/core-js-bundle/inde
 
 // TODO: would inlining these files instead of reads each test be faster?
 const polyfills = `[
-  'Function("this.globalThis = this;")()',
-  fs.readFileSync(${JSON.stringify(coreJs)}, "utf8")
+  'Function(\`this.globalThis = this;\`)()',
+  fs.readFileSync('${coreJs}', 'utf8')
 ]`.replaceAll('\n', '');
 
 module.exports = function (code) {
   code = code
-    .replace('preludes: []', `preludes: ${polyfills.replaceAll('"', '\\"')}`) // run polyfills in new realms
+    .replace('preludes: []', `preludes: ${polyfills}`) // run polyfills in new realms
     .replace('vm.runInESHostContext(', // run polyfills in main
 `
 var fs = require("fs");
@@ -20,7 +20,7 @@ for (var i = 0; i < polyfills.length; i++) {
 }
 
 vm.runInESHostContext(`.replaceAll('\n', ''))
-  .replace('require: require,', `require: require, exports: exports,`)
+  .replace('print: print,', `print: print, exports: exports,`)
   .replace('vm.createContext({', `vm.createContext({
   exports: exports,
 `.replaceAll('\n', ''));
