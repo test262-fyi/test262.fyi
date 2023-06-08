@@ -1,3 +1,6 @@
-test262
-results
-site/data
+/test262
+/results
+/site/data
+
+node_modules
+package-lock.json

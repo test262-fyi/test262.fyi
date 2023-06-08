@@ -58,7 +58,8 @@
       graaljs: 'GraalJS',
       xs: 'XS',
       engine262: 'engine262',
-      babel: 'Babel'
+      babel: 'Babel',
+      swc: 'SWC'
     };
 
     const moreInfo = {
@@ -71,6 +72,7 @@
       graaljs: 'Built on GraalVM',
       engine262: 'ECMA262 in JavaScript!',
       babel: 'Babel 7 + core-js 3 running on Node 0.10 (ES5)',
+      swc: 'SWC + core-js 3 running on Node 0.10 (ES5)',
     };
 
     const shortNames = {
@@ -84,14 +86,15 @@
       graaljs: 'Graal',
       xs: 'XS',
       engine262: 'e262',
-      babel: 'Babel'
+      babel: 'Babel',
+      swc: 'SWC'
     };
 
     const categories = {
       babel: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'chakra', 'graaljs', 'hermes', 'libjs', 'engine262', 'qjs', 'xs', 'babel' ];
+    const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'chakra', 'graaljs', 'hermes', 'libjs', 'engine262', 'qjs', 'xs', 'babel', 'swc' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
