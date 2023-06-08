@@ -101,13 +101,20 @@
 
     const makeHash = path => `#${path ?? ''}${filterOutEngines.length > 0 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
 
+    let ignoreNextState = false;
     const updateHash = (push = false) => {
+      ignoreNextState = true;
       history[push ? 'pushState' : 'replaceState']({ cwd, filterOutEngines }, '', makeHash(cwd));
     };
 
     window.onpopstate = ({ state }) => {
-      filterOutEngines = state.filterOutEngines;
-      navigate(state.cwd);
+      if (ignoreNextState) {
+        ignoreNextState = false;
+        return;
+      }
+
+      filterOutEngines = state.filterOutEngines ?? filterOutEngines;
+      navigate(state.cwd ?? cwd);
     };
 
     const get = async url => await (await fetch(url, { cache: 'no-cache' })).json();
