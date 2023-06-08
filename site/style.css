@@ -184,38 +184,20 @@ thead .stats {
   color: #000408;
 }
 
-.no-stat-v8 .stat-v8 {
-  display: none;
-}
-.no-stat-sm .stat-sm {
-  display: none;
-}
-.no-stat-jsc .stat-jsc {
-  display: none;
-}
-.no-stat-chakra .stat-chakra {
-  display: none;
-}
-.no-stat-graaljs .stat-graaljs {
-  display: none;
-}
-.no-stat-hermes .stat-hermes {
-  display: none;
-}
-.no-stat-libjs .stat-libjs {
-  display: none;
-}
-.no-stat-engine262 .stat-engine262 {
-  display: none;
-}
-.no-stat-qjs .stat-qjs {
-  display: none;
-}
-.no-stat-xs .stat-xs {
-  display: none;
-}
+.no-stat-v8 .stat-v8,
+.no-stat-sm .stat-sm,
+.no-stat-jsc .stat-jsc,
+.no-stat-chakra .stat-chakra,
+.no-stat-graaljs .stat-graaljs,
+.no-stat-hermes .stat-hermes,
+.no-stat-libjs .stat-libjs,
+.no-stat-engine262 .stat-engine262,
+.no-stat-qjs .stat-qjs,
+.no-stat-xs .stat-xs,
 .no-stat-babel .stat-babel {
-  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
 }
 
 .stats > div[style="width: 0%;"] {
@@ -320,17 +302,20 @@ thead .stats {
 
 #engines input {
   margin-right: 4px;
+  vertical-align: baseline;
 }
 
 #engines label {
   font-weight: 600;
   font-size: 1em;
+  vertical-align: text-top;
 }
 
 #engines span {
   font-family: monospace;
   font-weight: 300;
   font-size: 0.9em;
+  white-space: pre-wrap;
 
   margin-left: 6px;
   user-select: all;
@@ -420,13 +405,40 @@ a {
 
 #sidebar h3 {
   display: inline;
-  vertical-align: middle;
+  vertical-align: baseline;
 }
 
 #sidebar details {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 #sidebar summary {
   margin-bottom: 6px;
+  cursor: pointer;
+}
+
+summary input {
+  vertical-align: middle;
+}
+
+details > div {
+  margin-left: 8px;
+}
+
+summary {
+  list-style: none;
+}
+
+summary::pointer, summary::-webkit-details-marker {
+  display: none;
+  content: "";
+}
+
+summary::after {
+  content: '◄';
+  float: right;
+}
+
+details[open] summary:after {
+  content: " ▼";
 }
