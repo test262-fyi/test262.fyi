@@ -322,7 +322,7 @@ thead .stats {
   font-size: 1em;
 }
 
-#engines label span {
+#engines span {
   font-family: monospace;
   font-weight: 300;
   font-size: 0.9em;
