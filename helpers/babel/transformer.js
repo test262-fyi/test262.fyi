@@ -5,7 +5,6 @@ const { readFileSync } = require('fs');
 const coreJsPath = resolve('../babel-test262-runner/node_modules/core-js-bundle/minified.js');
 const coreJsContent = readFileSync(coreJsPath, 'utf8');
 
-// TODO: would inlining these files instead of reads each test be faster?
 const polyfills = `[
   'Function(\\'this.globalThis = this;\\')()',
   ${JSON.stringify(coreJsContent)}
