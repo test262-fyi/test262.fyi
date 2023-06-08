@@ -17,7 +17,6 @@
       <hr>
 
       <div id="engines">
-
       </div>
 
       <hr id="before-overall">
@@ -86,6 +85,10 @@
       xs: 'XS',
       engine262: 'e262',
       babel: 'Babel'
+    };
+
+    const categories = {
+      babel: 'transpilers'
     };
 
     const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'chakra', 'graaljs', 'hermes', 'libjs', 'engine262', 'qjs', 'xs', 'babel' ];
@@ -367,15 +370,35 @@
       const el = document.getElementById('engines');
       el.innerHTML = '';
 
+      let lastCategory, container;
       for (const engine of niceEngineOrder) {
         if (!engines[engine]) continue;
+
+        const category = categories[engine] ?? 'engines';
+        if (category !== lastCategory) {
+          if (container) el.append(container);
+          container = document.createElement('details');
+          container.open = true;
+
+          const summary = document.createElement('summary');
+
+          const header = document.createElement('h3');
+          header.textContent = category[0].toUpperCase() + category.slice(1);
+
+          summary.append(header);
+          container.append(summary);
+
+          lastCategory = category;
+        }
 
         let version = engines[engine];
         if (version.length === 40) version = version.slice(0, 8);
         if (version.length === 46) version = version.slice(0, 14);
 
-        el.append(generateEngine(engine, version));
+        container.append(generateEngine(engine, version));
       }
+
+      el.append(container);
     };
 
     let engines;

@@ -417,3 +417,16 @@ a {
 #table-options {
   margin-bottom: 12px;
 }
+
+#sidebar h3 {
+  display: inline;
+  vertical-align: middle;
+}
+
+#sidebar details {
+  margin-bottom: 12px;
+}
+
+#sidebar summary {
+  margin-bottom: 6px;
+}
