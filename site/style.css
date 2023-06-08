@@ -122,7 +122,6 @@ thead .stats {
 
 .stats > div {
   height: 100%;
-  text-transform: capitalize;
   font-size: 14px;
   line-height: 22px;
 
