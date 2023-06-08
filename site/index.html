@@ -293,7 +293,7 @@
       if (file !== '') {
         makeHeader(file);
         makeHeader(makeGraph({ total, engines }));
-        makeRow('..', undefined, () => navigate(cwd.split('/').slice(0, -1).join('/')));
+        makeRow('..', undefined, () => navigate(cwd.split('/').slice(0, -1).join('/')), makeHash(''));
       }
 
       for (const file in files) {
