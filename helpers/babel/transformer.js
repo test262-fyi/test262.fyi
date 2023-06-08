@@ -11,7 +11,7 @@ const polyfills = `[
 
 module.exports = function (code) {
   code = code
-    .replace('preludes: []', `preludes: ${polyfills}`) // run polyfills in new realms
+    .replace('preludes: []', `preludes: ${polyfills.replaceAll('"', '\\"')}`) // run polyfills in new realms
     .replace('vm.runInESHostContext(', // run polyfills in main
     `
 var fs = require("fs");
