@@ -4,8 +4,8 @@ const coreJs = resolve('../babel-test262-runner/node_modules/core-js-bundle/inde
 
 // TODO: would inlining these files instead of reads each test be faster?
 const polyfills = `[
-  'Function(\`this.globalThis = this;\`)()',
-  fs.readFileSync('${coreJs}', 'utf8')
+  'Function(\\'this.globalThis = this;\\')()',
+  fs.readFileSync('${coreJs.replaceAll('\\', '\\\\')}', 'utf8')
 ]`.replaceAll('\n', '');
 
 module.exports = function (code) {
