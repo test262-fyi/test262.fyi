@@ -89,7 +89,7 @@
     let cwd = '', filterOutEngines = [], init = false;
 
     if (location.hash) {
-      const [ hashCwd, hashFilter ] = location.hash.slice(1).split('|');
+      const [ hashCwd, hashFilter ] = decodeURI(location.hash.slice(1)).split('|');
       if (hashCwd) cwd = hashCwd.trim();
       if (hashFilter) {
         const includedEngines = hashFilter.trim().split(',');
