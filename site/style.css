@@ -52,6 +52,13 @@ th {
   text-align: center;
 }
 
+th a {
+  color: inherit;
+  text-decoration: none;
+  width: 100%;
+  display: inline-block;
+}
+
 table {
   border: 1px solid #808488;
   border-collapse: separate;

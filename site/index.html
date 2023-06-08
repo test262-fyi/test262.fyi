@@ -99,11 +99,10 @@
       document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
     }
 
-    const updateHash = (push = false) => {
-      let hash = cwd;
-      if (filterOutEngines.length > 0) hash += '|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',');
+    const makeHash = path => `#${path ?? ''}${filterOutEngines.length > 0 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
 
-      history[push ? 'pushState' : 'replaceState']({ cwd, filterOutEngines }, '', '#' + hash);
+    const updateHash = (push = false) => {
+      history[push ? 'pushState' : 'replaceState']({ cwd, filterOutEngines }, '', makeHash(cwd));
     };
 
     window.onpopstate = ({ state }) => {
@@ -269,22 +268,19 @@
         thead.append(tr);
       };
 
-      const makeRow = (thText, tdContent, onclick) => {
+      const makeRow = (thText, tdContent, onclick, href) => {
         const tr = document.createElement('tr');
 
         const th = document.createElement('th');
         th.className = file;
 
-        if (!onclick && thText.endsWith('.js')) {
-          onclick = () => window.open(`https://github.com/tc39/test262/blob/${test262.revision}/test/${cwd}/${thText}`, '_blank');
-        }
+        const link = document.createElement('a');
+        link.href = href ?? '';
 
-        if (onclick) {
-          th.style.cursor = 'pointer';
-          th.onclick = onclick;
-        }
+        if (onclick) link.onclick = onclick;
 
-        th.innerHTML = thText;
+        link.textContent = thText;
+        th.append(link);
 
         const td = document.createElement('td');
         if (tdContent) td.append(tdContent);
@@ -301,7 +297,7 @@
       }
 
       for (const file in files) {
-        makeRow(file.replace(cwd + '/', ''), makeGraph(files[file]), file.endsWith('.js') ? undefined : () => navigate(file));
+        makeRow(file.replace(cwd + '/', ''), makeGraph(files[file]), file.endsWith('.js') ? undefined : () => navigate(file), file.endsWith('.js') ? `https://github.com/tc39/test262/blob/${test262.revision}/test/${file}` : makeHash(file));
       }
     };
 
