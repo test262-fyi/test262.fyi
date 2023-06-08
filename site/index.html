@@ -190,7 +190,7 @@
             const name = document.createElement('a');
             name.href = proposal.link;
 
-            name.textContent = proposal.name.replaceAll('`', '').replaceAll('\'', '').replace('The ', '').replace(' Method', '').split(':').pop().split(' and ')[0].replace(' proposal', '').replace(' API', '').replace(' in JavaScript', '').replace(' Attributes', ' Assertions');
+            name.textContent = proposal.name.replaceAll('`', '').replaceAll('\'', '').replace('The ', '').replace(' Method', '').split(':').pop().split(' and ')[0].replace(' proposal', '').replace(' Proposal', '').replace('.prototype', '').replace(' API', '').replace(' in JavaScript', '').replace(' Attributes', ' Assertions');
             if (name.textContent.toLowerCase().startsWith('proposal-')) name.textContent = name.textContent[9].toUpperCase() + name.textContent.slice(10).replaceAll('-', ' ');
 
             const stage = document.createElement('span');
