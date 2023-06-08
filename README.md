@@ -26,7 +26,10 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 - Measure times for each test, have "result view" and "time view"
 
 ## Local build
+> **Note**:
+> You need a GitHub API token (PAT) in your env as `GITHUB_TOKEN`
+
 1. Clone repo
-2. `./scripts/downloadResults.sh` (downloads results from latest build)
+2. Run `scripts/downloadOldResults.mjs` and `scripts/extractResults.sh` (downloads results from latest build)
 3. `node site/generate.mjs` (might take a minute or two)
 4. Start a HTTP server in `site` and open it in your browser
