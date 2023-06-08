@@ -1,13 +1,11 @@
 // Jank hacks to inject polyfills :))
 const { resolve } = require('path');
 const coreJs = resolve('../babel-test262-runner/node_modules/core-js-bundle/index.js');
-const regenerator = resolve('../babel-test262-runner/node_modules/regenerator-runtime/runtime.js');
 
 // TODO: would inlining these files instead of reads each test be faster?
 const polyfills = `[
   'Function("this.globalThis = this;")()',
-  fs.readFileSync(${JSON.stringify(coreJs)}, "utf8"),
-  fs.readFileSync(${JSON.stringify(regenerator)}, "utf8")
+  fs.readFileSync(${JSON.stringify(coreJs)}, "utf8")
 ]`.replaceAll('\n', '');
 
 module.exports = function (code) {
