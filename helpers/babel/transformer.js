@@ -24,6 +24,6 @@ vm.runInESHostContext(`.replaceAll('\n', ''))
   .replace('vm.createContext({', `vm.createContext({
   exports: exports,
 `.replaceAll('\n', ''));
-  console.error(code);
+  // console.error(code);
   return code;
 };
