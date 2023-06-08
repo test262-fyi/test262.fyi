@@ -10,8 +10,7 @@ npm install -g github:CanadaHonk/test262-harness
 echo running test262...
 
 start=`date +%s`
-# test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result,scenario,attrs --threads=$3 --preprocessor="$4" --transformer="$5" "test/**/*.js" > ../results.json
-test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result,scenario,attrs --threads=$3 --preprocessor="$4" --transformer="$5" "test/intl402/Collator/prototype/constructor/prop-desc.js" > ../results.json
+test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result,scenario,attrs --threads=$3 --preprocessor="$4" --transformer="$5" "test/**/*.js" > ../results.json
 end=`date +%s`
 
 echo "$((end-start))" > ../time.txt
