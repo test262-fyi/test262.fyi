@@ -122,8 +122,6 @@ thead .stats {
 
 .stats > div {
   height: 100%;
-  padding-left: 4px;
-  margin-right: -4px;
   text-transform: capitalize;
   font-size: 14px;
   line-height: 22px;
@@ -133,6 +131,10 @@ thead .stats {
 
   cursor: default;
   transition: all 0.2s;
+}
+
+.stats > div > b {
+  margin-left: 4px;
 }
 
 .stat-v8 {
