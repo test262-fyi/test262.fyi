@@ -219,6 +219,10 @@ thead .stats {
   display: none;
 }
 
+.stats > div[style="width: 0%;"] {
+  color: #f0f4f8 !important;
+}
+
 .stats + table {
   margin-top: 20px;
 }
@@ -409,4 +413,8 @@ a {
   #proposals > div {
     width: calc((100vw - 320px - 4vw) / 1 - 24px);
   }
+}
+
+#table-options {
+  margin-bottom: 12px;
 }
