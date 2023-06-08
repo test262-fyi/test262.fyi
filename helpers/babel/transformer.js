@@ -10,7 +10,7 @@ const polyfills = `[
 ]`;
 
 module.exports = function (code) {
-  return code
+  code = code
     .replace('preludes: []', `preludes: ${polyfills}`) // run polyfills in new realms
     .replace( /(?=vm\.runInESHostContext\()/, // run polyfills in main
     `
@@ -20,4 +20,6 @@ module.exports = function (code) {
         vm.runInESHostContext(polyfills[i]);
       }
     `);
+  console.log(code);
+  return code;
 };
