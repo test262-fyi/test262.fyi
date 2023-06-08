@@ -11,5 +11,6 @@ let out = [];
 for (const name in packages) {
   out.push(`${name} ${getPackageVersion(packages[name])}`);
 }
+out.push('node 0.10.48');
 
 console.log(out.join(' + '));
