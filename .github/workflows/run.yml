@@ -68,7 +68,7 @@ jobs:
 
     - name: Download old results
       run: |
-        node scripts/downloadOldResults.mjs
+        # node scripts/downloadOldResults.mjs
         sh scripts/extractResults.sh
 
     - name: Generate site
