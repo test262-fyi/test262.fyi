@@ -5,4 +5,4 @@
 
 java -version
 
-./scripts/test262.sh nashorn "$(which jjs)" 24
+./scripts/test262.sh nashorn "$(which jjs)" 8
