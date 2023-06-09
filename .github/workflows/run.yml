@@ -65,6 +65,11 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         path: results
+        
+    - name: Download old results
+      run: |
+        node scripts/downloadOldResults.mjs
+        ./scripts/extractResults.sh
 
     - name: Generate site
       run: node site/generate.mjs
