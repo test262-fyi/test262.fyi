@@ -189,6 +189,15 @@ thead .stats {
   color: #000408;
 }
 
+.stat-rhino {
+  background: #f1f1f1;
+  color: #000408;
+}
+
+.stat-nashorn {
+  background: #717171;
+}
+
 .no-stat-v8 .stat-v8,
 .no-stat-sm .stat-sm,
 .no-stat-jsc .stat-jsc,
@@ -200,7 +209,9 @@ thead .stats {
 .no-stat-qjs .stat-qjs,
 .no-stat-xs .stat-xs,
 .no-stat-babel .stat-babel,
-.no-stat-swc .stat-swc {
+.no-stat-swc .stat-swc,
+.no-stat-rhino .stat-rhino,
+.no-stat-nashorn .stat-nashorn {
   width: 0 !important;
   height: 0 !important;
   overflow: hidden !important;

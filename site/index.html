@@ -57,6 +57,8 @@
       libjs: 'LibJS',
       graaljs: 'GraalJS',
       xs: 'XS',
+      nashorn: 'Nashorn',
+      rhino: 'Rhino',
       engine262: 'engine262',
       babel: 'Babel',
       swc: 'SWC'
@@ -71,6 +73,8 @@
       libjs: 'JS engine from SerenityOS, also used in Ladybird browser',
       graaljs: 'Built on GraalVM',
       engine262: 'ECMA262 in JavaScript!',
+      nashorn: 'Old Java JS engine by Oracle',
+      rhino: 'Java JS engine by Mozilla',
       babel: 'Babel 7 + core-js 3 running on Node 0.10 (ES5)',
       swc: 'SWC + core-js 3 running on Node 0.10 (ES5)',
     };
@@ -85,6 +89,8 @@
       libjs: 'LJS',
       graaljs: 'Graal',
       xs: 'XS',
+      nashorn: 'Nashorn',
+      rhino: 'Rhino',
       engine262: 'e262',
       babel: 'Babel',
       swc: 'SWC'
@@ -95,7 +101,7 @@
       swc: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'chakra', 'graaljs', 'hermes', 'libjs', 'engine262', 'qjs', 'xs', 'babel', 'swc' ];
+    const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'chakra', 'graaljs', 'hermes', 'libjs', 'engine262', 'qjs', 'xs', 'rhino', 'nashorn', 'babel', 'swc' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
