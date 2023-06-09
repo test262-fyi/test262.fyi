@@ -66,10 +66,10 @@ jobs:
       with:
         path: results
         
-    - name: Download old results
-      run: |
-        node scripts/downloadOldResults.mjs
-        sh scripts/extractResults.sh
+    #- name: Download old results
+    #  run: |
+    #    node scripts/downloadOldResults.mjs
+    #    sh scripts/extractResults.sh
 
     - name: Generate site
       run: node site/generate.mjs
