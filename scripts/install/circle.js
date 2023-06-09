@@ -9,16 +9,20 @@ const get = async url => await (await fetch(url, {
   }
 })).json();
 
+const getPipeline = async (index = 0) => (await get(`https://circleci.com/api/v2/project/gh/${repo}/pipeline?branch=${branch}`)).items.filter(x => x.errors.length === 0)[index];
+
 (async () => {
-  const pipelines = await get(`https://circleci.com/api/v2/project/gh/${repo}/pipeline?branch=${branch}`);
-  const pipeline = pipelines.items.filter(x => x.errors.length === 0)[0];
-  console.log('got pipeline', pipeline.id);
+  let pipeline, workflow, index = 0;
+  while (!workflow) {
+    pipeline = await getPipeline(index++);
+    console.log('got pipeline', pipeline.id);
+
+    const workflows = await get(`https://circleci.com/api/v2/pipeline/${pipeline.id}/workflow`);
+    workflow = workflows.items.find(x => x.name === workflowName && x.status !== 'running');
+    console.log('got workflow', workflow?.id);
+  }
 
   writeFile('version.txt', pipeline.vcs.revision);
-
-  const workflows = await get(`https://circleci.com/api/v2/pipeline/${pipeline.id}/workflow`);
-  const workflow = workflows.items.find(x => x.name === workflowName);
-  console.log('got workflow', workflow.id);
 
   const jobs = await get(`https://circleci.com/api/v2/workflow/${workflow.id}/job`);
   const job = jobs.items.find(x => x.name === jobName);
