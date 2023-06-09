@@ -24,7 +24,8 @@ jobs:
 
     strategy:
       matrix:
-        engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs, babel, swc] # all engines
+        engine: [ babel, swc ] # testing
+        # engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs, babel, swc] # all
         # engine: [v8, jsc, sm, chakra, hermes, libjs, qjs, xs, graaljs] # exclude hangers/long
         # engine: [chakra, graaljs, jsc, libjs, qjs, xs] # all fast
         # engine: [v8, jsc, sm, chakra] # just major
@@ -65,11 +66,11 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         path: results
-        
-    #- name: Download old results
-    #  run: |
-    #    node scripts/downloadOldResults.mjs
-    #    sh scripts/extractResults.sh
+
+    - name: Download old results
+      run: |
+        node scripts/downloadOldResults.mjs
+        sh scripts/extractResults.sh
 
     - name: Generate site
       run: node site/generate.mjs
