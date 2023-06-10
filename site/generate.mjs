@@ -12,7 +12,13 @@ for (const file of readdirSync('results')) {
 
   const base = join('results', file);
 
-  results[file] = JSON.parse(readFileSync(join(base, 'results.json'), 'utf8'));
+  try {
+    results[file] = JSON.parse(readFileSync(join(base, 'results.json'), 'utf8'));
+  } catch {
+    console.log(`failed to load results of ${file}`);
+    continue;
+  }
+
   refTests = results[file];
 
   console.log(`loaded ${results[file].length} results of ${file}`)
@@ -41,6 +47,10 @@ for (const file of readdirSync('results')) {
 }
 
 const engines = Object.keys(results);
+if (engines.length === 0) {
+  console.log('no results! erroring out');
+  process.exit(1);
+}
 
 console.log(versions, times, test262Rev);
 console.log(engines);
