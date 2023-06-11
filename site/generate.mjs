@@ -57,6 +57,9 @@ for (const file of readdirSync('results')) {
 
   if (validResults !== chunkCount) {
     console.log(`full results of ${file} is not done yet`);
+
+    delete results[file];
+    delete times[file];
     continue;
   }
 
