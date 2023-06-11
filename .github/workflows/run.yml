@@ -46,7 +46,7 @@ jobs:
     env:
       CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CHUNKS_PATH: chunks/chunks.json
+      CHUNKS_PATH: ../chunks/chunks.json
       CHUNK_NUMBER: ${{ matrix.chunk }}
       CHUNK_COUNT: 8
 
