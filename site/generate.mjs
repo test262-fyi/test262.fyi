@@ -32,7 +32,7 @@ for (const file of readdirSync('results')) {
 
   const base = join('results', file);
 
-  let results = 0;
+  let validResults = 0;
   for (let i = 0; i < chunkCount; i++) {
     if (existsSync(join(base, `results${i}.json`))) {
       try {
@@ -41,7 +41,7 @@ for (const file of readdirSync('results')) {
         if (!results[file]) results[file] = [];
         results[file] = results[file].concat(readResults);
 
-        results++;
+        validResults++;
       } catch {
         console.log(`failed to load results (${i}) of ${file}`);
       }
@@ -55,7 +55,7 @@ for (const file of readdirSync('results')) {
     }
   }
 
-  if (results !== chunkCount) {
+  if (validResults !== chunkCount) {
     console.log(`full results of ${file} is not done yet`);
     continue;
   }
