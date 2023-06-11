@@ -10,7 +10,7 @@ let refTests = {};
 const chunkCount = parseInt(process.env.CHUNK_COUNT);
 
 for (const dir of readdirSync('results')) {
-  if (file === 'github-pages' || file === 'chunks') continue;
+  if (dir === 'github-pages' || dir === 'chunks') continue;
 
   const engine = dir.slice(0, -1);
   const chunk = dir.slice(-1);
