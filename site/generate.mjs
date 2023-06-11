@@ -67,8 +67,8 @@ for (const file of readdirSync('results')) {
 
 const engines = Object.keys(results);
 if (engines.length === 0) {
-  console.log('no results! erroring out');
-  process.exit(1);
+  console.log('no results! exiting');
+  process.exit(0);
 }
 
 console.log(versions, times, test262Rev);
