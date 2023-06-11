@@ -10,7 +10,7 @@ let refTests = {};
 const chunkCount = parseInt(process.env.CHUNK_COUNT);
 
 for (const file of readdirSync('results')) {
-  if (file === 'github-pages') continue;
+  if (file === 'github-pages' || file === 'chunks') continue;
 
   const base = join('results', file);
 
@@ -30,7 +30,7 @@ for (const file of readdirSync('results')) {
     }
 
     if (existsSync(join(base, `time${i}.txt`))) {
-      const readTime = parseInt(readFileSync(join(base, 'time.txt'), 'utf8'));
+      const readTime = parseInt(readFileSync(join(base, `time${i}.txt`), 'utf8'));
 
       if (!times[file]) times[file] = 0;
       times[file] += readTime;
