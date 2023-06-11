@@ -24,7 +24,7 @@ jobs:
         cd ../..
         node helpers/chunkify/index.mjs 8
 
-    - name: Upload results
+    - name: Upload chunks
       uses: actions/upload-artifact@v3
       with:
         name: chunks
@@ -100,7 +100,7 @@ jobs:
 
     - name: Debug info
       run: |
-        ls results/github-pages
+        ls results/github-pages || true
 
     # - name: Download old results
     #   run: |
