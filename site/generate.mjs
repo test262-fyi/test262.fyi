@@ -88,8 +88,16 @@ for (const file of readdirSync('results')) {
 
 const engines = Object.keys(results);
 if (engines.length === 0) {
-  console.log('no results! exiting');
-  process.exit(0);
+  console.log('no results! erroring');
+  process.exit(1);
+}
+
+if (existsSync('results/github-pages/data/engines.json')) {
+  const oldEngines = Object.keys(JSON.parse(readFileSync('results/github-pages/data/engines.json', 'utf8')));
+  if (oldEngines.length === engines.length) {
+    console.log('no new engines! erroring');
+    process.exit(1);
+  }
 }
 
 console.log(versions, times, test262Rev);

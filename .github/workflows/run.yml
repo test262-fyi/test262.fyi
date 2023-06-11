@@ -98,21 +98,29 @@ jobs:
       with:
         path: results
 
+    - name: Debug info
+      run: |
+        ls results/github-pages
+
     # - name: Download old results
     #   run: |
     #     node scripts/downloadOldResults.mjs
     #     sh scripts/extractResults.sh
 
     - name: Generate site
+      id: generate
+      continue-on-error: true
       run: node site/generate.mjs
 
     - name: Upload pages artifact
-      uses: actions/upload-pages-artifact@v1
+      if: steps.generate.outcome == 'success'
       continue-on-error: true
+      uses: actions/upload-pages-artifact@v1
       with:
         path: site
 
     - name: Deploy to GitHub Pages
       id: deployment
+      if: steps.generate.outcome == 'success'
       continue-on-error: true
       uses: actions/deploy-pages@v2
