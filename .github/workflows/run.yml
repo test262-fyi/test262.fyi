@@ -88,6 +88,13 @@ jobs:
 
     - name: Download results
       uses: actions/download-artifact@v3
+      continue-on-error: true
+      with:
+        path: results
+
+    - name: Download results take 2
+      uses: actions/download-artifact@v3
+      if: ${{ failure() }}
       with:
         path: results
 
