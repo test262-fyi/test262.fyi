@@ -77,7 +77,7 @@ jobs:
     - name: Upload results
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ matrix.engine }}
+        name: ${{ matrix.engine }}${{ matrix.chunk }}
         path: |
           results${{ matrix.chunk }}.json
           jsvu.json

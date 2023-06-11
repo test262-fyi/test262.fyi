@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, mkdirSync, writeFileSync, existsSync } from 'fs';
+import { readFileSync, readdirSync, mkdirSync, writeFileSync, existsSync, cpSync, rmSync } from 'fs';
 // import { mkdir, writeFile } from 'fs/promises';
 import { dirname, join } from 'path';
 
@@ -8,6 +8,24 @@ let test262Rev = 'unknown';
 let refTests = {};
 
 const chunkCount = parseInt(process.env.CHUNK_COUNT);
+
+for (const dir of readdirSync('results')) {
+  if (file === 'github-pages' || file === 'chunks') continue;
+
+  const engine = dir.slice(0, -1);
+  const chunk = dir.slice(-1);
+
+  const base = join('results', dir);
+  const out = join('results', engine);
+
+  if (!existsSync(out)) mkdirSync(out);
+
+  for (const file of readdirSync(base)) {
+    cpSync(join(base, file), join(out, file), { force: true });
+  }
+
+  rmSync(base, { recursive: true, force: true });
+}
 
 for (const file of readdirSync('results')) {
   if (file === 'github-pages' || file === 'chunks') continue;
