@@ -36,7 +36,7 @@ for (const file of readdirSync('results')) {
   for (let i = 0; i < chunkCount; i++) {
     if (existsSync(join(base, `results${i}.json`))) {
       try {
-        const readResults = JSON.parse(readFileSync(join(base, 'results.json'), 'utf8'));
+        const readResults = JSON.parse(readFileSync(join(base, `results${i}.json`), 'utf8'));
 
         if (!results[file]) results[file] = [];
         results[file] = results[file].concat(readResults);
