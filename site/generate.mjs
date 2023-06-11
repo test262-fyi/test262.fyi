@@ -7,15 +7,38 @@ const results = {}, versions = {}, times = {};
 let test262Rev = 'unknown';
 let refTests = {};
 
+const chunkCount = parseInt(process.env.CHUNK_COUNT);
+
 for (const file of readdirSync('results')) {
   if (file === 'github-pages') continue;
 
   const base = join('results', file);
 
-  try {
-    results[file] = JSON.parse(readFileSync(join(base, 'results.json'), 'utf8'));
-  } catch {
-    console.log(`failed to load results of ${file}`);
+  let results = 0;
+  for (let i = 0; i < chunkCount; i++) {
+    if (existsSync(join(base, `results${i}.json`))) {
+      try {
+        const readResults = JSON.parse(readFileSync(join(base, 'results.json'), 'utf8'));
+
+        if (!results[file]) results[file] = [];
+        results[file] = results[file].concat(readResults);
+
+        results++;
+      } catch {
+        console.log(`failed to load results (${i}) of ${file}`);
+      }
+    }
+
+    if (existsSync(join(base, `time${i}.txt`))) {
+      const readTime = parseInt(readFileSync(join(base, 'time.txt'), 'utf8'));
+
+      if (!times[file]) times[file] = 0;
+      times[file] += readTime;
+    }
+  }
+
+  if (results !== chunkCount) {
+    console.log(`full results of ${file} is not done yet`);
     continue;
   }
 
@@ -35,10 +58,6 @@ for (const file of readdirSync('results')) {
 
   if (existsSync(join(base, 'version.txt'))) {
     versions[file] = readFileSync(join(base, 'version.txt'), 'utf8');
-  }
-
-  if (existsSync(join(base, 'time.txt'))) {
-    times[file] = parseInt(readFileSync(join(base, 'time.txt'), 'utf8'));
   }
 
   if (existsSync(join(base, 'test262-rev.txt'))) {

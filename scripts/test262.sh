@@ -10,9 +10,9 @@ npm install -g github:CanadaHonk/test262-harness
 echo running test262...
 
 start=`date +%s`
-NODE_OPTIONS="--max-old-space-size=4096" test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result,scenario,attrs --timeout=20000 --threads=$3 --preprocessor="$4" --transformer="$5" "test/**/*.js" > ../results.json
+NODE_OPTIONS="--max-old-space-size=4096" test262-harness --host-type="$1" --host-path="$2" --reporter=json --reporter-keys=file,result,scenario,attrs --timeout=20000 --threads=$3 --preprocessor="$4" --transformer="$5" "test/**/*.js" > "../results$CHUNK_NUMBER.json"
 end=`date +%s`
 
-echo "$((end-start))" > ../time.txt
+echo "$((end-start))" > "../time$CHUNK_NUMBER.txt"
 
 git rev-parse HEAD > ../test262-rev.txt

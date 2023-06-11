@@ -7,8 +7,33 @@ on:
     paths: [ ".github/workflows/run.yml", "scripts/**/*", "helpers/**/*" ]
 
 jobs:
+  make-chunks:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Make chunks
+      run: |
+        git clone https://github.com/tc39/test262.git --depth 1
+        cd helpers/chunkify
+        npm install
+        cd ../..
+        node helpers/chunkify/index.mjs 8
+
+    - name: Upload results
+      uses: actions/upload-artifact@v3
+      with:
+        name: chunks
+        path: |
+          chunks.json
+
   test262:
     runs-on: ubuntu-22.04
+    needs: make-chunks
 
     permissions:
       pages: write
@@ -21,10 +46,14 @@ jobs:
     env:
       CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CHUNKS_PATH: chunks/chunks.json
+      CHUNK_NUMBER: ${{ matrix.chunk }}
+      CHUNK_COUNT: 8
 
     strategy:
       matrix:
         engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs, nashorn, rhino, babel, swc] # all
+        chunk: [0, 1, 2, 3, 4, 5, 6, 7]
         # engine: [v8, jsc, sm, chakra, hermes, libjs, qjs, xs, graaljs] # exclude hangers/long
         # engine: [chakra, graaljs, jsc, libjs, qjs, xs] # all fast
         # engine: [v8, jsc, sm, chakra] # just major
@@ -36,15 +65,11 @@ jobs:
       with:
         node-version: 18
 
-    # - uses: actions/setup-java@v3
-    #   if: ${{ matrix.engine == 'graaljs' }}
-    #   with:
-    #     distribution: 'oracle'
-    #     java-version: '18'
-
-    # - name: Install Java
-    #   if: ${{ matrix.engine == 'graaljs' }}
-    #   run: sudo apt install openjdk-18-jdk
+    - name: Download chunks
+      uses: actions/download-artifact@v3
+      with:
+        name: chunks
+        path: chunks
 
     - name: Run test262 with ${{ matrix.engine }}
       run: ./scripts/engines/${{ matrix.engine }}.sh
@@ -54,10 +79,10 @@ jobs:
       with:
         name: ${{ matrix.engine }}
         path: |
-          results.json
+          results${{ matrix.chunk }}.json
           jsvu.json
           esvu.json
-          time.txt
+          time${{ matrix.chunk }}.txt
           version.txt
           test262-rev.txt
 
@@ -66,10 +91,10 @@ jobs:
       with:
         path: results
 
-    - name: Download old results
-      run: |
-        node scripts/downloadOldResults.mjs
-        sh scripts/extractResults.sh
+    # - name: Download old results
+    #   run: |
+    #     node scripts/downloadOldResults.mjs
+    #     sh scripts/extractResults.sh
 
     - name: Generate site
       run: node site/generate.mjs
