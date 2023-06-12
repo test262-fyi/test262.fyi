@@ -98,9 +98,11 @@ jobs:
       with:
         path: results
 
-    - name: Debug info
+    - name: Fix pages artifact
+      continue-on-error: true
       run: |
-        ls results/github-pages || true
+        cd results/github-pages
+        tar -xf artifact.tar
 
     # - name: Download old results
     #   run: |
