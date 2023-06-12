@@ -223,7 +223,176 @@ walkStruct(struct);
   const rawFeatures = await (await fetch(`https://raw.githubusercontent.com/tc39/test262/${test262Rev}/features.txt`)).text();
   const features = rawFeatures.split('\n').filter(x => x && x[0] !== '#').map(x => x.split('#')[0].trim());
 
-  const featureResults = new Map(), featureDetails = new Map();
+  const featureResults = new Map(), featureDetails = new Map(), editionResults = {};
+
+  const featureByEdition = {
+    "hashbang": 14,
+    "Intl.Locale-info": 14,
+    "FinalizationRegistry.prototype.cleanupSome": 14,
+    "Intl.NumberFormat-v3": 14,
+    "legacy-regexp": 14,
+    "Atomics.waitAsync": 14,
+    "import-assertions": 14,
+    "json-modules": 14,
+    "json-parse-with-source": 14,
+    "resizable-arraybuffer": 14,
+    "arraybuffer-transfer": 14,
+    "Temporal": 14,
+    "ShadowRealm": 14,
+    "array-find-from-last": 14,
+    "array-grouping": 14,
+    "Intl.DurationFormat": 14,
+    "regexp-v-flag": 14,
+    "decorators": 14,
+    "regexp-duplicate-named-groups": 14,
+    "change-array-by-copy": 14,
+    "Array.fromAsync": 14,
+    "String.prototype.isWellFormed": 14,
+    "String.prototype.toWellFormed": 14,
+    "Intl-enumeration": 14,
+    "Intl.DateTimeFormat-extend-timezonename": 14,
+    "Intl.DisplayNames-v2": 14,
+    "Intl.Segmenter": 14,
+    "symbols-as-weakmap-keys": 14,
+    "AggregateError": 12,
+    "align-detached-buffer-semantics-with-web-reality": 12,
+    "arbitrary-module-namespace-names": 13,
+    "ArrayBuffer": 6,
+    "Array.prototype.at": 13,
+    "Array.prototype.flat": 10,
+    "Array.prototype.flatMap": 10,
+    "Array.prototype.includes": 7,
+    "Array.prototype.values": 6,
+    "arrow-function": 6,
+    "async-iteration": 9,
+    "async-functions": 8,
+    "Atomics": 8,
+    "BigInt": 11,
+    "caller": 5,
+    "class": 6,
+    "class-fields-private": 13,
+    "class-fields-private-in": 13,
+    "class-fields-public": 13,
+    "class-methods-private": 13,
+    "class-static-block": 13,
+    "class-static-fields-private": 13,
+    "class-static-fields-public": 13,
+    "class-static-methods-private": 13,
+    "coalesce-expression": 11,
+    "computed-property-names": 6,
+    "const": 6,
+    "cross-realm": 6,
+    "DataView": 6,
+    "DataView.prototype.getFloat32": 6,
+    "DataView.prototype.getFloat64": 6,
+    "DataView.prototype.getInt16": 6,
+    "DataView.prototype.getInt32": 6,
+    "DataView.prototype.getInt8": 6,
+    "DataView.prototype.getUint16": 6,
+    "DataView.prototype.getUint32": 6,
+    "DataView.prototype.setUint8": 6,
+    "default-parameters": 6,
+    "destructuring-assignment": 6,
+    "destructuring-binding": 6,
+    "dynamic-import": 11,
+    "error-cause": 13,
+    "exponentiation": 7,
+    "export-star-as-namespace-from-module": 11,
+    "FinalizationRegistry": 12,
+    "for-in-order": 11,
+    "for-of": 6,
+    "Float32Array": 6,
+    "Float64Array": 6,
+    "generators": 6,
+    "globalThis": 11,
+    "import.meta": 11,
+    "Int8Array": 6,
+    "Int16Array": 6,
+    "Int32Array": 6,
+    "intl-normative-optional": 8,
+    "Intl.DateTimeFormat-datetimestyle": 12,
+    "Intl.DateTimeFormat-dayPeriod": 8,
+    "Intl.DateTimeFormat-formatRange": 12,
+    "Intl.DateTimeFormat-fractionalSecondDigits": 12,
+    "Intl.DisplayNames": 12,
+    "Intl.ListFormat": 12,
+    "Intl.Locale": 12,
+    "Intl.NumberFormat-unified": 11,
+    "Intl.RelativeTimeFormat": 11,
+    "json-superset": 10,
+    "let": 6,
+    "logical-assignment-operators": 12,
+    "Map": 6,
+    "new.target": 6,
+    "numeric-separator-literal": 12,
+    "object-rest": 9,
+    "object-spread": 9,
+    "Object.fromEntries": 10,
+    "Object.hasOwn": 13,
+    "Object.is": 6,
+    "optional-catch-binding": 10,
+    "optional-chaining": 11,
+    "Promise": 6,
+    "Promise.allSettled": 11,
+    "Promise.any": 12,
+    "Promise.prototype.finally": 9,
+    "Proxy": 6,
+    "proxy-missing-checks": 6,
+    "Reflect": 6,
+    "Reflect.construct": 6,
+    "Reflect.set": 6,
+    "Reflect.setPrototypeOf": 6,
+    "regexp-dotall": 9,
+    "regexp-lookbehind": 9,
+    "regexp-match-indices": 13,
+    "regexp-named-groups": 9,
+    "regexp-unicode-property-escapes": 9,
+    "rest-parameters": 6,
+    "Set": 6,
+    "SharedArrayBuffer": 8,
+    "string-trimming": 10,
+    "String.fromCodePoint": 6,
+    "String.prototype.at": 13,
+    "String.prototype.endsWith": 6,
+    "String.prototype.includes": 6,
+    "String.prototype.matchAll": 11,
+    "String.prototype.replaceAll": 12,
+    "String.prototype.trimEnd": 10,
+    "String.prototype.trimStart": 10,
+    "super": 6,
+    "Symbol": 6,
+    "Symbol.asyncIterator": 9,
+    "Symbol.hasInstance": 6,
+    "Symbol.isConcatSpreadable": 6,
+    "Symbol.iterator": 6,
+    "Symbol.match": 6,
+    "Symbol.matchAll": 11,
+    "Symbol.prototype.description": 10,
+    "Symbol.replace": 6,
+    "Symbol.search": 6,
+    "Symbol.species": 6,
+    "Symbol.split": 6,
+    "Symbol.toPrimitive": 6,
+    "Symbol.toStringTag": 6,
+    "Symbol.unscopables": 6,
+    "tail-call-optimization": 6,
+    "template": 6,
+    "top-level-await": 13,
+    "TypedArray": 6,
+    "TypedArray.prototype.at": 13,
+    "u180e": 7,
+    "Uint8Array": 6,
+    "Uint16Array": 6,
+    "Uint32Array": 6,
+    "Uint8ClampedArray": 6,
+    "WeakMap": 6,
+    "WeakRef": 12,
+    "WeakSet": 6,
+    "well-formed-json-stringify": 10,
+    "__proto__": 6,
+    "__getter__": 8,
+    "__setter__": 8,
+  };
 
   let info = {};
   for (const line of rawFeatures.split('process-document')[1].split('## Standard')[0].split('\n').filter(x => x)) {
@@ -255,30 +424,38 @@ walkStruct(struct);
 
   for (const feature of features) {
     const detail = featureDetails.get(feature);
-    if (!detail) continue; // skip non-proposals as we do not need that info for now
+    const edition = featureByEdition[feature];
     console.log(feature, detail);
 
-    if (!featureResults.has(feature)) featureResults.set(feature, { total: 0, engines: {}, proposal: detail });
+    if (detail && !featureResults.has(feature)) featureResults.set(feature, { total: 0, engines: {}, proposal: detail });
 
-    const r = featureResults.get(feature);
+    const r = !detail ? { total: 0, engines: {} } : featureResults.get(feature);
 
     let tests = [];
     for (const test of refTests) {
       if (test.attrs && test.attrs.features && test.attrs.features.includes(feature)) {
         tests.push(test);
         r.total++;
+
+        if (!editionResults[edition]) editionResults[edition] = { total: 0, engines: {} };
+        editionResults[edition].total++;
       }
     }
 
     for (const engine of engines) {
       for (const test of tests) {
         if (r.engines[engine] === undefined) r.engines[engine] = 0;
+        if (editionResults[edition].engines[engine] === undefined) editionResults[edition].engines[engine] = 0;
 
         const pass = fileResults[engine][test.file].find(z => z.scenario === test.scenario).result.pass;
-        if (pass) r.engines[engine]++;
+        if (pass) {
+          r.engines[engine]++;
+          editionResults[edition].engines[engine]++;
+        }
       }
     }
   }
 
   writeFileSync(join(dataDir, 'features.json'), JSON.stringify(Object.fromEntries(featureResults)));
+  writeFileSync(join(dataDir, 'editions.json'), JSON.stringify(Object.fromEntries(editionResults)));
 })();
