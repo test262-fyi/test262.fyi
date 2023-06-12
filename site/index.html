@@ -60,6 +60,7 @@
       nashorn: 'Nashorn',
       rhino: 'Rhino',
       engine262: 'engine262',
+      boa: 'Boa',
       babel: 'Babel',
       swc: 'SWC'
     };
@@ -75,6 +76,7 @@
       engine262: 'ECMA262 in JavaScript!',
       nashorn: 'Old Java JS engine by Oracle',
       rhino: 'Java JS engine by Mozilla',
+      boa: 'Experimental embeddable JS engine in Rust',
       babel: 'Babel 7 + core-js 3 running on Node 0.10 (ES5)',
       swc: 'SWC + core-js 3 running on Node 0.10 (ES5)',
     };
@@ -92,8 +94,9 @@
       nashorn: 'Nashorn',
       rhino: 'Rhino',
       engine262: 'e262',
+      boa: 'Boa',
       babel: 'Babel',
-      swc: 'SWC'
+      swc: 'SWC',
     };
 
     const categories = {
@@ -101,7 +104,7 @@
       swc: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'chakra', 'graaljs', 'hermes', 'libjs', 'engine262', 'qjs', 'xs', 'rhino', 'nashorn', 'babel', 'swc' ];
+    const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'graaljs', 'hermes', 'qjs', 'xs', 'libjs', 'chakra', 'rhino', 'nashorn', 'boa', 'engine262', 'babel', 'swc' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
@@ -165,7 +168,7 @@
 
         if ((shortened && names[x] === shortNames[x] && names.length > 2) ||
             (extraLength * 1.3) > el.getBoundingClientRect().width ||
-            (['hermes', 'chakra', 'graaljs', 'babel'].includes(x) && (nameLength * 1.5) > el.getBoundingClientRect().width)) {
+            (['hermes', 'chakra', 'graaljs', 'babel', 'boa'].includes(x) && (nameLength * 1.5) > el.getBoundingClientRect().width)) {
           el.children[0].textContent = '';
           el.title = names[x];
         }

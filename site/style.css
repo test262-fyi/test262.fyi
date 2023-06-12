@@ -180,7 +180,7 @@ thead .stats {
 }
 
 .stat-babel {
-  background: #f8d10d;
+  background: #f8c10d;
   color: #000408;
 }
 
@@ -198,6 +198,11 @@ thead .stats {
   background: #717171;
 }
 
+.stat-boa {
+  background: #ffff00;
+  color: #000408;
+}
+
 .no-stat-v8 .stat-v8,
 .no-stat-sm .stat-sm,
 .no-stat-jsc .stat-jsc,
@@ -211,7 +216,8 @@ thead .stats {
 .no-stat-babel .stat-babel,
 .no-stat-swc .stat-swc,
 .no-stat-rhino .stat-rhino,
-.no-stat-nashorn .stat-nashorn {
+.no-stat-nashorn .stat-nashorn,
+.no-stat-boa .stat-boa {
   width: 0 !important;
   height: 0 !important;
   overflow: hidden !important;
