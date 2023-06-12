@@ -53,12 +53,12 @@ jobs:
     strategy:
       matrix:
         # engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs, nashorn, rhino, boa, babel, swc] # all
-        engine: [boa] # testing
+
         chunk: [0, 1, 2, 3, 4, 5, 6, 7]
         # engine: [v8, jsc, sm, chakra, hermes, libjs, qjs, xs, graaljs] # exclude hangers/long
         # engine: [chakra, graaljs, jsc, libjs, qjs, xs] # all fast
         # engine: [v8, jsc, sm, chakra] # just major
-        # engine: [jsc] # just jsc
+        engine: [hermes] # just hermes
 
     steps:
     - uses: actions/checkout@v3
