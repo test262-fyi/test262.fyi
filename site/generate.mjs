@@ -457,5 +457,5 @@ walkStruct(struct);
   }
 
   writeFileSync(join(dataDir, 'features.json'), JSON.stringify(Object.fromEntries(featureResults)));
-  writeFileSync(join(dataDir, 'editions.json'), JSON.stringify(Object.fromEntries(editionResults)));
+  writeFileSync(join(dataDir, 'editions.json'), JSON.stringify(ditionResults));
 })();
