@@ -184,6 +184,27 @@
       } */
     };
 
+    const opts = {};
+    const makeOption = (name, checked, id = name.toLowerCase().replaceAll(' ', '-')) => {
+      const container = document.createElement('div');
+
+      const label = document.createElement('label');
+      label.textContent = ' ' + name;
+      label.setAttribute('for', id);
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = id;
+
+      if (opts[id] === undefined) opts[id] = checked ?? false;
+      checkbox.checked = opts[id];
+
+      checkbox.addEventListener('input', () => opts[id] = checkbox.checked);
+
+      container.append(checkbox, label);
+      return [ container, checkbox ];
+    };
+
     let features, editions, cache = {};
     const navigate = async (path) => {
       cwd = path.trim();
@@ -207,12 +228,24 @@
 
       setTimeout(shortenNames, 10);
 
+      document.querySelectorAll('#content table ~ *').forEach(x => x.remove());
+
       if (cwd === '') {
         setTimeout(async () => {
           if (!features) features = await get('data/features.json');
 
+          const proposalsDetails = document.createElement('details');
+          proposalsDetails.open = true;
+
+          const proposalsSummary = document.createElement('summary');
+          const proposalsHeader = document.createElement('h2');
+          proposalsHeader.textContent = 'Proposals';
+          proposalsSummary.append(proposalsHeader);
+
           const proposalsEl = document.createElement('div');
           proposalsEl.id = 'proposals';
+
+          proposalsDetails.append(proposalsSummary, proposalsEl);
 
           for (const feature of Object.values(features).sort((a, b) => b.proposal.stars - a.proposal.stars)) {
             const { proposal, total, engines } = feature;
@@ -241,15 +274,30 @@
             proposalsEl.append(el);
           }
 
-
-
           if (!editions) editions = await get('data/editions.json');
+
+          const editionsDetails = document.createElement('details');
+          editionsDetails.open = true;
+
+          const editionsSummary = document.createElement('summary');
+          const editionsHeader = document.createElement('h2');
+          editionsHeader.textContent = 'Editions';
+          editionsSummary.append(editionsHeader);
+
+          const [ editionsAdditionsEl, editionsAdditionsCheckbox ] = makeOption('Additions only');
+          editionsAdditionsCheckbox.oninput = () => navigate('');
 
           const editionsEl = document.createElement('div');
           editionsEl.id = 'editions';
 
-          for (let i = 5; i <= 14; i++) {
+          editionsDetails.append(editionsSummary, editionsAdditionsEl, editionsEl);
+
+          const acc = { total: 0, engines: {} };
+          for (let i = 6; i <= 14; i++) {
             const { total, engines } = editions[i.toString()];
+
+            acc.total += total;
+            for (const engine in engines) acc.engines[engine] = (acc.engines[engine] ?? 0) + engines[engine];
 
             let edition = i > 6 ? `ES${i+2009}` : `ES${i}`;
             if (i === 14) edition = 'ESNext';
@@ -259,19 +307,22 @@
             const info = document.createElement('div');
 
             const name = document.createElement('span');
-            name.textContent = `${edition} Additions`;
+            name.textContent = `${edition}${editionsAdditionsCheckbox.checked ? ' Additions' : ''}`;
+
+            const fullVersion = document.createElement('span');
+            fullVersion.textContent = i === 14 || i <= 6 ? '' : `${i}th edition`;
+
+            name.append(fullVersion);
 
             info.append(name);
-            el.append(info, makeGraph({ total, engines }, true));
+            el.append(info, makeGraph(editionsAdditionsCheckbox.checked ? ({ total, engines }) : acc, true));
             editionsEl.append(el);
           }
 
-          content.append(editionsEl, proposalsEl);
+          content.append(proposalsDetails, editionsDetails);
 
           setTimeout(shortenNames, 10);
         }, 50);
-      } else {
-        document.getElementById('proposals')?.remove?.();
       }
     };
 
@@ -291,6 +342,8 @@
         const percent = (passes / total) * 100;
         stat.style.width = (vertical ? percent : percent / (keys.length - filterOutEngines.length)) + '%';
         stat._percent = percent;
+
+        if (percent < 2) continue;
 
         /* stat.onmouseenter = () => {
           stat.style.cssText = `width: ${percent}% !important`;
