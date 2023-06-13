@@ -425,7 +425,7 @@ walkStruct(struct);
   for (const feature of features) {
     const detail = featureDetails.get(feature);
     const edition = featureByEdition[feature];
-    console.log(feature, detail);
+    console.log(feature, edition, detail);
 
     if (detail && !featureResults.has(feature)) featureResults.set(feature, { total: 0, engines: {}, proposal: detail });
 
