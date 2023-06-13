@@ -250,15 +250,15 @@
 
           for (let i = 5; i <= 14; i++) {
             const { total, engines } = editions[i.toString()];
-            let name = i > 6 ? `ES${i+2009}` : `ES${i}`;
-            if (i === 14) name = 'ESNext';
+            let edition = i > 6 ? `ES${i+2009}` : `ES${i}`;
+            if (i === 14) edition = 'ESNext';
 
             const el = document.createElement('div');
             
             const info = document.createElement('div');
    
             const name = document.createElement('span');
-            name.textContent = name;
+            name.textContent = edition;
             
             info.append(name);
             el.append(info, makeGraph({ total, engines }, true));
