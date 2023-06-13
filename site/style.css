@@ -449,6 +449,8 @@ a {
 
 #table-options {
   margin-bottom: 12px;
+  display: flex;
+  gap: 16px;
 }
 
 #sidebar h3 {

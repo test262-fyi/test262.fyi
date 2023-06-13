@@ -34,10 +34,14 @@
 
   <div id="content">
     <div id="table-options">
-    <div>
-      <input type="checkbox" id="vertical_file_graphs">
-      <label for="vertical_file_graphs">Vertical file graphs</label>
-    </div>
+      <div>
+        <input type="checkbox" id="vertical_file_graphs">
+        <label for="vertical_file_graphs">Vertical file graphs</label>
+      </div>
+      <div>
+        <input type="checkbox" checked id="hide_negligible_results">
+        <label for="hide_negligible_results">Hide negligible results</label>
+      </div>
     </div>
 
     <table>
@@ -141,6 +145,7 @@
     };
 
     vertical_file_graphs.oninput = () => navigate(cwd);
+    hide_negligible_results.oninput = () => navigate(cwd);
 
     const get = async url => await (await fetch(url, { cache: 'no-cache' })).json();
 
@@ -333,7 +338,7 @@
 
       const keys = Object.keys(engines);
       for (const x of niceEngineOrder) {
-        if (!engines[x]) continue;
+        if (engines[x] === undefined) continue;
         let passes = engines[x];
 
         const stat = document.createElement('div');
@@ -343,7 +348,7 @@
         stat.style.width = (vertical ? percent : percent / (keys.length - filterOutEngines.length)) + '%';
         stat._percent = percent;
 
-        if (percent < 2) continue;
+        if (hide_negligible_results.checked && percent < 5) continue;
 
         /* stat.onmouseenter = () => {
           stat.style.cssText = `width: ${percent}% !important`;
