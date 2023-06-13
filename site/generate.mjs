@@ -48,7 +48,7 @@ for (const file of readdirSync('results')) {
     }
 
     if (existsSync(join(base, `time${i}.txt`))) {
-      const readTime = parseInt(readFileSync(join(base, `time${i}.txt`), 'utf8'));
+      const readTime = parseInt(readFileSync(join(base, `time${i}.txt`), 'utf8').trim());
 
       if (!times[file]) times[file] = 0;
       times[file] += readTime;
@@ -69,20 +69,20 @@ for (const file of readdirSync('results')) {
 
   if (existsSync(join(base, 'jsvu.json'))) {
     const jsvu = JSON.parse(readFileSync(join(base, 'jsvu.json'), 'utf8'));
-    versions[file] = jsvu[Object.keys(jsvu).find(x => x !== 'os' && x !== 'engines')];
+    versions[file] = jsvu[Object.keys(jsvu).find(x => x !== 'os' && x !== 'engines')].trim();
   }
 
   if (existsSync(join(base, 'esvu.json'))) {
     const esvu = JSON.parse(readFileSync(join(base, 'esvu.json'), 'utf8'));
-    versions[file] = Object.values(esvu.installed)[0].version;
+    versions[file] = Object.values(esvu.installed)[0].version.trim();
   }
 
   if (existsSync(join(base, 'version.txt'))) {
-    versions[file] = readFileSync(join(base, 'version.txt'), 'utf8');
+    versions[file] = readFileSync(join(base, 'version.txt'), 'utf8').trim();
   }
 
   if (existsSync(join(base, 'test262-rev.txt'))) {
-    test262Rev = readFileSync(join(base, 'test262-rev.txt'), 'utf8');
+    test262Rev = readFileSync(join(base, 'test262-rev.txt'), 'utf8').trim();
   }
 }
 
