@@ -184,7 +184,7 @@
       } */
     };
 
-    let features, cache = {};
+    let features, editions, cache = {};
     const navigate = async (path) => {
       cwd = path.trim();
       updateHash(true);
@@ -211,8 +211,8 @@
         setTimeout(async () => {
           if (!features) features = await get('data/features.json');
 
-          const container = document.createElement('div');
-          container.id = 'proposals';
+          const proposalsEl = document.createElement('div');
+          proposalsEl.id = 'proposals';
 
           for (const feature of Object.values(features).sort((a, b) => b.proposal.stars - a.proposal.stars)) {
             const { proposal, total, engines } = feature;
@@ -238,10 +238,34 @@
             info.append(name, desc);
 
             el.append(info, makeGraph({ total, engines }, true));
-            container.append(el);
+            proposalsEl.append(el);
           }
 
-          content.append(container);
+
+          
+          if (!editions) editions = await get('data/editions.json');
+          
+          const editionsEl = document.createElement('div');
+          editionsEl.id = 'editions';
+
+          for (let i = 5; i <= 14; i++) {
+            const { total, engines } = editions[i.toString()];
+            let name = i > 6 ? `ES${i+2009}` : `ES${i}`;
+            if (i === 14) name = 'ESNext';
+
+            const el = document.createElement('div');
+            
+            const info = document.createElement('div');
+   
+            const name = document.createElement('span');
+            name.textContent = name;
+            
+            info.append(name);
+            el.append(info, makeGraph({ total, engines }, true));
+            editionsEl.append(el);
+          }
+          
+          content.append(editionsEl, proposalsEl);
 
           setTimeout(shortenNames, 10);
         }, 50);
