@@ -242,29 +242,30 @@
           }
 
 
-          
+
           if (!editions) editions = await get('data/editions.json');
-          
+
           const editionsEl = document.createElement('div');
           editionsEl.id = 'editions';
 
           for (let i = 5; i <= 14; i++) {
             const { total, engines } = editions[i.toString()];
+
             let edition = i > 6 ? `ES${i+2009}` : `ES${i}`;
             if (i === 14) edition = 'ESNext';
 
             const el = document.createElement('div');
-            
+
             const info = document.createElement('div');
-   
+
             const name = document.createElement('span');
-            name.textContent = edition;
-            
+            name.textContent = `${edition} Additions`;
+
             info.append(name);
             el.append(info, makeGraph({ total, engines }, true));
             editionsEl.append(el);
           }
-          
+
           content.append(editionsEl, proposalsEl);
 
           setTimeout(shortenNames, 10);

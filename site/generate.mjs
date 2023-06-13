@@ -225,7 +225,7 @@ walkStruct(struct);
 
   const featureResults = new Map(), featureDetails = new Map(), editionResults = {};
 
-  const featureByEdition = {
+  const featureByEdition = new Map(Object.entries({
     "hashbang": 14,
     "Intl.Locale-info": 14,
     "FinalizationRegistry.prototype.cleanupSome": 14,
@@ -389,10 +389,7 @@ walkStruct(struct);
     "WeakRef": 12,
     "WeakSet": 6,
     "well-formed-json-stringify": 10,
-    "__proto__": 6,
-    "__getter__": 8,
-    "__setter__": 8,
-  };
+  }).concat([ ["__proto__", 6], ["__getter__", 8], ["__setter__", 8] ]));
 
   let info = {};
   for (const line of rawFeatures.split('process-document')[1].split('## Standard')[0].split('\n').filter(x => x)) {
@@ -424,7 +421,7 @@ walkStruct(struct);
 
   for (const feature of features) {
     const detail = featureDetails.get(feature);
-    const edition = featureByEdition[feature];
+    const edition = featureByEdition.get(feature);
     console.log(feature, edition, detail);
 
     if (detail && !featureResults.has(feature)) featureResults.set(feature, { total: 0, engines: {}, proposal: detail });
