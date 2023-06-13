@@ -21,4 +21,4 @@ const chunks = new Array(amount).fill(0).map((x, i) => files.slice(i * chunkLeng
 
 writeFileSync('chunks.json', JSON.stringify(chunks));
 
-writeFileSync('time.txt', Date.now());
+writeFileSync('time.txt', Date.now().toString());
