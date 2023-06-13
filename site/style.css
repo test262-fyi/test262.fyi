@@ -362,7 +362,7 @@ a {
   margin-bottom: 48px;
 }
 
-#proposals > div, # editions > div {
+#proposals > div, #editions > div {
   width: calc((100vw - 320px - 4vw) / 2 - 24px);
 }
 
