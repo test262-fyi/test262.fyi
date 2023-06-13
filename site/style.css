@@ -203,21 +203,27 @@ thead .stats {
   color: #000408;
 }
 
-.no-stat-v8 .stat-v8,
-.no-stat-sm .stat-sm,
-.no-stat-jsc .stat-jsc,
-.no-stat-chakra .stat-chakra,
-.no-stat-graaljs .stat-graaljs,
-.no-stat-hermes .stat-hermes,
-.no-stat-libjs .stat-libjs,
-.no-stat-engine262 .stat-engine262,
-.no-stat-qjs .stat-qjs,
-.no-stat-xs .stat-xs,
-.no-stat-babel .stat-babel,
-.no-stat-swc .stat-swc,
-.no-stat-rhino .stat-rhino,
-.no-stat-nashorn .stat-nashorn,
-.no-stat-boa .stat-boa {
+.stat-sucrase {
+  background: #f6f6f6;
+  color: #000408;
+}
+
+.no-stat-v8 #content .stat-v8,
+.no-stat-sm #content .stat-sm,
+.no-stat-jsc #content .stat-jsc,
+.no-stat-chakra #content .stat-chakra,
+.no-stat-graaljs #content .stat-graaljs,
+.no-stat-hermes #content .stat-hermes,
+.no-stat-libjs #content .stat-libjs,
+.no-stat-engine262 #content .stat-engine262,
+.no-stat-qjs #content .stat-qjs,
+.no-stat-xs #content .stat-xs,
+.no-stat-babel #content .stat-babel,
+.no-stat-swc #content .stat-swc,
+.no-stat-rhino #content .stat-rhino,
+.no-stat-nashorn #content .stat-nashorn,
+.no-stat-boa #content .stat-boa,
+.no-stat-sucrase #content .stat-sucrase {
   width: 0 !important;
   height: 0 !important;
   overflow: hidden !important;
