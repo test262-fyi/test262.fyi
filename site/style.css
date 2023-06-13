@@ -354,14 +354,15 @@ a {
   font-size: 1.2em;
 }
 
-#proposals {
+#proposals, #editions {
   display: grid;
   margin-top: 48px;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+  margin-bottom: 48px;
 }
 
-#proposals > div {
+#proposals > div, # editions > div {
   width: calc((100vw - 320px - 4vw) / 2 - 24px);
 }
 
@@ -369,7 +370,7 @@ a {
 
 }
 
-#proposals > div > :first-child > a {
+#proposals > div > :first-child > a, #editions > div > :first-child > span {
   color: #f0f4f8;
   font-size: 1.2em;
   font-weight: 600;
@@ -417,7 +418,7 @@ a {
     grid-template-columns: 1fr;
   }
 
-  #proposals > div {
+  #proposals > div, #editions > div {
     width: calc((100vw - 320px - 4vw) / 1 - 24px);
   }
 }
