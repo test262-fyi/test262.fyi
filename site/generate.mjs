@@ -104,12 +104,17 @@ if (existsSync('results/github-pages/data/engines.json')) {
   }
 }
 
+let beganAt;
+if (existsSync('results/chunks/time.txt')) {
+  beganAt = parseInt(readFileSync('results/chunks/time.txt', 'utf8').trim());
+]
+
 mkdirSync(dataDir, { recursive: true });
 
 writeFileSync(join(dataDir, 'engines.json'), JSON.stringify(versions));
 writeFileSync(join(dataDir, 'times.json'), JSON.stringify({
   generatedAt: Date.now(),
-  beganAt: !process.env.GITHUB_TOKEN ? undefined : (new Date((await (await fetch('https://api.github.com/repos/canadahonk/test262.fyi/actions/runs', { headers: { Authorization: 'Bearer ' + process.env.GITHUB_TOKEN }})).json()).workflow_runs[0].created_at)).getTime(),
+  beganAt,
   timeTaken: times
 }));
 writeFileSync(join(dataDir, 'test262.json'), JSON.stringify({
