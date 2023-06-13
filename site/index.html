@@ -24,7 +24,7 @@
       <hr id="before-times">
 
       <footer>
-        generated <span id="generated_ago"></span> <span id="generated_in"></span><br>
+        generated <span id="generated_ago"></span><span id="generated_in"></span><br>
         test262 revision <a href="" id="test262_rev"></a><br>
         <br>
         <a href="https://github.com/CanadaHonk/test262.fyi">source</a>. work in progress, not 100% accurate. <i>* mostly</i>
@@ -538,7 +538,7 @@
     (async () => {
       times = await get('data/times.json');
 
-      const prettyAgo = (timestamp, factor = 1) => {
+      const prettyTime = (timestamp, factor = 1) => {
         const intervals = [
           { label: 'year', seconds: 31536000 },
           { label: 'month', seconds: 2592000 },
@@ -549,7 +549,7 @@
           { label: 'second', seconds: 1 }
         ];
 
-        const seconds = Math.floor((Date.now() - timestamp) / 1000);
+        const seconds = Math.floor((timestamp) / 1000);
         const interval = intervals.find(i => i.seconds <= seconds) ?? intervals[intervals.length - 1];
         const count = Math.floor(seconds / interval.seconds);
 
@@ -562,10 +562,10 @@
         return rtf.format(count * factor, interval.label);
       };
 
-      generated_ago.textContent = prettyAgo(new Date(times.generatedAt), -1);
+      generated_ago.textContent = prettyTime(Date.now() - new Date(times.generatedAt), -1);
 
       const worstTime = Math.max(...Object.values(times.timeTaken));
-      generated_in.textContent = prettyAgo(new Date(Date.now() - (worstTime * 1000) - (1000 * 60 * 2))).replace('in', 'in about'); // longest engine test time + 2 mins for gen/deploy/stuff
+      generated_in.textContent = prettyTime(new Date(times.generatedAt - times.beganAt)).replace('in', ', took');
 
       const timeGraph = makeGraph({
         total: worstTime,
