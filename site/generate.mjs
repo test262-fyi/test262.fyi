@@ -92,16 +92,17 @@ if (engines.length === 0) {
   process.exit(1);
 }
 
+console.log(versions, times, test262Rev);
+console.log(engines);
+
 if (existsSync('results/github-pages/data/engines.json')) {
   const oldEngines = Object.keys(JSON.parse(readFileSync('results/github-pages/data/engines.json', 'utf8')));
+  console.log('old engines', oldEngines);
   if (oldEngines.length === engines.length) {
     console.log('no new engines! erroring');
     process.exit(1);
   }
 }
-
-console.log(versions, times, test262Rev);
-console.log(engines);
 
 mkdirSync(dataDir, { recursive: true });
 
@@ -422,7 +423,7 @@ walkStruct(struct);
   for (const feature of features) {
     const detail = featureDetails.get(feature);
     const edition = featureByEdition.get(feature);
-    console.log(feature, edition, detail);
+    // console.log(feature, edition, detail);
 
     if (detail && !featureResults.has(feature)) featureResults.set(feature, { total: 0, engines: {}, proposal: detail });
 
