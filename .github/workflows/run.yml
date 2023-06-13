@@ -52,7 +52,7 @@ jobs:
 
     strategy:
       matrix:
-        engine: [v8, jsc, sm, chakra, hermes, libjs, engine262, qjs, xs, graaljs, nashorn, rhino, boa, babel, swc, sucrase] # all
+        engine: [v8, v8_exp, jsc, sm, sm_exp, chakra, hermes, libjs, libjs_bc, engine262, qjs, xs, graaljs, nashorn, rhino, boa, babel, swc, sucrase] # all
 
         chunk: [0, 1, 2, 3, 4, 5, 6, 7]
         # engine: [v8, jsc, sm, chakra, hermes, libjs, qjs, xs, graaljs] # exclude hangers/long

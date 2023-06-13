@@ -53,12 +53,15 @@
   <script>
     const names = {
       v8: 'V8',
+      v8_exp: 'V8 🧪⚙',
       sm: 'SpiderMonkey',
+      sm_exp: 'SpiderMonkey 🧪⚙',
       jsc: 'JavaScriptCore',
       hermes: 'Hermes',
       chakra: 'ChakraCore',
       qjs: 'QuickJS',
       libjs: 'LibJS',
+      libjs_bc: 'Libjs bytecode',
       graaljs: 'GraalJS',
       xs: 'XS',
       nashorn: 'Nashorn',
@@ -72,11 +75,14 @@
 
     const moreInfo = {
       v8: 'Chromium\'s JS engine, also used by Node and Deno',
+      v8_exp: 'V8 with experimental options',
       sm: 'Gecko\'s JS engine',
+      sm_exp: 'SpiderMonkey with experimental options',
       jsc: 'WebKit\'s JS engine',
       hermes: 'Made for and used by React Native',
       chakra: 'Former JS engine for Edge',
       libjs: 'JS engine from SerenityOS, also used in Ladybird browser',
+      libjs: 'LibJS using experimental bytecode interpreter',
       graaljs: 'Built on GraalVM',
       engine262: 'ECMA262 in JavaScript!',
       nashorn: 'Old Java JS engine by Oracle',
@@ -89,12 +95,15 @@
 
     const shortNames = {
       v8: 'V8',
+      v8_exp: 'V8🧪',
       sm: 'SM',
+      sm_exp: 'SM🧪',
       jsc: 'JSC',
       hermes: 'Hermes',
       chakra: 'Chakra',
       qjs: 'QJS',
       libjs: 'LJS',
+      libjs_bc: 'LJS BC',
       graaljs: 'Graal',
       xs: 'XS',
       nashorn: 'Nashorn',
@@ -112,12 +121,12 @@
       sucrase: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'sm', 'jsc', 'hermes', 'qjs', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'nashorn', 'boa', 'engine262', 'babel', 'swc', 'sucrase' ];
+    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'libjs', 'libjs_bc', 'chakra', 'graaljs', 'xs', 'rhino', 'nashorn', 'boa', 'engine262', 'babel', 'swc', 'sucrase' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
 
-    let cwd = '', filterOutEngines = [ 'nashorn', 'engine262', 'swc', 'sucrase' ], init = false;
+    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'libjs_bc', 'nashorn', 'engine262', 'swc', 'sucrase' ], init = false;
 
     if (location.hash) {
       const [ hashCwd, hashFilter ] = decodeURI(location.hash.slice(1)).split('|');

@@ -14,15 +14,18 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 - [X] XS <small>[site](https://www.moddable.com/)</small> <small>[source](https://github.com/Moddable-OpenSource/moddable)</small>
 - [X] Rhino <small>[site](https://mozilla.github.io/rhino/)</small> <small>[source](https://github.com/mozilla/rhino)</small>
 - [X] Nashorn <small>[site](https://openjdk.org/projects/nashorn/)</small> <small>[source](https://github.com/openjdk/nashorn)</small>
+- [X] Boa <small>[source](https://github.com/boa-dev/boa)</small>
 - Request more in GitHub issues!
 
 ### Transpilers
 - [X] Babel (old Node and Babel + core-js)
-- [ ] SWC (old Node and SWC + core-js)
+- [X] SWC (old Node and SWC + core-js)
+- [X] Sucrase (old Node and SWC + core-js)
 
 ### Engine variants
-- [ ] V8 --harmony
-- [ ] LibJS bytecode
+- [X] V8 with experimental opts (--harmony etc)
+- [X] SM with experimental opts
+- [X] LibJS bytecode
 - [ ] Hermes flow parser (?)
 - [ ] Stable versions of engines
 
