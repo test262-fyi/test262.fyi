@@ -139,7 +139,7 @@
 
     document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
 
-    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 3 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
+    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 7 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
 
     let ignoreNextState = false;
     const updateHash = (push = false) => {
