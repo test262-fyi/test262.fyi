@@ -107,7 +107,7 @@ if (existsSync('results/github-pages/data/engines.json')) {
 let beganAt;
 if (existsSync('results/chunks/time.txt')) {
   beganAt = parseInt(readFileSync('results/chunks/time.txt', 'utf8').trim());
-]
+}
 
 mkdirSync(dataDir, { recursive: true });
 
