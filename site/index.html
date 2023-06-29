@@ -361,7 +361,7 @@
         stat.style.width = (vertical ? percent : percent / (keys.length - filterOutEngines.length)) + '%';
         stat._percent = percent;
 
-        if (hide_negligible_results.checked && percent < 5) continue;
+        if (hide_negligible_results.checked && percent < 5 && !labelFunc) continue;
 
         /* stat.onmouseenter = () => {
           stat.style.cssText = `width: ${percent}% !important`;
