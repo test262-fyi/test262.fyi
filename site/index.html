@@ -60,6 +60,7 @@
       hermes: 'Hermes',
       chakra: 'ChakraCore',
       qjs: 'QuickJS',
+      kiesel: 'Kiesel',
       libjs: 'LibJS',
       libjs_bc: 'LibJS bytecode',
       graaljs: 'GraalJS',
@@ -81,6 +82,7 @@
       jsc: 'WebKit\'s JS engine',
       hermes: 'Made for and used by React Native',
       chakra: 'Former JS engine for Edge',
+      kiesel: 'JS engine written in Zig',
       libjs: 'JS engine from SerenityOS, also used in Ladybird browser',
       libjs_bc: 'LibJS using experimental bytecode interpreter',
       graaljs: 'Built on GraalVM',
@@ -102,6 +104,7 @@
       hermes: 'Hermes',
       chakra: 'Chakra',
       qjs: 'QJS',
+      kiesel: 'Kiesel',
       libjs: 'LJS',
       libjs_bc: 'LJS BC',
       graaljs: 'Graal',
@@ -121,7 +124,7 @@
       sucrase: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'libjs', 'libjs_bc', 'chakra', 'graaljs', 'xs', 'rhino', 'nashorn', 'boa', 'engine262', 'babel', 'swc', 'sucrase' ];
+    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'kiesel', 'libjs', 'libjs_bc', 'chakra', 'graaljs', 'xs', 'rhino', 'nashorn', 'boa', 'engine262', 'babel', 'swc', 'sucrase' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');

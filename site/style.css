@@ -157,6 +157,10 @@ thead .stats {
   background: #1d6acf;
 }
 
+.stat-kiesel {
+  background: #f0dc4e;
+}
+
 .stat-libjs {
   background: #ef4946;
 }
@@ -227,6 +231,7 @@ thead .stats {
 .no-stat-chakra #content .stat-chakra,
 .no-stat-graaljs #content .stat-graaljs,
 .no-stat-hermes #content .stat-hermes,
+.no-stat-kiesel #content .stat-kiesel,
 .no-stat-libjs #content .stat-libjs,
 .no-stat-engine262 #content .stat-engine262,
 .no-stat-qjs #content .stat-qjs,
