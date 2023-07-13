@@ -9,4 +9,4 @@ git rev-parse HEAD > ../version.txt
 npm install
 cd ..
 
-./scripts/test262.sh porffor "$(pwd)/helpers/porffor.sh" 8
+./scripts/test262.sh porffor "$(pwd)/helpers/porffor.sh" 16
