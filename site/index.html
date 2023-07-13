@@ -83,7 +83,6 @@
       jsc: 'WebKit\'s JS engine',
       hermes: 'Made for and used by React Native',
       chakra: 'Former JS engine for Edge',
-      kiesel: 'JS engine written in Zig',
       libjs: 'JS engine from SerenityOS, also used in Ladybird browser',
       libjs_bc: 'LibJS using experimental bytecode interpreter',
       graaljs: 'Built on GraalVM',
@@ -91,6 +90,8 @@
       nashorn: 'Old Java JS engine by Oracle',
       rhino: 'Java JS engine by Mozilla',
       boa: 'Experimental embeddable JS engine in Rust',
+      kiesel: 'JS engine written in Zig',
+      porffor: 'AOT JS -> Wasm compiler',
       babel: 'Babel 7 + core-js 3 running on Node 0.10 (ES5)',
       swc: 'SWC + core-js 3 running on Node 0.10 (ES5)',
       sucrase: 'Sucrase + core-js running on Node 0.10 (ES5) - not made for this/for curiosity'
@@ -114,7 +115,7 @@
       engine262: 'e262',
       boa: 'Boa',
       kiesel: 'Kiesel',
-      porffor: 'porffor',
+      porffor: 'porf',
       babel: 'Babel',
       swc: 'SWC',
       sucrase: 'Sucrase'
@@ -126,7 +127,7 @@
       sucrase: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'kiesel', 'libjs', 'libjs_bc', 'chakra', 'graaljs', 'xs', 'rhino', 'nashorn', 'boa', 'engine262', 'babel', 'swc', 'sucrase' ];
+    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'libjs', 'libjs_bc', 'chakra', 'graaljs', 'xs', 'rhino', 'nashorn', 'boa', 'kiesel', 'porffor', 'engine262', 'babel', 'swc', 'sucrase' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
