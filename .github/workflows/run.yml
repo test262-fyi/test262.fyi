@@ -22,7 +22,7 @@ jobs:
         cd helpers/chunkify
         npm install
         cd ../..
-        node helpers/chunkify/index.mjs 8
+        node helpers/chunkify/index.mjs 4
 
     - name: Upload chunks
       uses: actions/upload-artifact@v3
@@ -50,7 +50,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       CHUNKS_PATH: ../chunks/chunks.json
       CHUNK_NUMBER: ${{ matrix.chunk }}
-      CHUNK_COUNT: 8
+      CHUNK_COUNT: 4
 
     strategy:
       matrix:
