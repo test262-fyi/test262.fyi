@@ -90,11 +90,11 @@
       nashorn: 'Old Java JS engine by Oracle',
       rhino: 'Java JS engine by Mozilla',
       boa: 'Experimental embeddable JS engine in Rust',
-      kiesel: 'JS engine written in Zig',
-      porffor: 'AOT JS -> Wasm compiler',
+      kiesel: 'New JS engine written in Zig',
+      porffor: 'New experimental AOT JS -> Wasm compiler',
       babel: 'Babel 7 + core-js 3 running on Node 0.10 (ES5)',
       swc: 'SWC + core-js 3 running on Node 0.10 (ES5)',
-      sucrase: 'Sucrase + core-js running on Node 0.10 (ES5) - not made for this/for curiosity'
+      sucrase: 'Sucrase + core-js running on Node 0.10 (ES5) - for curiosity'
     };
 
     const shortNames = {
@@ -246,7 +246,7 @@
         if (cwd !== '') overallJson = cache[''] ?? await get('data/index.json');
         cache[''] = overallJson;
 
-        const overallGraph = makeGraph(overallJson, true);
+        const overallGraph = makeGraph(overallJson, true, 1);
         document.getElementById('before-overall').insertAdjacentElement('afterend', overallGraph);
       }
 
@@ -350,7 +350,7 @@
       }
     };
 
-    const makeGraph = ({ total, engines }, vertical = false, labelFunc = undefined) => {
+    const makeGraph = ({ total, engines }, vertical = false, precision = 0, labelFunc = undefined) => {
       const el = document.createElement('div');
       el.className = 'stats';
       if (vertical) el.classList.add('vertical');
@@ -379,7 +379,7 @@
         const b = document.createElement('b');
         b.textContent = names[x] ?? x;
 
-        const extra = document.createTextNode(labelFunc ? labelFunc(x, passes) : ` ${percent.toFixed(0)}%`);
+        const extra = document.createTextNode(labelFunc ? labelFunc(x, passes) : ` ${percent.toFixed(precision)}%`);
 
         stat.append(b, extra);
         el.append(stat);
@@ -589,7 +589,7 @@
       const timeGraph = makeGraph({
         total: worstTime,
         engines: times.timeTaken
-      }, true, (engine, time) => {
+      }, true, 0, (engine, time) => {
         const hours = Math.floor(time / 3600);
         const mins = Math.floor(time % 3600 / 60);
         const secs = time % 3600 % 60;
