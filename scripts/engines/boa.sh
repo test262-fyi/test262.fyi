@@ -17,5 +17,6 @@
 echo "0.17" > version.txt
 
 curl -L -o boa https://github.com/boa-dev/boa/releases/download/v0.17/boa-linux-amd64
+chmod +x boa
 
 ./scripts/test262.sh boa "$(pwd)/boa" 24
