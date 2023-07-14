@@ -173,13 +173,17 @@ const walkStruct = struct => {
 
         out.files[niceFile] = { total: y.length, engines: {} };
 
+        let ran = new Map();
         for (const test of y) {
+          if (ran.has(test.file)) continue;
+          ran.set(test.file, true);
+
           for (const engine of engines) {
             if (out.engines[engine] === undefined) out.engines[engine] = 0;
             if (out.files[niceFile].engines[engine] === undefined) out.files[niceFile].engines[engine] = 0;
 
             // const pass = results[engine].find(z => z.file === test.file && z.scenario === test.scenario).result.pass;
-            const pass = fileResults[engine][test.file].find(z => z.scenario === test.scenario).result.pass;
+            const pass = fileResults[engine][test.file].every(z => z.result.pass);
             if (pass) out.files[niceFile].engines[engine]++;
 
             if (pass) out.engines[engine]++;
