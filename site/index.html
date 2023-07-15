@@ -356,6 +356,7 @@
       if (vertical) el.classList.add('vertical');
 
       const keys = Object.keys(engines);
+      const amount = Object.keys(engines).filter(x => !filterOutEngines.includes(x)).length;
       for (const x of niceEngineOrder) {
         if (engines[x] === undefined) continue;
         let passes = engines[x];
@@ -364,7 +365,7 @@
         stat.className = 'stat-' + x;
 
         const percent = (passes / total) * 100;
-        stat.style.width = (vertical ? percent : percent / (keys.length - filterOutEngines.length)) + '%';
+        stat.style.width = (vertical ? percent : percent / amount) + '%';
         stat._percent = percent;
 
         if (hide_negligible_results.checked && percent < 5 && !labelFunc) continue;
@@ -439,12 +440,10 @@
 
     const makeEngines = () => {
       const adjustStatsSizes = factor => {
-        const keys = Object.keys(engines);
-        const beforeAmount = (keys.length - filterOutEngines.length) - factor;
-        const afterAmount = (keys.length - filterOutEngines.length);
+        const amount = Object.keys(engines).filter(x => !filterOutEngines.includes(x)).length;
 
         for (const el of document.querySelectorAll('.stats:not(.vertical) > div')) {
-          el.style.width = (el._percent / (keys.length - filterOutEngines.length)) + '%';
+          el.style.width = (el._percent / amount) + '%';
         }
       };
 
