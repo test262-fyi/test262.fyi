@@ -357,6 +357,8 @@
 
       const keys = Object.keys(engines);
       const amount = Object.keys(engines).filter(x => !filterOutEngines.includes(x)).length;
+      const negligiblePercent = amount / 2;
+
       for (const x of niceEngineOrder) {
         if (engines[x] === undefined) continue;
         let passes = engines[x];
@@ -368,7 +370,7 @@
         stat.style.width = (vertical ? percent : percent / amount) + '%';
         stat._percent = percent;
 
-        if (hide_negligible_results.checked && percent < 5 && !labelFunc) continue;
+        if (hide_negligible_results.checked && percent < negligiblePercent && !labelFunc) continue;
 
         /* stat.onmouseenter = () => {
           stat.style.cssText = `width: ${percent}% !important`;
