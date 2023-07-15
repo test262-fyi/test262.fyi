@@ -171,13 +171,15 @@ const walkStruct = struct => {
       if (Array.isArray(y)) {
         const niceFile = y[0].file.replace('test/', '');
 
-        out.files[niceFile] = { total: y.length, engines: {} };
+        out.files[niceFile] = { total: 0, engines: {} };
 
         let ran = new Map();
         for (const test of y) {
           if (ran.has(test.file)) continue;
           ran.set(test.file, true);
+
           out.total++;
+          out.files[niceFile]++;
 
           for (const engine of engines) {
             if (out.engines[engine] === undefined) out.engines[engine] = 0;
