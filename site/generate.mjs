@@ -179,7 +179,7 @@ const walkStruct = struct => {
           ran.set(test.file, true);
 
           out.total++;
-          out.files[niceFile]++;
+          out.files[niceFile].total++;
 
           for (const engine of engines) {
             if (out.engines[engine] === undefined) out.engines[engine] = 0;
