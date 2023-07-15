@@ -177,6 +177,7 @@ const walkStruct = struct => {
         for (const test of y) {
           if (ran.has(test.file)) continue;
           ran.set(test.file, true);
+          out.total++;
 
           for (const engine of engines) {
             if (out.engines[engine] === undefined) out.engines[engine] = 0;
@@ -190,7 +191,6 @@ const walkStruct = struct => {
           }
         }
 
-        out.total += y.length;
         continue;
       }
 
@@ -439,8 +439,11 @@ walkStruct(struct);
 
     const r = !detail ? { total: 0, engines: {} } : featureResults.get(feature);
 
-    let tests = [];
+    let tests = [], ran = new Set();
     for (const test of refTests) {
+      if (ran.has(test.file)) continue;
+      ran.add(test.file);
+
       if (test.attrs && test.attrs.features && test.attrs.features.includes(feature)) {
         tests.push(test);
         r.total++;
@@ -455,7 +458,7 @@ walkStruct(struct);
         if (r.engines[engine] === undefined) r.engines[engine] = 0;
         if (editionResults[edition].engines[engine] === undefined) editionResults[edition].engines[engine] = 0;
 
-        const pass = fileResults[engine][test.file].find(z => z.scenario === test.scenario).result.pass;
+        const pass = fileResults[engine][test.file].every(z => z.result.pass);
         if (pass) {
           r.engines[engine]++;
           editionResults[edition].engines[engine]++;
