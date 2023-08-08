@@ -27,8 +27,6 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 ### Engine variants
 - [X] V8 with experimental opts (--harmony etc)
 - [X] SM with experimental opts
-- [X] LibJS bytecode
-- [ ] Hermes flow parser (?)
 - [ ] Stable versions of engines
 
 ## Features to do

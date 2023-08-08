@@ -222,10 +222,6 @@ thead .stats {
   color: #000408;
 }
 
-.stat-libjs_bc {
-  background: #bb2a28;
-}
-
 .stat-porffor {
   background: #9c60e0;
 }
@@ -249,7 +245,6 @@ thead .stats {
 .no-stat-sucrase #content .stat-sucrase,
 .no-stat-v8_exp #content .stat-v8_exp,
 .no-stat-sm_exp #content .stat-sm_exp,
-.no-stat-libjs_bc #content .stat-libjs_bc,
 .no-stat-porffor #content .stat-porffor {
   width: 0 !important;
   height: 0 !important;
