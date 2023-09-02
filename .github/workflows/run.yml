@@ -5,6 +5,8 @@ on:
   push:
     branches: [ "main" ]
     paths: [ ".github/workflows/run.yml", "scripts/**/*", "helpers/**/*", "site/generate.mjs" ]
+  schedule:
+    - cron: "0 0 * * *" # autorun daily at midnight utc
 
 jobs:
   make-chunks:
