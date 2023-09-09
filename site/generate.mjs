@@ -471,4 +471,28 @@ walkStruct(struct);
 
   writeFileSync(join(dataDir, 'features.json'), JSON.stringify(Object.fromEntries(featureResults)));
   writeFileSync(join(dataDir, 'editions.json'), JSON.stringify(editionResults));
+
+  // jank :)
+  let history;
+
+  try {
+    history = await (await fetch('https://test262.fyi/data/history.json')).json();
+  } catch {
+    // failed, probably does not exist or ?????
+    history = [];
+  }
+
+  const indexResults = JSON.parse(readFileSync(join(dataDir, 'index.json')));
+
+  history.push({
+    time: Date.now(),
+
+    total: indexResults.total,
+    ...indexResults.engines,
+
+    versions,
+    test262: test262Rev
+  });
+
+  writeFileSync(join(dataDir, 'history.json'), JSON.stringify(history));
 })();
