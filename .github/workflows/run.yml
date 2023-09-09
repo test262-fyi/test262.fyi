@@ -117,7 +117,7 @@ jobs:
     - name: Generate site
       id: generate
       continue-on-error: true
-      run: node site/generate.mjs
+      run: node --max-old-space-size=4096 site/generate.mjs
 
     - name: Upload pages artifact
       if: steps.generate.outcome == 'success'
