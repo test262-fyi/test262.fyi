@@ -31,7 +31,8 @@ module.exports = (code, features, mod) => {
       },
 
       experimental: {
-        keepImportAssertions: true
+        // keepImportAssertions: true
+        keepImportAttributes: true
       }
     },
 
