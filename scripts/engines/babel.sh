@@ -8,6 +8,10 @@ tar -zxf node.tar.gz
 git clone https://github.com/babel/babel-test262-runner.git --depth 1
 
 cd babel-test262-runner
+
+# remove package lock to install latest deps (?)
+rm package-lock.json
+
 npm install
 cd ..
 

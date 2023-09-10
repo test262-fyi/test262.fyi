@@ -4,7 +4,7 @@
 curl -L -o node.tar.gz "https://nodejs.org/dist/latest-v0.10.x/node-v0.10.48-linux-x64.tar.gz"
 tar -zxf node.tar.gz
 
-# install swc deps
+# install sucrase deps
 cd helpers/sucrase
 npm install
 cd ../..
