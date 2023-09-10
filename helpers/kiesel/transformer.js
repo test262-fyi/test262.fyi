@@ -1,4 +1,7 @@
-const HARNESS_IS_ENUMERABLE = `
+const HARNESS_CODE_REPLACEMENTS = [
+  // Patch out unsupported for-in loop, see https://github.com/tc39/test262/pull/3908
+  [
+    `
 function isEnumerable(obj, name) {
   var stringCheck = false;
 
@@ -18,19 +21,38 @@ function isEnumerable(obj, name) {
     Object.prototype.hasOwnProperty.call(obj, name) &&
     Object.prototype.propertyIsEnumerable.call(obj, name);
 }
-`;
-
-const HARNESS_IS_ENUMERABLE_TRANSFORMED = `
+`,
+    `
 function isEnumerable(obj, name) {
   return (
     Object.prototype.hasOwnProperty.call(obj, name) &&
     Object.prototype.propertyIsEnumerable.call(obj, name)
   );
 }
-`;
+`,
+  ],
+  // Patch out unsupported template literals in compareArray.js
+  [
+    "`[${[].map.call(arrayLike, String).join(', ')}]`",
+    "'[' + [].map.call(arrayLike, String).join(', ') + ']'",
+  ],
+  [
+    "`First argument shouldn't be nullish. ${message}`",
+    "'First argument shouldn\\'t be nullish. ' + message",
+  ],
+  [
+    "`Second argument shouldn't be nullish. ${message}`",
+    "'Second argument shouldn\\'t be nullish. ' + message",
+  ],
+  [
+    "`Expected ${format(actual)} and ${format(expected)} to have the same contents. ${message}`",
+    "'Expected ' + format(actual) + ' and ' + format(expected) +' to have the same contents. ' + message",
+  ],
+];
 
 module.exports = function (code) {
-  // Patch out unsupported for-in loop, see https://github.com/tc39/test262/pull/3908
-  code = code.replace(HARNESS_IS_ENUMERABLE, HARNESS_IS_ENUMERABLE_TRANSFORMED);
+  for (const [snippet, replacement] of HARNESS_CODE_REPLACEMENTS) {
+    code = code.replace(snippet, replacement);
+  }
   return code;
 };
