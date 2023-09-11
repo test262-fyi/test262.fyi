@@ -479,12 +479,23 @@ walkStruct(struct);
     history = await (await fetch('https://test262.fyi/data/history.json')).json();
   } catch {
     // failed, probably does not exist or ?????
-    history = [];
+    history = {};
   }
 
+  // tmp: history was an array for a few days, convert to new format
+  if (Array.isArray(history)) {
+    const old = history;
+
+    history = {};
+    for (const x of old) {
+      history[(new Date(x.time)).toISOString().split('T')[0]] = x;
+    }
+  }
+
+  const date = (new Date()).toISOString().split('T')[0];
   const indexResults = JSON.parse(readFileSync(join(dataDir, 'index.json')));
 
-  history.push({
+  history[date] = {
     time: Date.now(),
 
     total: indexResults.total,
@@ -492,7 +503,7 @@ walkStruct(struct);
 
     versions,
     test262: test262Rev
-  });
+  };
 
   writeFileSync(join(dataDir, 'history.json'), JSON.stringify(history));
 })();
