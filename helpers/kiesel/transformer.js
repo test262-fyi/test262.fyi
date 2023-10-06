@@ -86,8 +86,16 @@ function isEnumerable(obj, name) {
   ],
   [
     "`${prefix}Reason value for item ${i}`",
-    ,
     "prefix + 'Reason value for item ' + i",
+  ],
+  // Patch out unsupported template literals in $DONE() error messages
+  [
+    "`The promise should be resolved, but threw an exception: ${error.message}`",
+    "'The promise should be resolved, but threw an exception: ' + error.message",
+  ],
+  [
+    "`The promise should be rejected, but threw an exception: ${error.message}`",
+    "'The promise should be rejected, but threw an exception: ' + error.message",
   ],
 ];
 
