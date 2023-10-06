@@ -46,7 +46,48 @@ function isEnumerable(obj, name) {
   ],
   [
     "`Expected ${format(actual)} and ${format(expected)} to have the same contents. ${message}`",
-    "'Expected ' + format(actual) + ' and ' + format(expected) +' to have the same contents. ' + message",
+    "'Expected ' + format(actual) + ' and ' + format(expected) + ' to have the same contents. ' + message",
+  ],
+  // Patch out unsupported template literals in promiseHelper.js
+  ["`${message}: `", "message + ': '"],
+  [
+    "`${prefix}Settled values is an array`",
+    "prefix + 'Settled values is an array'",
+  ],
+  [
+    "`${prefix}The settled values has a different length than expected`",
+    "prefix + 'The settled values has a different length than expected'",
+  ],
+  [
+    "`${prefix}The settled value has a property status`",
+    "prefix + 'The settled value has a property status'",
+  ],
+  ["`${prefix}status for item ${i}`", "prefix + 'status for item ' + i"],
+  [
+    "`${prefix}The fulfilled promise has a property named value`",
+    "prefix + 'The fulfilled promise has a property named value'",
+  ],
+  [
+    "`${prefix}The fulfilled promise has no property named reason`",
+    "prefix + 'The fulfilled promise has no property named reason'",
+  ],
+  ["`${prefix}value for item ${i}`", "prefix + 'value for item ' + i"],
+  [
+    "`${prefix}Valid statuses are only fulfilled or rejected`",
+    "prefix + 'Valid statuses are only fulfilled or rejected'",
+  ],
+  [
+    "`${prefix}The fulfilled promise has no property named value`",
+    "prefix + 'The fulfilled promise has no property named value'",
+  ],
+  [
+    "`${prefix}The fulfilled promise has a property named reason`",
+    "prefix + 'The fulfilled promise has a property named reason'",
+  ],
+  [
+    "`${prefix}Reason value for item ${i}`",
+    ,
+    "prefix + 'Reason value for item ' + i",
   ],
 ];
 
