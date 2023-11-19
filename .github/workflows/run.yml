@@ -55,6 +55,7 @@ jobs:
       CHUNK_COUNT: 4
 
     strategy:
+      fail-fast: false
       matrix:
         engine: [v8, v8_exp, jsc, sm, sm_exp, chakra, hermes, kiesel, porffor, libjs, engine262, qjs, xs, graaljs, nashorn, rhino, boa, babel, swc, sucrase] # all
 
