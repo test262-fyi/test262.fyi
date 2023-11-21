@@ -158,6 +158,16 @@
         return;
       }
 
+      // fallback to using location if state is unusable
+      if (state == null && location.hash) {
+        const [ hashCwd, hashFilter ] = decodeURI(location.hash.slice(1)).split('|');
+        if (hashCwd) cwd = hashCwd.trim();
+        if (hashFilter) {
+          const includedEngines = hashFilter.trim().split(',');
+          filterOutEngines = niceEngineOrder.filter(x => !includedEngines.includes(x));
+        }
+      }
+
       filterOutEngines = state.filterOutEngines ?? filterOutEngines;
       navigate(state.cwd ?? cwd);
     };
