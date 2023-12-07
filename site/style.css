@@ -240,6 +240,7 @@ thead .stats {
 .no-stat-libjs #content .stat-libjs,
 .no-stat-engine262 #content .stat-engine262,
 .no-stat-qjs #content .stat-qjs,
+.no-stat-qjs_ng #content .stat-qjs_ng,
 .no-stat-xs #content .stat-xs,
 .no-stat-babel #content .stat-babel,
 .no-stat-swc #content .stat-swc,
