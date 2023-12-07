@@ -175,6 +175,10 @@ thead .stats {
   color: #000408;
 }
 
+.stat-qjs_ng {
+  background: rgb(44, 44, 41);
+}
+
 .stat-xs {
   background: #08306e;
 }

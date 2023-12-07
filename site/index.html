@@ -62,6 +62,7 @@
       hermes: 'Hermes',
       chakra: 'ChakraCore',
       qjs: 'QuickJS',
+      qjs_ng: 'QuickJS NG',
       libjs: 'LibJS',
       graaljs: 'GraalJS',
       xs: 'XS',
@@ -106,6 +107,7 @@
       hermes: 'Hermes',
       chakra: 'Chakra',
       qjs: 'QJS',
+      qjs_ng: 'QJS-NG',
       libjs: 'LJS',
       graaljs: 'Graal',
       xs: 'XS',
@@ -126,12 +128,12 @@
       sucrase: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'nashorn', 'boa', 'kiesel', 'porffor', 'engine262', 'babel', 'swc', 'sucrase' ];
+    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'qjs_ng', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'nashorn', 'boa', 'kiesel', 'porffor', 'engine262', 'babel', 'swc', 'sucrase' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
 
-    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'nashorn', 'boa', 'engine262', 'kiesel', 'porffor', 'swc', 'sucrase' ], init = false;
+    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'nashorn', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'swc', 'sucrase' ], init = false;
 
     if (location.hash) {
       const [ hashCwd, hashFilter ] = decodeURI(location.hash.slice(1)).split('|');
@@ -144,7 +146,7 @@
 
     document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
 
-    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 9 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
+    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 10 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
 
     let ignoreNextState = false;
     const updateHash = (push = false) => {
