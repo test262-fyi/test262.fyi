@@ -44,6 +44,10 @@
         <input type="checkbox" checked id="hide_negligible_results">
         <label for="hide_negligible_results">Hide negligible results</label>
       </div>
+      <div>
+        <input type="checkbox" id="use_abs_numbers">
+        <label for="use_abs_numbers" title="eg 1/2 instead of 50%">Use absolute numbers (X/Y)</label>
+      </div>
     </div>
 
     <table>
@@ -176,6 +180,7 @@
 
     vertical_file_graphs.oninput = () => navigate(cwd);
     hide_negligible_results.oninput = () => navigate(cwd);
+    use_abs_numbers.oninput = () => navigate(cwd);
 
     const get = async url => await (await fetch(url, { cache: 'no-cache' })).json();
 
@@ -396,7 +401,7 @@
         const b = document.createElement('b');
         b.textContent = names[x] ?? x;
 
-        const extra = document.createTextNode(labelFunc ? labelFunc(x, passes) : ` ${percent.toFixed(precision)}%`);
+        const extra = document.createTextNode(labelFunc ? labelFunc(x, passes) : ` ${use_abs_numbers.checked ? `${passes}/${total}` : percent.toFixed(precision)}%`);
 
         stat.append(b, extra);
         el.append(stat);
