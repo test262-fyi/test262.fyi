@@ -361,7 +361,7 @@
       }
     };
 
-    const makeGraph = ({ total, engines }, vertical = false, precision = 0, labelFunc = undefined) => {
+    const makeGraph = ({ total, engines }, vertical = false, precision = 0, labelFunc = undefined, sort = ((a, b) => engines[b] - engines[a])) => {
       const el = document.createElement('div');
       el.className = 'stats';
       if (vertical) el.classList.add('vertical');
@@ -370,7 +370,10 @@
       const amount = Object.keys(engines).filter(x => !filterOutEngines.includes(x)).length;
       const negligiblePercent = amount / 2;
 
-      for (const x of niceEngineOrder) {
+      const sortedEngineOrder = Object.keys(engines).sort(sort);
+
+      // for (const x of niceEngineOrder) {
+      for (const x of sortedEngineOrder) {
         if (engines[x] === undefined) continue;
         let passes = engines[x];
 
@@ -607,7 +610,7 @@
         const secs = time % 3600 % 60;
 
         return hours > 0 ? ` ${hours}h ${mins}m` : ` ${mins}m`;
-      });
+      }, (a, b) => engines[a] - engines[b]);
       document.getElementById('before-times').insertAdjacentElement('afterend', timeGraph);
     })();
 
