@@ -577,6 +577,12 @@
     (async () => {
       times = await get('data/times.json');
 
+      const rtf = new Intl.RelativeTimeFormat("en", {
+        localeMatcher: 'best fit',
+        numeric: 'auto',
+        style: 'long'
+      });
+
       const prettyTime = (timestamp, factor = 1) => {
         const intervals = [
           { label: 'year', seconds: 31536000 },
@@ -591,12 +597,6 @@
         const seconds = Math.floor((timestamp) / 1000);
         const interval = intervals.find(i => i.seconds <= seconds) ?? intervals[intervals.length - 1];
         const count = Math.floor(seconds / interval.seconds);
-
-        const rtf = new Intl.RelativeTimeFormat("en", {
-          localeMatcher: 'best fit',
-          numeric: 'auto',
-          style: 'long'
-        });
 
         return rtf.format(count * factor, interval.label);
       };
