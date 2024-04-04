@@ -615,7 +615,7 @@
         const secs = time % 3600 % 60;
 
         return hours > 0 ? ` ${hours}h ${mins}m` : ` ${mins}m`;
-      }, (a, b) => engines[a] - engines[b]);
+      }, (a, b) => times.timeTaken[a] - times.timeTaken[b]);
       document.getElementById('before-times').insertAdjacentElement('afterend', timeGraph);
     })();
 
