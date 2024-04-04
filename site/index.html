@@ -401,7 +401,7 @@
         const b = document.createElement('b');
         b.textContent = names[x] ?? x;
 
-        const extra = document.createTextNode(labelFunc ? labelFunc(x, passes) : ` ${use_abs_numbers.checked ? `${passes}/${total}` : percent.toFixed(precision)}%`);
+        const extra = document.createTextNode(labelFunc ? labelFunc(x, passes) : ` ${use_abs_numbers.checked ? `${passes}/${total}` : `${percent.toFixed(precision)}%`}`);
 
         stat.append(b, extra);
         el.append(stat);
