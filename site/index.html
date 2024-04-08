@@ -137,7 +137,7 @@
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
 
-    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'nashorn', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'swc', 'sucrase' ], init = false;
+    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'xs', 'rhino', 'nashorn', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'swc', 'sucrase' ], init = false;
 
     if (location.hash) {
       const [ hashCwd, hashFilter ] = decodeURI(location.hash.slice(1)).split('|');
@@ -150,7 +150,7 @@
 
     document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
 
-    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 10 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
+    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 12 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
 
     let ignoreNextState = false;
     const updateHash = (push = false) => {
