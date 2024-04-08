@@ -287,7 +287,8 @@
 
           proposalsDetails.append(proposalsSummary, proposalsEl);
 
-          for (const feature of Object.values(features).sort((a, b) => b.proposal.stars - a.proposal.stars)) {
+          const proposals = Object.values(features).filter(x => x.proposal).sort((a, b) => b.proposal.stars - a.proposal.stars);
+          for (const feature of proposals) {
             const { proposal, total, engines } = feature;
 
             const el = document.createElement('div');
