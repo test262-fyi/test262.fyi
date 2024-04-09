@@ -4,3 +4,6 @@
 
 node_modules
 package-lock.json
+
+node.*
+node-v*/
