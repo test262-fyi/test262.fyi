@@ -1,8 +1,9 @@
 #!/bin/sh
+set -x
 
 # clone test262
 git clone https://github.com/tc39/test262.git --depth 1
-cd test262
+cd ./test262
 
 # install test262 harness (our fork - https://github.com/CanadaHonk/test262-harness)
 npm install -g github:CanadaHonk/test262-harness

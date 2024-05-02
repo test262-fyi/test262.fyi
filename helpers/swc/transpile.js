@@ -7,8 +7,6 @@ module.exports = (code, features, mod) => {
     filename: 'input.js',
 
     jsc: {
-      target: 'es5',
-
       parser: {
         dynamicImport: true,
         privateMethod: true,
@@ -35,6 +33,12 @@ module.exports = (code, features, mod) => {
       type: 'commonjs',
       strictMode: false,
       ignoreDynamic: true
-    }
+    },
+
+    env: {
+      targets: [
+        'node 0.10'
+      ],
+    },
   }).code;
 };

@@ -5,9 +5,7 @@ curl -L -o node.tar.gz "https://nodejs.org/dist/latest-v0.10.x/node-v0.10.48-lin
 tar -zxf node.tar.gz
 
 # install swc deps
-cd helpers/swc
-npm install
-cd ../..
+(cd ./helpers/swc && npm install)
 
 node helpers/swc/version.js > version.txt
 
