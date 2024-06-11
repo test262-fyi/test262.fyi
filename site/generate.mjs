@@ -69,16 +69,24 @@ for (const file of readdirSync('results')) {
 
   if (existsSync(join(base, 'jsvu.json'))) {
     const jsvu = JSON.parse(readFileSync(join(base, 'jsvu.json'), 'utf8'));
-    versions[file] = jsvu[Object.keys(jsvu).find(x => x !== 'os' && x !== 'engines')].trim();
+    versions[file] = jsvu[Object.keys(jsvu).find(x => x !== 'os' && x !== 'engines')]?.trim?.();
   }
 
   if (existsSync(join(base, 'esvu.json'))) {
     const esvu = JSON.parse(readFileSync(join(base, 'esvu.json'), 'utf8'));
-    versions[file] = Object.values(esvu.installed)[0].version.trim();
+    versions[file] = Object.values(esvu?.installed)?.[0]?.version?.trim?.();
   }
 
   if (existsSync(join(base, 'version.txt'))) {
     versions[file] = readFileSync(join(base, 'version.txt'), 'utf8').trim();
+  }
+
+  if (versions[file] == null) {
+    console.log(`${file} had a version error, ignoring it`);
+
+    delete results[file];
+    delete times[file];
+    continue;
   }
 
   if (existsSync(join(base, 'test262-rev.txt'))) {
