@@ -112,7 +112,7 @@ th.sub {
 
 table .stats {
   width: calc((100vw - 320px - 4vw) * 0.75 - 12px - 2px);
-  margin: 0 6px;
+  margin: 6px;
 }
 
 thead .stats {
