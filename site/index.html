@@ -337,14 +337,14 @@
           editionsDetails.append(editionsSummary, editionsAdditionsEl, editionsEl);
 
           const acc = { total: 0, engines: {} };
-          for (let i = 6; i <= 14; i++) {
-            const { total, engines } = editions[i.toString()];
+          for (let i of [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, undefined]) {
+            const { total, engines } = editions[i];
 
             acc.total += total;
             for (const engine in engines) acc.engines[engine] = (acc.engines[engine] ?? 0) + engines[engine];
 
             let edition = i > 6 ? `ES${i+2009}` : `ES${i}`;
-            if (i === 14) edition = 'ESNext';
+            if (i === undefined) edition = 'ESNext';
 
             const el = document.createElement('div');
 
@@ -354,7 +354,7 @@
             name.textContent = `${edition}${editionsAdditionsCheckbox.checked ? ' Additions' : ''}`;
 
             const fullVersion = document.createElement('span');
-            fullVersion.textContent = i === 14 || i <= 6 ? '' : `${i}th edition`;
+            fullVersion.textContent = i === undefined || i <= 6 ? '' : `${i}th edition`;
 
             name.append(fullVersion);
 

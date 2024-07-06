@@ -247,34 +247,50 @@ walkStruct(struct);
   const featureResults = new Map(), featureDetails = new Map(), editionResults = {};
 
   const featureByEdition = new Map(Object.entries({
-    "hashbang": 14,
-    "Intl.Locale-info": 14,
-    "FinalizationRegistry.prototype.cleanupSome": 14,
-    "Intl.NumberFormat-v3": 14,
-    "legacy-regexp": 14,
-    "Atomics.waitAsync": 14,
-    "import-assertions": 14,
-    "json-modules": 14,
-    "json-parse-with-source": 14,
-    "resizable-arraybuffer": 14,
-    "arraybuffer-transfer": 14,
-    "Temporal": 14,
-    "ShadowRealm": 14,
+    "Intl.Locale-info": 99,
+    "FinalizationRegistry.prototype.cleanupSome": 99,
+    "Intl.NumberFormat-v3": 99,
+    "legacy-regexp": 99,
+    "import-assertions": 99,
+    "json-modules": 99,
+    "json-parse-with-source": 99,
+    "resizable-arraybuffer": 99,
+    "arraybuffer-transfer": 99,
+    "Temporal": 99,
+    "ShadowRealm": 99,
+    "Intl.DurationFormat": 99,
+    "decorators": 99,
+    "regexp-duplicate-named-groups": 99,
+    "change-array-by-copy": 99,
+    "Array.fromAsync": 99,
+    "Intl-enumeration": 99,
+    "Intl.DateTimeFormat-extend-timezonename": 99,
+    "Intl.DisplayNames-v2": 99,
+    "Intl.Segmenter": 99,
+    "symbols-as-weakmap-keys": 99,
+    "import-attributes": 99,
+    "regexp-modifiers": 99,
+    "iterator-helpers": 99,
+    "promise-try": 99,
+    "set-methods": 99,
+    "explicit-resource-management": 99,
+    "Float16Array": 99,
+    "Math.sumPrecise": 99,
+    "source-phase-imports": 99,
+    "source-phase-imports-module-source": 99,
+    "IsHTMLDDA": 99,
+    "host-gc-required": 99,
+
+    "Atomics.waitAsync": 15,
+    "array-grouping": 15,
+    "promise-with-resolvers": 15,
+    "regexp-v-flag": 15,
+    "String.prototype.isWellFormed": 15,
+    "String.prototype.toWellFormed": 15,
+
     "array-find-from-last": 14,
-    "array-grouping": 14,
-    "Intl.DurationFormat": 14,
-    "regexp-v-flag": 14,
-    "decorators": 14,
-    "regexp-duplicate-named-groups": 14,
-    "change-array-by-copy": 14,
-    "Array.fromAsync": 14,
-    "String.prototype.isWellFormed": 14,
-    "String.prototype.toWellFormed": 14,
-    "Intl-enumeration": 14,
-    "Intl.DateTimeFormat-extend-timezonename": 14,
-    "Intl.DisplayNames-v2": 14,
-    "Intl.Segmenter": 14,
-    "symbols-as-weakmap-keys": 14,
+    "hashbang": 14,
+
     "AggregateError": 12,
     "align-detached-buffer-semantics-with-web-reality": 12,
     "arbitrary-module-namespace-names": 13,
@@ -442,8 +458,9 @@ walkStruct(struct);
 
   for (const feature of features) {
     const detail = featureDetails.get(feature);
-    const edition = featureByEdition.get(feature);
-    // console.log(feature, edition, detail);
+    let edition = featureByEdition.get(feature);
+    if (edition === undefined) console.warn(`feature '${feature}' has no associated edition`);
+    if (edition === 99) edition = undefined;
 
     // if (detail && !featureResults.has(feature)) featureResults.set(feature, { total: 0, engines: {}, proposal: detail });
     if (!featureResults.has(feature)) featureResults.set(feature, { total: 0, engines: {}, proposal: detail || null });
