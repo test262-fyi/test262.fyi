@@ -10,7 +10,7 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 - [X] LibJS <small>[site](https://libjs.dev)</small> <small>[source](https://github.com/SerenityOS/serenity/tree/master/Userland/Libraries/LibJS)</small>
 - [X] engine262 <small>[site](https://engine262.js.org)</small> <small>[source](https://github.com/engine262/engine262)</small>
 - [X] GraalJS <small>[source](https://github.com/oracle/graaljs)</small>
-- [X] QuickJS <small>[site](https://bellard.org/quickjs/)</small> <small>[source](https://github.com/facebook/hermes)</small>
+- [X] QuickJS <small>[site](https://bellard.org/quickjs/)</small> <small>[source](https://github.com/bellard/quickjs)</small>
 - [X] XS <small>[site](https://www.moddable.com/)</small> <small>[source](https://github.com/Moddable-OpenSource/moddable)</small>
 - [X] Rhino <small>[site](https://mozilla.github.io/rhino/)</small> <small>[source](https://github.com/mozilla/rhino)</small>
 - [X] Nashorn <small>[site](https://openjdk.org/projects/nashorn/)</small> <small>[source](https://github.com/openjdk/nashorn)</small>
