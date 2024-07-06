@@ -248,38 +248,69 @@ walkStruct(struct);
   const featureResults = new Map(), featureDetails = new Map(), editionResults = {};
 
   const featureByEdition = new Map(Object.entries({
+    // https://github.com/tc39/proposal-intl-locale-info
     "Intl.Locale-info": 99,
+    // https://github.com/tc39/proposal-cleanup-some
     "FinalizationRegistry.prototype.cleanupSome": 99,
+    // https://github.com/tc39/proposal-intl-numberformat-v3
     "Intl.NumberFormat-v3": 99,
+    // https://github.com/tc39/proposal-regexp-legacy-features
     "legacy-regexp": 99,
+    // https://github.com/tc39/proposal-import-attributes
     "import-assertions": 99,
+    // https://github.com/tc39/proposal-json-modules
     "json-modules": 99,
+    // https://github.com/tc39/proposal-json-parse-with-source
     "json-parse-with-source": 99,
+    // https://github.com/tc39/proposal-resizablearraybuffer
     "resizable-arraybuffer": 99,
+    // https://github.com/tc39/proposal-arraybuffer-transfer
     "arraybuffer-transfer": 99,
+    // https://github.com/tc39/proposal-temporal
     "Temporal": 99,
+    // https://github.com/tc39/proposal-shadowrealm
     "ShadowRealm": 99,
+    // https://github.com/tc39/proposal-intl-duration-format
     "Intl.DurationFormat": 99,
+    // https://github.com/tc39/proposal-decorators
     "decorators": 99,
+    // https://github.com/tc39/proposal-duplicate-named-capturing-groups
     "regexp-duplicate-named-groups": 99,
+    // https://github.com/tc39/proposal-change-array-by-copy
     "change-array-by-copy": 99,
+    // https://github.com/tc39/proposal-array-from-async
     "Array.fromAsync": 99,
+    // https://github.com/tc39/proposal-intl-enumeration
     "Intl-enumeration": 99,
+    // https://github.com/tc39/proposal-intl-extend-timezonename
     "Intl.DateTimeFormat-extend-timezonename": 99,
+    // https://github.com/tc39/proposal-intl-displaynames-v2
     "Intl.DisplayNames-v2": 99,
+    // https://github.com/tc39/proposal-intl-segmenter
     "Intl.Segmenter": 99,
+    // https://github.com/tc39/proposal-symbols-as-weakmap-keys
     "symbols-as-weakmap-keys": 99,
+    // https://github.com/tc39/proposal-import-attributes
     "import-attributes": 99,
+    // https://github.com/tc39/proposal-regexp-modifiers
     "regexp-modifiers": 99,
+    // https://github.com/tc39/proposal-iterator-helpers
     "iterator-helpers": 99,
+    // https://github.com/tc39/proposal-promise-try
     "promise-try": 99,
+    // https://github.com/tc39/proposal-set-methods
     "set-methods": 99,
+    // https://github.com/tc39/proposal-explicit-resource-management
     "explicit-resource-management": 99,
+    // https://github.com/tc39/proposal-float16array
     "Float16Array": 99,
+    // https://github.com/tc39/proposal-math-sum
     "Math.sumPrecise": 99,
+    // https://github.com/tc39/proposal-source-phase-imports
     "source-phase-imports": 99,
+    // https://github.com/tc39/proposal-esm-phase-imports
     "source-phase-imports-module-source": 99,
-    "IsHTMLDDA": 99,
+    //
     "host-gc-required": 99,
 
     "Atomics.waitAsync": 15,
@@ -357,6 +388,7 @@ walkStruct(struct);
     "Intl.Locale": 12,
     "Intl.NumberFormat-unified": 11,
     "Intl.RelativeTimeFormat": 11,
+    "IsHTMLDDA": 9,
     "json-superset": 10,
     "let": 6,
     "logical-assignment-operators": 12,
