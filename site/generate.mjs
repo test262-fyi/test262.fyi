@@ -7,7 +7,8 @@ const results = {}, versions = {}, times = {};
 let test262Rev = 'unknown';
 let refTests = {};
 
-const chunkCount = parseInt(process.env.CHUNK_COUNT || "5");
+// the default for this can be found in .github/workflows/run.yml
+const chunkCount = parseInt(process.env.CHUNK_COUNT);
 
 for (const dir of readdirSync('results')) {
   if (dir === 'github-pages' || dir === 'chunks') continue;
