@@ -10,7 +10,7 @@ on:
 
 jobs:
   make-chunks:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v3
@@ -36,7 +36,7 @@ jobs:
 
 
   test262:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs: make-chunks
 
     permissions:
