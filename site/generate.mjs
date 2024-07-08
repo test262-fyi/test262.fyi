@@ -29,8 +29,6 @@ for (const dir of readdirSync('results')) {
 }
 
 for (const file of readdirSync('results2')) {
-  if (file === 'github-pages' || file === 'chunks') continue;
-
   const base = join('results2', file);
 
   let validResults = 0;
@@ -104,8 +102,8 @@ if (engines.length === 0) {
 console.log(versions, times, test262Rev);
 console.log(engines);
 
-if (existsSync('results2/github-pages/data/engines.json')) {
-  const oldEngines = Object.keys(JSON.parse(readFileSync('results2/github-pages/data/engines.json', 'utf8')));
+if (existsSync('results/github-pages/data/engines.json')) {
+  const oldEngines = Object.keys(JSON.parse(readFileSync('results/github-pages/data/engines.json', 'utf8')));
   console.log('old engines', oldEngines);
   if (oldEngines.length === engines.length) {
     console.log('no new engines! erroring');
@@ -114,8 +112,8 @@ if (existsSync('results2/github-pages/data/engines.json')) {
 }
 
 let beganAt;
-if (existsSync('results2/chunks/time.txt')) {
-  beganAt = parseInt(readFileSync('results2/chunks/time.txt', 'utf8').trim());
+if (existsSync('results/chunks/time.txt')) {
+  beganAt = parseInt(readFileSync('results/chunks/time.txt', 'utf8').trim());
 }
 
 mkdirSync(dataDir, { recursive: true });
