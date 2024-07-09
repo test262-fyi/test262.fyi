@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-for file in results/*.zip
-do
+for file in results/*.zip; do
   x="$(basename $file .zip)"
   echo "$x"
 
