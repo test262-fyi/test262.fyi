@@ -1,4 +1,4 @@
 #!/bin/sh
 
 ./scripts/install/jsvu.sh spidermonkey
-./scripts/test262.sh jsshell "${HOME}/.jsvu/bin/sm" 32
+./scripts/test262.sh jsshell "${HOME}/.jsvu/bin/sm" 16
