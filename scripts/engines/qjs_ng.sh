@@ -6,4 +6,4 @@ jsvu --os=linux64 --engines=quickjs
 
 cp "$HOME/.jsvu/status.json" "jsvu.json"
 
-./scripts/test262.sh qjs "${HOME}/.jsvu/bin/quickjs" 32
+./scripts/test262.sh qjs "${HOME}/.jsvu/bin/quickjs" 16
