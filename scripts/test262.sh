@@ -1,12 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 set -x
 
-# clone test262
-git clone https://github.com/tc39/test262.git --depth 1
-cd ./test262
+if [[ ! -d test262 ]]; then
+	# clone test262
+	git clone https://github.com/tc39/test262.git --depth 1
+	cd test262
+else
+	# it already exists, just pull
+	cd test262
+	git pull
+fi
+
+commit="$(git rev-parse HEAD)"
 
 # install test262 harness (our fork - https://github.com/CanadaHonk/test262-harness)
-npm install -g github:CanadaHonk/test262-harness
+if ! [[ -f ../hash && "$(cat ../hash)" == "$commit" ]]; then # skip reinstalling if nothing changed
+	npm install -g github:CanadaHonk/test262-harness
+	echo "$commit" > ../hash
+fi
 
 echo running test262...
 
