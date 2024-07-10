@@ -6,7 +6,7 @@ git clone https://github.com/boa-dev/boa.git --depth 1
 cd boa
 git rev-parse HEAD > ../version.txt
 
-cargo build --release --jobs 1 --bin boa
+cargo build --release --jobs 4 --bin boa
 
 cp target/release/boa ../boa_bin
 cd ..
