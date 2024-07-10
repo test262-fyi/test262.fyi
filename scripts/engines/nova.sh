@@ -6,7 +6,7 @@ git clone https://github.com/trynova/nova.git --depth 1
 cd nova
 git rev-parse HEAD > ../version.txt
 
-cargo build --release
+cargo build --release --jobs 1
 
 cp target/release/nova_cli ../nova_bin
 cd ..
