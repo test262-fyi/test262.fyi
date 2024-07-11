@@ -24,7 +24,7 @@ jobs:
         cd helpers/chunkify
         npm install
         cd ../..
-        node helpers/chunkify/index.mjs 1
+        node helpers/chunkify/index.mjs 2
 
     - name: Upload chunks
       uses: actions/upload-artifact@v3
@@ -52,14 +52,14 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       CHUNKS_PATH: ../chunks/chunks.json
       CHUNK_NUMBER: ${{ matrix.chunk }}
-      CHUNK_COUNT: 1
+      CHUNK_COUNT: 2
 
     strategy:
       fail-fast: false
       matrix:
         engine: [v8, jsc, sm, chakra, hermes, kiesel, porffor, libjs, engine262, qjs, qjs_ng, xs, graaljs, nashorn, rhino, boa, nova, babel, swc, sucrase] # all
 
-        chunk: [0]
+        chunk: [0, 1]
         # engine: [v8, jsc, sm, chakra, hermes, kiesel, libjs, qjs, xs, graaljs] # exclude hangers/long
         # engine: [chakra, graaljs, jsc, kiesel, libjs, qjs, xs] # all fast
         # engine: [v8, jsc, sm, chakra] # just major
