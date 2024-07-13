@@ -260,10 +260,6 @@ walkStruct(struct);
     "json-modules": 99,
     // https://github.com/tc39/proposal-json-parse-with-source
     "json-parse-with-source": 99,
-    // https://github.com/tc39/proposal-resizablearraybuffer
-    "resizable-arraybuffer": 99,
-    // https://github.com/tc39/proposal-arraybuffer-transfer
-    "arraybuffer-transfer": 99,
     // https://github.com/tc39/proposal-temporal
     "Temporal": 99,
     // https://github.com/tc39/proposal-shadowrealm
@@ -274,8 +270,6 @@ walkStruct(struct);
     "decorators": 99,
     // https://github.com/tc39/proposal-duplicate-named-capturing-groups
     "regexp-duplicate-named-groups": 99,
-    // https://github.com/tc39/proposal-change-array-by-copy
-    "change-array-by-copy": 99,
     // https://github.com/tc39/proposal-array-from-async
     "Array.fromAsync": 99,
     // https://github.com/tc39/proposal-intl-enumeration
@@ -284,8 +278,6 @@ walkStruct(struct);
     "Intl.DateTimeFormat-extend-timezonename": 99,
     // https://github.com/tc39/proposal-intl-displaynames-v2
     "Intl.DisplayNames-v2": 99,
-    // https://github.com/tc39/proposal-intl-segmenter
-    "Intl.Segmenter": 99,
     // https://github.com/tc39/proposal-symbols-as-weakmap-keys
     "symbols-as-weakmap-keys": 99,
     // https://github.com/tc39/proposal-import-attributes
@@ -296,8 +288,6 @@ walkStruct(struct);
     "iterator-helpers": 99,
     // https://github.com/tc39/proposal-promise-try
     "promise-try": 99,
-    // https://github.com/tc39/proposal-set-methods
-    "set-methods": 99,
     // https://github.com/tc39/proposal-explicit-resource-management
     "explicit-resource-management": 99,
     // https://github.com/tc39/proposal-float16array
@@ -311,14 +301,21 @@ walkStruct(struct);
     //
     "host-gc-required": 99,
 
+    //stage 4 future 16/ES 2025 features
+    //keeping these as '99' until that's published so they still show up as ESNext for now
+    "set-methods": 99,
+
     "Atomics.waitAsync": 15,
     "array-grouping": 15,
+    "arraybuffer-transfer": 15,
     "promise-with-resolvers": 15,
     "regexp-v-flag": 15,
+    "resizable-arraybuffer": 15,
     "String.prototype.isWellFormed": 15,
     "String.prototype.toWellFormed": 15,
 
     "array-find-from-last": 14,
+    "change-array-by-copy": 14,
     "hashbang": 14,
 
     "AggregateError": 12,
@@ -386,6 +383,7 @@ walkStruct(struct);
     "Intl.Locale": 12,
     "Intl.NumberFormat-unified": 11,
     "Intl.RelativeTimeFormat": 11,
+    "Intl.Segmenter": 13,
     "IsHTMLDDA": 9,
     "json-superset": 10,
     "let": 6,
