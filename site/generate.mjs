@@ -301,7 +301,8 @@ walkStruct(struct);
     //
     "host-gc-required": 99,
 
-    //16
+    //stage 4 future 16/ES 2025 features
+    //keeping these as '99' until that's published so they still show up as ESNext for now
     "set-methods": 99,
 
     "Atomics.waitAsync": 15,
