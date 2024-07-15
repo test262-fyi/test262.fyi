@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# boa requires newer-than-stable rust
+rustup install beta
+
 # clone repo and build (no CI builds)
 git clone https://github.com/boa-dev/boa.git --depth 1
 
