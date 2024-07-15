@@ -17,7 +17,7 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 - [X] Boa <small>[site](https://boajs.dev/)</small> <small>[source](https://github.com/boa-dev/boa)</small>
 - [X] Kiesel <small>[site](https://kiesel.dev)</small> <small>[source](https://codeberg.org/kiesel-js/kiesel)</small>
 - [X] Porffor <small>[site](https://porffor.dev)</small> <small>[source](https://github.com/CanadaHonk/porffor)</small>
-- [X] Nova <small>[source](https://github.com/trynova/nova)</small>
+- [X] Nova <small>[site](https://trynova.dev)</small> <small>[source](https://github.com/trynova/nova)</small>
 - Request more in GitHub issues!
 
 ### Transpilers
