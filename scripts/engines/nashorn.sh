@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # install java 13
 # sudo apt install openjdk-13-jre-headless
