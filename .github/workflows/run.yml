@@ -57,7 +57,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        engine: [v8, v8_exp, jsc, sm, sm_exp, chakra, hermes, kiesel, porffor, libjs, engine262, qjs, qjs_ng, xs, graaljs, nashorn, rhino, boa, nova, babel, swc, sucrase] # all
+        engine: [v8, v8_exp, jsc, sm, sm_exp, chakra, hermes, kiesel, porffor, libjs, engine262, qjs, qjs_ng, xs, graaljs, rhino, boa, nova, babel, swc, sucrase] # all
 
         chunk: [0, 1]
         # engine: [v8, jsc, sm, chakra, hermes, kiesel, libjs, qjs, xs, graaljs] # exclude hangers/long

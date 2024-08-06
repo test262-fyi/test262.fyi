@@ -70,7 +70,6 @@
       libjs: 'LibJS',
       graaljs: 'GraalJS',
       xs: 'XS',
-      nashorn: 'Nashorn',
       rhino: 'Rhino',
       engine262: 'engine262',
       boa: 'Boa',
@@ -93,7 +92,6 @@
       libjs: 'JS engine from SerenityOS, also used in Ladybird browser',
       graaljs: 'Built on GraalVM',
       engine262: 'ECMA262 in JavaScript!',
-      nashorn: 'Old Java JS engine by Oracle',
       rhino: 'Java JS engine by Mozilla',
       boa: 'Experimental embeddable JS engine in Rust',
       kiesel: 'New JS engine written in Zig',
@@ -117,7 +115,6 @@
       libjs: 'LJS',
       graaljs: 'Graal',
       xs: 'XS',
-      nashorn: 'Nashorn',
       rhino: 'Rhino',
       engine262: 'e262',
       boa: 'Boa',
@@ -135,12 +132,13 @@
       sucrase: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'qjs_ng', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'nashorn', 'boa', 'kiesel', 'porffor', 'nova', 'engine262', 'babel', 'swc', 'sucrase' ];
+    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'qjs_ng', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'boa', 'kiesel', 'porffor', 'nova', 'engine262', 'babel', 'swc', 'sucrase' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
 
-    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'xs', 'rhino', 'nashorn', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'swc', 'sucrase' ], init = false;
+    // Update filterOutEngines.length below when changing this list
+    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'xs', 'rhino', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'swc', 'sucrase' ], init = false;
 
     if (location.hash) {
       const [ hashCwd, hashFilter ] = decodeURI(location.hash.slice(1)).split('|');
@@ -153,7 +151,7 @@
 
     document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
 
-    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 13 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
+    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 12 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
 
     let ignoreNextState = false;
     const updateHash = (push = false) => {

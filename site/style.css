@@ -203,10 +203,6 @@ thead .stats {
   color: #000408;
 }
 
-.stat-nashorn {
-  background: #717171;
-}
-
 .stat-boa {
   background: #ffff00;
   color: #000408;
@@ -250,7 +246,6 @@ thead .stats {
 .no-stat-babel #content .stat-babel,
 .no-stat-swc #content .stat-swc,
 .no-stat-rhino #content .stat-rhino,
-.no-stat-nashorn #content .stat-nashorn,
 .no-stat-boa #content .stat-boa,
 .no-stat-sucrase #content .stat-sucrase,
 .no-stat-v8_exp #content .stat-v8_exp,
