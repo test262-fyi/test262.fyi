@@ -13,7 +13,6 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 - [X] QuickJS <small>[site](https://bellard.org/quickjs/)</small> <small>[source](https://github.com/bellard/quickjs)</small>
 - [X] XS <small>[site](https://www.moddable.com/)</small> <small>[source](https://github.com/Moddable-OpenSource/moddable)</small>
 - [X] Rhino <small>[site](https://mozilla.github.io/rhino/)</small> <small>[source](https://github.com/mozilla/rhino)</small>
-- [X] Nashorn <small>[site](https://openjdk.org/projects/nashorn/)</small> <small>[source](https://github.com/openjdk/nashorn)</small>
 - [X] Boa <small>[site](https://boajs.dev/)</small> <small>[source](https://github.com/boa-dev/boa)</small>
 - [X] Kiesel <small>[site](https://kiesel.dev)</small> <small>[source](https://codeberg.org/kiesel-js/kiesel)</small>
 - [X] Porffor <small>[site](https://porffor.dev)</small> <small>[source](https://github.com/CanadaHonk/porffor)</small>
