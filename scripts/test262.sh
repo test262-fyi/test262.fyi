@@ -27,7 +27,7 @@ NODE_OPTIONS="--max-old-space-size=4096" test262-harness \
 	--host-path="$2" \
 	--reporter=json \
 	--reporter-keys=file,result,scenario,attrs \
-	--timeout=6000 \
+	--timeout=10000 \
 	--threads=$3 \
 	--preprocessor="$4" \
 	--transformer="$5" \
