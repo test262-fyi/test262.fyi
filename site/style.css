@@ -231,6 +231,11 @@ thead .stats {
   color: #000408;
 }
 
+.stat-njs {
+  background: #009900;
+  color: #000408;
+}
+
 .no-stat-v8 #content .stat-v8,
 .no-stat-sm #content .stat-sm,
 .no-stat-jsc #content .stat-jsc,
@@ -251,7 +256,8 @@ thead .stats {
 .no-stat-v8_exp #content .stat-v8_exp,
 .no-stat-sm_exp #content .stat-sm_exp,
 .no-stat-porffor #content .stat-porffor,
-.no-stat-nova #content .stat-nova {
+.no-stat-nova #content .stat-nova,
+.no-stat-njs #content .stat-njs {
   width: 0 !important;
   height: 0 !important;
   overflow: hidden !important;
