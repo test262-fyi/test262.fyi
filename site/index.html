@@ -63,6 +63,7 @@
       sm: 'SpiderMonkey',
       sm_exp: 'SpiderMonkey 🧪⚙️',
       jsc: 'JavaScriptCore',
+      jsc_exp: 'JavaScriptCore 🧪⚙️',
       hermes: 'Hermes',
       chakra: 'ChakraCore',
       qjs: 'QuickJS',
@@ -88,6 +89,7 @@
       sm: 'Gecko\'s JS engine',
       sm_exp: 'SpiderMonkey with experimental options',
       jsc: 'WebKit\'s JS engine',
+      jsc_exp: 'JavaScriptCore with experimental options',
       hermes: 'Made for and used by React Native',
       chakra: 'Former JS engine for Edge',
       libjs: 'JS engine from SerenityOS, also used in Ladybird browser',
@@ -110,6 +112,7 @@
       sm: 'SM',
       sm_exp: 'SM🧪',
       jsc: 'JSC',
+      jsc_exp: 'JSC🧪',
       hermes: 'Hermes',
       chakra: 'Chakra',
       qjs: 'QJS',
@@ -135,13 +138,13 @@
       sucrase: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'v8_exp', 'sm', 'sm_exp', 'jsc', 'hermes', 'qjs', 'qjs_ng', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'boa', 'kiesel', 'porffor', 'nova', 'njs', 'engine262', 'babel', 'swc', 'sucrase' ];
+    const niceEngineOrder = [ 'v8', 'v8_exp', 'jsc', 'jsc_exp', 'sm', 'sm_exp', 'hermes', 'qjs', 'qjs_ng', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'boa', 'kiesel', 'porffor', 'nova', 'njs', 'engine262', 'babel', 'swc', 'sucrase' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
 
     // Update filterOutEngines.length below when changing this list
-    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'xs', 'rhino', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'njs', 'swc', 'sucrase' ], init = false;
+    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'jsc_exp', 'xs', 'rhino', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'njs', 'swc', 'sucrase' ], init = false;
 
     if (location.hash) {
       const [ hashCwd, hashFilter ] = decodeURI(location.hash.slice(1)).split('|');
@@ -154,7 +157,7 @@
 
     document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
 
-    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 13 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
+    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 14 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
 
     let ignoreNextState = false;
     const updateHash = (push = false) => {
