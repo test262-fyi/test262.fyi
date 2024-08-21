@@ -23,7 +23,7 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 ### Transpilers
 - [X] Babel (old Node and Babel + core-js)
 - [X] SWC (old Node and SWC + core-js)
-- [X] Sucrase (old Node and SWC + core-js)
+- [X] Sucrase (old Node and Sucrase + core-js)
 
 ### Engine variants
 - [X] V8 with experimental opts (--harmony etc)
