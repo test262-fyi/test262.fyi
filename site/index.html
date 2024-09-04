@@ -144,7 +144,8 @@
     const tbody = document.querySelector('tbody');
 
     // Update filterOutEngines.length below when changing this list
-    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'jsc_exp', 'xs', 'rhino', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'njs', 'swc', 'sucrase' ], init = false;
+    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'jsc_exp', 'chakra', 'xs', 'rhino', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'njs', 'swc', 'sucrase' ], init = false;
+    const defaultFilterLen = filterOutEngines.length;
 
     if (location.hash) {
       const [ hashCwd, hashFilter ] = decodeURI(location.hash.slice(1)).split('|');
@@ -157,7 +158,7 @@
 
     document.body.className = filterOutEngines.map(x => `no-stat-` + x).join(' ');
 
-    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== 14 ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
+    const makeHash = path => `#${path ?? ''}${filterOutEngines.length !== defaultFilterLen ? ('|' + niceEngineOrder.filter(x => !filterOutEngines.includes(x)).join(',')) : ''}`;
 
     let ignoreNextState = false;
     const updateHash = (push = false) => {
