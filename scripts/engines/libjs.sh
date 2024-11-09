@@ -1,4 +1,4 @@
 #!/bin/sh
 
 ./scripts/install/esvu.sh libjs
-./scripts/test262.sh serenity-js "${HOME}/.esvu/bin/serenity-js" 16
+./scripts/test262.sh libjs "${HOME}/.esvu/bin/ladybird-js" 16

@@ -7,7 +7,7 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 - [X] JavaScriptCore <small>[source](https://github.com/WebKit/WebKit/tree/main/Source/JavaScriptCore)</small>
 - [X] ChakraCore <small>[source](https://github.com/chakra-core/ChakraCore)</small>
 - [X] Hermes <small>[site](https://hermesengine.dev)</small> <small>[source](https://github.com/facebook/hermes)</small>
-- [X] LibJS <small>[site](https://libjs.dev)</small> <small>[source](https://github.com/SerenityOS/serenity/tree/master/Userland/Libraries/LibJS)</small>
+- [X] LibJS <small>[source](https://github.com/LadybirdBrowser/ladybird/tree/master/Userland/Libraries/LibJS)</small>
 - [X] engine262 <small>[site](https://engine262.js.org)</small> <small>[source](https://github.com/engine262/engine262)</small>
 - [X] GraalJS <small>[source](https://github.com/oracle/graaljs)</small>
 - [X] QuickJS <small>[site](https://bellard.org/quickjs/)</small> <small>[source](https://github.com/bellard/quickjs)</small>
