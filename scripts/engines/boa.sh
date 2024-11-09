@@ -5,6 +5,7 @@ git clone https://github.com/boa-dev/boa.git --depth 1
 
 cd boa
 git rev-parse HEAD > ../version.txt
+cd ..
 rm -rf boa
 
 # download release
