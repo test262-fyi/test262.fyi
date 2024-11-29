@@ -13,9 +13,9 @@ fi
 
 commit="$(git rev-parse HEAD)"
 
-# install test262 harness (our fork - https://github.com/CanadaHonk/test262-harness)
+# install test262 harness (our fork - https://github.com/test262-fyi/test262-harness)
 if ! [[ -f ../hash && "$(cat ../hash)" == "$commit" ]]; then # skip reinstalling if nothing changed
-	npm install -g github:CanadaHonk/test262-harness
+	npm install -g github:test262-fyi/test262-harness
 	echo "$commit" > ../hash
 fi
 
