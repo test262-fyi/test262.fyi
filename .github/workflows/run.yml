@@ -77,8 +77,12 @@ jobs:
         name: chunks
         path: chunks
 
-    - name: Remove ~/.esvu
-      run: rm -rf ~/.esvu
+    # For some nightlies the version is stable across many runs, e.g. for SpiderMonkey (123.0a1)
+    # We want to force those to be reinstalled and the easiest way is to just delete the entire install.
+    - name: Remove esvu/jsvu directories
+      run: |
+        rm -rf ~/.esvu
+        rm -rf ~/.jsvu
 
     - name: Run test262 with ${{ matrix.engine }}
       run: ./scripts/engines/${{ matrix.engine }}.sh
