@@ -21,6 +21,8 @@ jobs:
     - name: Make chunks
       run: |
         git clone https://github.com/tc39/test262.git --depth 1
+        # These tests cause issues (slow, OOM), exclude them from chunks
+        rm -rf test262/test/staging/sm
         cd helpers/chunkify
         npm install
         cd ../..
