@@ -19,6 +19,7 @@ Independent daily [test262](https://github.com/tc39/test262) (standard test suit
 - [X] Nova <small>[site](https://trynova.dev)</small> <small>[source](https://github.com/trynova/nova)</small>
 - [X] NJS <small>[site](https://nginx.org/en/docs/njs/)</small> <small>[source](https://github.com/nginx/njs)</small>
 - [X] Bali <small>[source](https://github.com/ferus-web/bali)</small>
+- [X] JAWSM <small>[source](https://github.com/drogus/jawsm)</small>
 - Request more in GitHub issues!
 
 ### Transpilers

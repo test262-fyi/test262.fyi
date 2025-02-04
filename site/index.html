@@ -81,7 +81,8 @@
       bali: 'Bali',
       babel: 'Babel',
       swc: 'SWC',
-      sucrase: 'Sucrase'
+      sucrase: 'Sucrase',
+      jawsm: 'JAWSM'
     };
 
     const moreInfo = {
@@ -103,6 +104,7 @@
       nova: 'A new JS engine written in Rust exploring a data-oriented design',
       njs: 'A subset of the JavaScript language to use in nginx',
       bali: 'A new experimental JavaScript engine written in Nim',
+      jawsm: 'An experimental JavaScript to WASM GC compiler',
       babel: 'Babel 7 + core-js 3 running on Node 0.10 (ES5)',
       swc: 'SWC + core-js 3 running on Node 0.10 (ES5)',
       sucrase: 'Sucrase + core-js running on Node 0.10 (ES5) - for curiosity'
@@ -130,6 +132,7 @@
       nova: 'Nova',
       njs: 'NJS',
       bali: 'Bali',
+      jawsm: 'JAWSM',
       babel: 'Babel',
       swc: 'SWC',
       sucrase: 'Sucrase'
@@ -141,13 +144,13 @@
       sucrase: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'v8_exp', 'jsc', 'jsc_exp', 'sm', 'sm_exp', 'hermes', 'qjs', 'qjs_ng', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'boa', 'kiesel', 'porffor', 'nova', 'njs', 'engine262', 'bali', 'babel', 'swc', 'sucrase' ];
+    const niceEngineOrder = [ 'v8', 'v8_exp', 'jsc', 'jsc_exp', 'sm', 'sm_exp', 'hermes', 'qjs', 'qjs_ng', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'boa', 'kiesel', 'porffor', 'nova', 'njs', 'engine262', 'bali', 'jawsm', 'babel', 'swc', 'sucrase' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
 
     // Update filterOutEngines.length below when changing this list
-    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'jsc_exp', 'chakra', 'xs', 'rhino', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'njs', 'bali', 'swc', 'sucrase' ], init = false;
+    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'jsc_exp', 'chakra', 'xs', 'rhino', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'njs', 'bali', 'jawsm', 'swc', 'sucrase' ], init = false;
     const defaultFilterLen = filterOutEngines.length;
 
     if (location.hash) {
