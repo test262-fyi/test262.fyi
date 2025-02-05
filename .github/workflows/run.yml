@@ -31,6 +31,7 @@ jobs:
     - name: Upload chunks
       uses: actions/upload-artifact@v4
       with:
+        overwrite: true
         name: chunks
         path: |
           chunks.json
@@ -92,6 +93,7 @@ jobs:
     - name: Upload results
       uses: actions/upload-artifact@v4
       with:
+        overwrite: true
         name: ${{ matrix.engine }}${{ matrix.chunk }}
         path: |
           results${{ matrix.chunk }}.json
@@ -129,12 +131,27 @@ jobs:
       continue-on-error: true
       run: node --max-old-space-size=4096 site/generate.mjs
 
+    - name: Archive pages artifact
+      shell: sh
+      run: |
+        tar \
+          --dereference --hard-dereference \
+          --directory "site" \
+          -cvf "$RUNNER_TEMP/artifact.tar" \
+          --exclude=.git \
+          --exclude=.github \
+          --exclude=".[^/]*" \
+          .
+
     - name: Upload pages artifact
-      if: steps.generate.outcome == 'success'
-      continue-on-error: true
-      uses: actions/upload-pages-artifact@v3
+      id: upload-artifact
+      uses: actions/upload-artifact@v4
       with:
-        path: site
+        overwrite: true
+        name: github-pages
+        path: ${{ runner.temp }}/artifact.tar
+        retention-days: 2
+        if-no-files-found: error
 
     - name: Deploy to GitHub Pages
       id: deployment
