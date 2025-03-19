@@ -188,6 +188,11 @@ thead .stats {
   color: #000408;
 }
 
+.stat-graaljs_exp {
+  background: #f88c96;
+  color: #000408;
+}
+
 .stat-babel {
   background: #f8c10d;
   color: #000408;
@@ -245,6 +250,7 @@ thead .stats {
 .no-stat-jsc #content .stat-jsc,
 .no-stat-chakra #content .stat-chakra,
 .no-stat-graaljs #content .stat-graaljs,
+.no-stat-graaljs_exp #content .stat-graaljs_exp,
 .no-stat-hermes #content .stat-hermes,
 .no-stat-kiesel #content .stat-kiesel,
 .no-stat-libjs #content .stat-libjs,
