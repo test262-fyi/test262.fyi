@@ -1,6 +1,6 @@
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 
-const { artifacts } = await (await fetch('https://api.github.com/repos/CanadaHonk/test262.fyi/actions/artifacts', { headers: { Authorization: 'Bearer ' + process.env.GITHUB_TOKEN }})).json();
+const { artifacts } = await (await fetch('https://api.github.com/repos/test262-fyi/test262.fyi/actions/artifacts', { headers: { Authorization: 'Bearer ' + process.env.GITHUB_TOKEN }})).json();
 
 if (!existsSync('results')) mkdirSync('results');
 console.log(artifacts.map(x => x.name));
