@@ -70,6 +70,7 @@
       qjs_ng: 'QuickJS NG',
       libjs: 'LibJS',
       graaljs: 'GraalJS',
+      graaljs_exp: 'GraalJS 🧪⚙️',
       xs: 'XS',
       rhino: 'Rhino',
       engine262: 'engine262',
@@ -95,6 +96,7 @@
       chakra: 'Former JS engine for Edge',
       libjs: 'JS engine from SerenityOS, also used in Ladybird browser',
       graaljs: 'Built on GraalVM',
+      graaljs_exp: 'GraalJS with experimental options',
       engine262: 'ECMA262 in JavaScript!',
       rhino: 'Java JS engine by Mozilla',
       boa: 'Experimental embeddable JS engine in Rust',
@@ -121,6 +123,7 @@
       qjs_ng: 'QJS-NG',
       libjs: 'LJS',
       graaljs: 'Graal',
+      graaljs_exp: 'Graal🧪',
       xs: 'XS',
       rhino: 'Rhino',
       engine262: 'e262',
@@ -141,13 +144,13 @@
       sucrase: 'transformers'
     };
 
-    const niceEngineOrder = [ 'v8', 'v8_exp', 'jsc', 'jsc_exp', 'sm', 'sm_exp', 'hermes', 'qjs', 'qjs_ng', 'libjs', 'chakra', 'graaljs', 'xs', 'rhino', 'boa', 'kiesel', 'porffor', 'nova', 'njs', 'engine262', 'bali', 'babel', 'swc', 'sucrase' ];
+    const niceEngineOrder = [ 'v8', 'v8_exp', 'jsc', 'jsc_exp', 'sm', 'sm_exp', 'hermes', 'qjs', 'qjs_ng', 'libjs', 'chakra', 'graaljs', 'graaljs_exp', 'xs', 'rhino', 'boa', 'kiesel', 'porffor', 'nova', 'njs', 'engine262', 'bali', 'babel', 'swc', 'sucrase' ];
 
     const thead = document.querySelector('thead');
     const tbody = document.querySelector('tbody');
 
     // Update filterOutEngines.length below when changing this list
-    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'jsc_exp', 'chakra', 'xs', 'rhino', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'njs', 'bali', 'swc', 'sucrase' ], init = false;
+    let cwd = '', filterOutEngines = [ 'v8_exp', 'sm_exp', 'jsc_exp', 'chakra', 'graaljs_exp', 'xs', 'rhino', 'boa', 'qjs_ng', 'engine262', 'kiesel', 'porffor', 'nova', 'njs', 'bali', 'swc', 'sucrase' ], init = false;
     const defaultFilterLen = filterOutEngines.length;
 
     if (location.hash) {
