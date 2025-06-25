@@ -103,6 +103,12 @@ if (cluster.isPrimary) {
   for (let w = 0; w < (process.env.FYI_PARALLEL_TESTS || 48); w++) spawn();
   await promise;
 
+  // kill any runaway engine processes, ignore errors
+  try {
+    $(`pkill -9 -f ./${engine}`);
+  } catch {
+  }
+
   console.log(process.argv[2] + ' passes:', Object.values(out).reduce((acc, x) => acc + x, 0), '/', total);
 
   if (!fs.existsSync('results')) fs.mkdirSync('results', { recursive: true });

@@ -61,7 +61,7 @@ await Promise.all([
 
 // kill any runaway engine processes, ignore errors
 try {
-  $(`pkill -9 -f /tmp/test262.fyi`);
+  $(`pkill -9 -f test262/test`);
 } catch {
 }
 
@@ -79,3 +79,5 @@ $(`git commit -m "deploy"`, {
 });
 $(`git remote add origin git@github.com:test262-fyi/data.git`)
 $(`git push -f origin gh-pages`);
+
+fs.rmSync(workingDir, { recursive: true, force: true });
