@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
-import { $ } from '../../utils.js';
+import { $ } from '../../cli.js';
 
 export default async () => {
   const { body } = await fetch(`https://files.kiesel.dev/kiesel-linux-aarch64`);

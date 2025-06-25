@@ -1,4 +1,4 @@
-import { $, $$ } from '../../utils.js';
+import { $, $$ } from '../../cli.js';
 
 let experimentalArgs = null;
 const getExperimentalArgs = () => {

@@ -1,4 +1,4 @@
-import { $, $$ } from '../../utils.js';
+import { $, $$ } from '../../cli.js';
 
 export default (file, module = false) => {
   const args = [ '--print-promise-rejection-warnings=no', file ];

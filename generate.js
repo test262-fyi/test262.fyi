@@ -8,7 +8,7 @@ const results = {}, versions = {}, times = {};
 
 export default ({ test262Rev, beganAt }) => {
   rmSync('site', { recursive: true, force: true });
-  cpSync(import.meta.dirname, 'site', { recursive: true, force: true });
+  // cpSync(import.meta.dirname, 'site', { recursive: true, force: true });
 
   for (const file of readdirSync('results')) {
     const engine = file.split('.')[0];

@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { $ } from '../../utils.js';
+import { $ } from '../../cli.js';
 
 const buildDir = process.env.HOME + '/boa';
 export default async () => {

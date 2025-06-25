@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import child_process from 'node:child_process';
 import process from 'node:process';
 import { join } from 'node:path';
-import { $ } from './utils.js';
+import { $ } from './cli.js';
 import generate from './generate.js';
 
 const beganAt = Date.now();
@@ -64,4 +64,15 @@ $(`pkill -9 -f /tmp/test262.fyi`);
 
 generate({ beganAt, test262Rev });
 
-// todo: deploy
+process.chdir('/tmp/test262.fyi/site');
+$(`git init`);
+$(`git branch -m gh-pages`);
+$(`git add .`);
+$(`git commit -m "deploy"`, {
+  GIT_AUTHOR_NAME: 'test262.fyi',
+  GIT_AUTHOR_EMAIL: 'hello@test262.fyi',
+  GIT_COMMITTER_NAME: 'test262.fyi',
+  GIT_COMMITTER_EMAIL: 'hello@test262.fyi'
+});
+$(`git remote add origin git@github.com:test262-fyi/data.git`)
+$(`git push -f origin gh-pages`);
