@@ -20,6 +20,7 @@ export default async ({ test262Rev, beganAt }) => {
   const engines = Object.keys(results);
 
   mkdirSync(dataDir, { recursive: true });
+  writeFileSync(join(dataDir, 'CNAME'), 'data.test262.fyi');
 
   console.log(versions);
 
