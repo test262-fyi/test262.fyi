@@ -59,12 +59,15 @@ await Promise.all([
   })
 ]);
 
-// kill any runaway engine processes
-$(`pkill -9 -f /tmp/test262.fyi`);
+// kill any runaway engine processes, ignore errors
+try {
+  $(`pkill -9 -f /tmp/test262.fyi`);
+} catch {
+}
 
-generate({ beganAt, test262Rev });
+await generate({ beganAt, test262Rev });
 
-process.chdir('/tmp/test262.fyi/site');
+process.chdir('/tmp/test262.fyi/deploy');
 $(`git init`);
 $(`git branch -m gh-pages`);
 $(`git add .`);
