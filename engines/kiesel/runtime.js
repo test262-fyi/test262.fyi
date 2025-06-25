@@ -3,14 +3,10 @@ function print(str) {
 }
 
 var $262 = {
-  global: globalThis,
-  gc() {
-    return Kiesel.gc.collect();
-  },
-  createRealm(options) {
+  AbstractModuleSource: undefined,
+  createRealm() {
     var realm = Kiesel.createRealm();
-    realm.eval(this.source);
-    realm.$262.source = this.source;
+    realm.eval($SOURCE);
     return realm.$262;
   },
   detachArrayBuffer(buffer) {
@@ -19,14 +15,10 @@ var $262 = {
   evalScript(code) {
     return Kiesel.evalScript(code);
   },
-  getGlobal(name) {
-    return this.global[name];
+  gc() {
+    return Kiesel.gc.collect();
   },
-  setGlobal(name, value) {
-    this.global[name] = value;
-  },
-  destroy() { /* noop */ },
+  global: globalThis,
   IsHTMLDDA: Kiesel.createIsHTMLDDA(),
-  source: $SOURCE,
-  agent: {},
+  agent: undefined,
 };

@@ -1,43 +1,25 @@
+// Various functions are defined natively:
+// - https://github.com/mozilla-firefox/firefox/blob/main/js/src/shell/js.cpp
+// - https://github.com/mozilla-firefox/firefox/blob/main/js/src/builtin/TestingFunctions.cpp
+
 var $262 = {
-  global: Function('return this')(),
-  gc() {
-    return gc();
-  },
-  createRealm(options) {
-    options = options || {};
-    options.globals = options.globals || {};
-
+  AbstractModuleSource: undefined,
+  createRealm() {
     var realm = newGlobal();
-    realm.eval(this.source);
-    realm.$262.source = this.source;
-    for(var glob in options.globals) {
-      realm.$262.global[glob] = options.globals[glob];
-    }
-
+    realm.eval($SOURCE);
     return realm.$262;
   },
+  detachArrayBuffer(buffer) {
+    detachArrayBuffer(buffer);
+  },
   evalScript(code) {
-    try {
-      evaluate(code);
-      return { type: 'normal', value: undefined };
-    } catch (e) {
-      return { type: 'throw', value: e };
-    }
+    return evaluate(code);
   },
-  getGlobal(name) {
-    return this.global[name];
+  gc() {
+    gc();
   },
-  setGlobal(name, value) {
-    this.global[name] = value;
-  },
-  destroy() { /* noop */ },
-  /* objectEmulatingUndefined was replaced by createIsHTMLDDA in newer SpiderMonkey builds. */
-  IsHTMLDDA: typeof createIsHTMLDDA === 'function'
-    ? createIsHTMLDDA()
-    : objectEmulatingUndefined(),
-  source: $SOURCE,
-  /* https://github.com/mozilla/gecko-dev/blob/b9f0fcc3d6c0e9fffe5208212553aedd51e1428c/js/src/builtin/TestingFunctions.cpp */
-  detachArrayBuffer,
+  global: globalThis,
+  IsHTMLDDA: createIsHTMLDDA(),
   agent: (function () {
     /*
       This Source Code Form is subject to the terms of the Mozilla Public

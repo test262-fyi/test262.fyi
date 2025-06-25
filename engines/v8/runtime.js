@@ -1,44 +1,25 @@
-var $262 = {
-  global: globalThis,
-  gc() {
-    return gc();
-  },
-  createRealm(options) {
-    options = options || {};
-    options.globals = options.globals || {};
+var _realm = Realm.current();
 
+var $262 = {
+  createRealm() {
     var realmId = Realm.createAllowCrossRealmAccess();
     var realm = Realm.global(realmId);
-    Realm.eval(realmId, this.source);
-    realm.$262.source = this.source;
-    for(var glob in options.globals) {
-      realm.$262.global[glob] = options.globals[glob];
-    }
-
+    Realm.eval(realmId, $SOURCE);
     return realm.$262;
   },
-  evalScript(code) {
-    var realmId = typeof this.realm === 'number' ? this.realm : Realm.current();
-    try {
-      Realm.eval(realmId, code);
-      return { type: 'normal', value: undefined }
-    } catch (e) {
-      return { type: 'throw', value: e }
-    }
-  },
-  getGlobal(name) {
-    return this.global[name];
-  },
-  setGlobal(name, value) {
-    this.global[name] = value;
-  },
-  IsHTMLDDA: {},
-  source: $SOURCE,
-  realm: Realm.current(),
   detachArrayBuffer(buffer) {
     var w = new Worker('', {type: 'string'});
     w.postMessage('', [buffer]);
   },
+  evalScript(code) {
+    var realmId = typeof _realm === 'number' ? _realm : Realm.current();
+    return Realm.eval(realmId, code);
+  },
+  gc() {
+    return gc();
+  },
+  global: globalThis,
+  IsHTMLDDA: undefined,
   agent: (function() {
     /*
       Copyright 2017 the V8 project authors. All rights reserved.
