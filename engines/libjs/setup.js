@@ -5,7 +5,7 @@ import { $ } from '../../cli.js';
 
 export default async () => {
   const headers = process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {};
-  const artifact = (await (await fetch('https://api.github.com/repos/ADKaster/ladybird-browser/actions/artifacts', { headers })).json())
+  const artifact = (await (await fetch('https://api.github.com/repos/ladybirdbrowser/ladybird/actions/artifacts', { headers })).json())
     .artifacts.find(x => x.name === 'ladybird-js-Linux-aarch64');
 
   const version = artifact.workflow_run.head_sha.slice(0, 7);
