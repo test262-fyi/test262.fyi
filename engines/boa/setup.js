@@ -8,7 +8,7 @@ export default async () => {
   $(`git clone https://github.com/boa-dev/boa.git ${buildDir} --depth=1`);
   const version = $(`git -C ${buildDir} rev-parse HEAD`).trim().slice(0, 7);
 
-  $(`cd ${buildDir} && cargo build --release -j32`);
+  $(`cd ${buildDir} && rustup run stable cargo build --release -j32`);
   $(`cp -f ${buildDir}/target/release/boa ./boa`);
   $(`rm -rf ${buildDir}`);
 
